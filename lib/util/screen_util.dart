@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart' as TSU;
 
 class ScreenUtil {
@@ -24,5 +25,10 @@ class ScreenUtil {
   // 获取屏幕高度
   static double getScreenHeight() {
     return TSU.ScreenUtil().screenHeight;
+  }
+
+  // 获取状态栏高度
+  static double getStateBarHeight(BuildContext context) {
+    return MediaQuery.of(context).padding.top;
   }
 }

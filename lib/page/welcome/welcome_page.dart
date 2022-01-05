@@ -34,7 +34,15 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Container(
                 width: ScreenUtil.getScreenWidth(),
                 height: ScreenUtil.getScreenHeight() / 3.5,
-                color: const Color(0xcc788c82),
+                decoration: const BoxDecoration(
+                  color: Color(0xcc788c82),
+                  border: Border(
+                    top: BorderSide(
+                      width: 2,
+                      color: Color(0xcc788c82),
+                    ),
+                  ),
+                ),
                 child: Stack(
                   children: [
                     _buildRegisterBtn(),
@@ -52,38 +60,25 @@ class _WelcomePageState extends State<WelcomePage> {
   // 注册按钮
   _buildRegisterBtn() {
     return Center(
-      child: InkWell(
-        onTap: () {
-          print("click register button");
-        },
-        child: Container(
-          width: ScreenUtil.getScreenWidth() / 3,
-          height: ScreenUtil.setHeight(120),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(
-              ScreenUtil.setHeight(60),
-            ),
-            border: Border.all(
-              width: 0.2,
-              color: Colors.black54,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0, 0),
-                blurRadius: 1,
-                spreadRadius: 1,
-              ),
-            ],
-          ),
-          //padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+      child: SizedBox(
+        width: ScreenUtil.setWidth(450),
+        height: ScreenUtil.setHeight(108),
+        child: ElevatedButton(
+          onPressed: () {
+            print("click register button");
+          },
+          style: ElevatedButton.styleFrom(
+              onPrimary: Colors.teal,
+              elevation: 0,
+              primary: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(ScreenUtil.setHeight(50)),
+              )),
           child: Text(
-            "注册",
+            "注 册",
             style: TextStyle(
               color: Colors.black,
-              fontSize: ScreenUtil.setFontSize(50),
+              fontSize: ScreenUtil.setFontSize(48),
               fontWeight: FontWeight.w500,
             ),
           ),

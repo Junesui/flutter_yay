@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imitate_yay/router/router.dart';
+import 'package:imitate_yay/util/color_util.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,8 +27,15 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: "/welcome",
+        initialRoute: "/",
         onGenerateRoute: onGenerateRoute,
+        theme: ThemeData(
+          scaffoldBackgroundColor: ColorUtil.primaryBackGroundColor,
+
+          // 取消一些组件的默认点击效果
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+        ),
       ),
     );
   }

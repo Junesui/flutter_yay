@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:imitate_yay/page/tab/tabs.dart';
 import 'package:imitate_yay/page/welcome/welcome_page.dart';
 
 //配置路由
 final Map<String, Function> routes = {
-  '/welcome': (context) => WelcomePage(),
+  "/": (context) => Tabs(),
+  "/welcome": (context) => WelcomePage(),
 
   // '/registerSecond': (context,{arguments}) => RegisterSecondPage(arguments:arguments),
 };
