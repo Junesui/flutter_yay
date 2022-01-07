@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_text.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -74,13 +75,11 @@ class _WelcomePageState extends State<WelcomePage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(ScreenUtil.setHeight(50)),
               )),
-          child: Text(
-            "注 册",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: ScreenUtil.setFontSize(48),
-              fontWeight: FontWeight.w500,
-            ),
+          child: const MyText(
+            text: "注 册",
+            color: Colors.black,
+            fontSize: 48,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -95,24 +94,18 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "已经有账号了？",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: ScreenUtil.setFontSize(36),
-              ),
+            MyText(
+              text: "已经有账号了？",
+              fontSize: 36,
             ),
             InkWell(
               onTap: () {
                 print("click login font");
               },
-              child: Text(
-                "登录",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: ScreenUtil.setFontSize(36),
-                  decoration: TextDecoration.underline,
-                ),
+              child: const MyText(
+                text: "登录",
+                fontSize: 36,
+                decoration: TextDecoration.underline,
               ),
             ),
           ],

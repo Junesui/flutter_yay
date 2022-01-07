@@ -10,11 +10,23 @@ class CircleTabPage extends StatefulWidget {
 class _CircleTabPageState extends State<CircleTabPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "CircleTabPage",
-        style: TextStyle(color: Colors.white),
+    return Scaffold(
+        body: SafeArea(
+      child: Container(
+        height: 50,
+        width: 50,
+        color: Colors.white,
+        child: PopupMenuButton(
+            icon: Icon(Icons.home),
+            //child: Text("aaaaaaaaaaaa"),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(child: Text("11111")),
+                PopupMenuItem(child: Text("22222")),
+                PopupMenuItem(child: Text("33333")),
+              ];
+            }),
       ),
-    );
+    ));
   }
 }

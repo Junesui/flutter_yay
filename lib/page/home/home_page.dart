@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/page/home/follow_tab.dart';
 import 'package:imitate_yay/page/home/home_tab_view.dart';
-import 'package:imitate_yay/page/home/public_tab.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,12 +43,11 @@ class _HomePageState extends State<HomePage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   // logo
-                  Text(
-                    "Logo",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+                  MyText(
+                    text: "Logo",
+                    color: Colors.grey,
                   ),
+
                   // 搜索按钮
                   Icon(
                     Icons.search,
