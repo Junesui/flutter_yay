@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeTabView extends StatefulWidget {
   final int type;
@@ -16,14 +17,36 @@ class _HomeTabViewState extends State<HomeTabView> {
   final List<String> _avatarList = [];
   final List<int> _ChatRoomList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   final List<int> _publishContentList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   final String _publishContent =
       "There is a war between Israel and Hamas in May 2021. The war is 11 days long. No conflict starts since that time.Then, Gaza militants fire two rockets on Saturday.";
 
+  // 查询聊天室房间
   _getChatorNum() {
     for (var i = 0; i < 10; i++) {
       _avatarList.add("images/avatar.jpg");
     }
+  }
+
+  // 下拉刷新
+  _onRefresh() {
+    print("_onRefresh");
+    setState(() {
+      _publishContentList.insert(0, _publishContentList.length);
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  // 上拉加载
+  _onLoading() {
+    print("_onLoading");
+    setState(() {
+      _publishContentList.add(_publishContentList.length);
+    });
+    if (mounted) setState(() {});
+    _refreshController.loadComplete();
   }
 
   @override
@@ -39,14 +62,21 @@ class _HomeTabViewState extends State<HomeTabView> {
       context: context,
       child: Container(
         padding: const EdgeInsets.only(top: 5),
-        child: ListView(
-          children: [
-            // 聊天室水平列表
-            _buildChatRooms(),
+        child: SmartRefresher(
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: ListView(
+            children: [
+              // 聊天室水平列表
+              _buildChatRooms(),
 
-            // 用户发表的内容列表
-            _buildPublishContents(),
-          ],
+              // 用户发表的内容列表
+              _buildPublishContents(),
+            ],
+          ),
         ),
       ),
     );
@@ -170,14 +200,14 @@ class _HomeTabViewState extends State<HomeTabView> {
       padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
       child: Column(
         children: _publishContentList.map<Widget>((content) {
-          return _buildPublishContent();
+          return _buildPublishContent(content);
         }).toList(),
       ),
     );
   }
 
   /// 用户发表的内容列表子项
-  _buildPublishContent() {
+  _buildPublishContent(content) {
     return Container(
       margin: const EdgeInsets.only(top: 15),
       padding: const EdgeInsets.only(bottom: 8),
@@ -208,15 +238,15 @@ class _HomeTabViewState extends State<HomeTabView> {
                 // 用户昵称和发布时间
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     // 用户昵称
                     MyText(
-                      text: "用户昵称",
+                      text: "用户昵称$content",
                       fontSize: 40,
                       fontWeight: FontWeight.w600,
                     ),
                     // 发布时间
-                    MyText(
+                    const MyText(
                       text: "12分钟前",
                       color: Colors.grey,
                       fontSize: 36,
