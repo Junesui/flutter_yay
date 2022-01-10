@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/widget/my_text.dart';
 
 class CircleTabPage extends StatefulWidget {
   const CircleTabPage({Key? key}) : super(key: key);
@@ -12,9 +10,10 @@ class CircleTabPage extends StatefulWidget {
 class _CircleTabPageState extends State<CircleTabPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: MyText(text: "CircleTabPage"),
+    return const Center(
+      child: Text(
+        "CircleTabPage",
+        style: TextStyle(color: Colors.white),
       ),
     );
   }

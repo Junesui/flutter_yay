@@ -1,58 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:imitate_yay/constant/home_constant.dart';
+import 'package:imitate_yay/model/calling_model.dart';
+import 'package:imitate_yay/net/dao/home_dao.dart';
+import 'package:imitate_yay/util/color_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomeTabView extends StatefulWidget {
+/// 首页的 TabBarView
+class HomeTabViewPage extends StatefulWidget {
   final int type;
 
-  const HomeTabView({Key? key, required this.type}) : super(key: key);
+  const HomeTabViewPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  _HomeTabViewState createState() => _HomeTabViewState();
+  _HomeTabViewPageState createState() => _HomeTabViewPageState();
 }
 
-class _HomeTabViewState extends State<HomeTabView> {
-  final List<String> _avatarList = [];
-  final List<int> _ChatRoomList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  final List<int> _publishContentList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAliveClientMixin {
+  // tabBar类型
+  final List<int> _tabBarTypes = HomeConstant.tabBarTypes;
+  // 通话中的实体
+  CallingModel callingModel = CallingModel();
+  // 下拉刷新控制器
+  final List<RefreshController> _refreshControllerList = [];
 
-  final String _publishContent =
-      "There is a war between Israel and Hamas in May 2021. The war is 11 days long. No conflict starts since that time.Then, Gaza militants fire two rockets on Saturday.";
-
-  // 查询聊天室房间
-  _getChatorNum() {
-    for (var i = 0; i < 10; i++) {
-      _avatarList.add("images/avatar.jpg");
+  @override
+  void initState() {
+    super.initState();
+    for (final type in _tabBarTypes) {
+      _refreshControllerList.add(RefreshController(initialRefresh: false));
     }
+    _getCalling();
+  }
+
+  @override
+  void dispose() {
+    // _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  // 回到顶部
+  // backToTop() {
+  //   _scrollController.jumpTo(0);
+  // }
+
+  // 获取聊天室房间
+  _getCalling() async {
+    await HomeDao.getCallingTimeLine().then((model) {
+      setState(() {
+        callingModel = model;
+      });
+    });
   }
 
   // 下拉刷新
   _onRefresh() {
     print("_onRefresh");
-    setState(() {
-      _publishContentList.insert(0, _publishContentList.length);
-    });
-    _refreshController.refreshCompleted();
+    setState(() {});
+
+    // int type = _tabController.index;
+    //
+    // _refreshControllerList[type].refreshCompleted();
+    // _refreshControllerList[1].refreshCompleted();
+    // print("--------_onRefresh--$type");
   }
 
   // 上拉加载
   _onLoading() {
     print("_onLoading");
-    setState(() {
-      _publishContentList.add(_publishContentList.length);
-    });
-    if (mounted) setState(() {});
-    _refreshController.loadComplete();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getChatorNum();
+    // setState(() {
+    //   _publishContentList.add(_publishContentList.length);
+    // });
+    // if (mounted) setState(() {});
+    // int type = _tabController.index;
+    // _refreshControllerList[type].loadComplete();
   }
 
   @override
@@ -65,16 +91,17 @@ class _HomeTabViewState extends State<HomeTabView> {
         child: SmartRefresher(
           enablePullUp: true,
           enablePullDown: true,
-          controller: _refreshController,
+          controller: _refreshControllerList[_tabBarTypes.indexOf(widget.type)],
           onRefresh: _onRefresh,
           onLoading: _onLoading,
           child: ListView(
+            // controller: _scrollController,
             children: [
               // 聊天室水平列表
               _buildChatRooms(),
 
               // 用户发表的内容列表
-              _buildPublishContents(),
+              //_buildPublishContents(),
             ],
           ),
         ),
@@ -101,7 +128,7 @@ class _HomeTabViewState extends State<HomeTabView> {
           // 创建房间
           _buildChatRoomBothEnds(Icons.add_ic_call, "发布通话", 40, 30),
           // 中间房间列表
-          ...(_ChatRoomList.map<Widget>((room) {
+          ...?(callingModel.posts?.map<Widget>((room) {
             return _buildChatRoom(room);
           }).toList()),
           // 查看更多
@@ -112,7 +139,7 @@ class _HomeTabViewState extends State<HomeTabView> {
   }
 
   /// 聊天室列表子项
-  _buildChatRoom(int room) {
+  _buildChatRoom(Posts room) {
     return Container(
       width: ScreenUtil.setWidth(230),
       height: ScreenUtil.setHeight(300),
@@ -137,8 +164,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                 padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                     color: Colors.green,
-                    borderRadius:
-                        BorderRadius.circular(ScreenUtil.setWidth(20))),
+                    borderRadius: BorderRadius.circular(ScreenUtil.setWidth(20))),
                 child: Icon(
                   Icons.phone,
                   color: Colors.white,
@@ -159,8 +185,7 @@ class _HomeTabViewState extends State<HomeTabView> {
   }
 
   /// 聊天列表两端的子项
-  _buildChatRoomBothEnds(
-      IconData icon, String title, double left, double right) {
+  _buildChatRoomBothEnds(IconData icon, String title, double left, double right) {
     return Container(
       margin: EdgeInsets.only(
         left: ScreenUtil.setWidth(left),
@@ -195,16 +220,16 @@ class _HomeTabViewState extends State<HomeTabView> {
   }
 
   /// 用户发表的内容列表
-  _buildPublishContents() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
-      child: Column(
-        children: _publishContentList.map<Widget>((content) {
-          return _buildPublishContent(content);
-        }).toList(),
-      ),
-    );
-  }
+  // _buildPublishContents() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
+  //     child: Column(
+  //       children: _publishContentList.map<Widget>((content) {
+  //         return _buildPublishContent(content);
+  //       }).toList(),
+  //     ),
+  //   );
+  // }
 
   /// 用户发表的内容列表子项
   _buildPublishContent(content) {
@@ -214,7 +239,7 @@ class _HomeTabViewState extends State<HomeTabView> {
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.white,
+            color: Colors.white60,
             width: 0.1,
           ),
         ),
@@ -256,7 +281,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                 const SizedBox(height: 10),
                 // 发布内容
                 MyText(
-                  text: _publishContent,
+                  text: "",
                   fontSize: 40,
                 ),
                 const SizedBox(height: 10),
@@ -282,7 +307,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          _buildIconBtn(() {}, Icons.more_vert, 24),
+                          _buildIconBtn(_buildMoreBottomSheet, Icons.more_vert, 24),
                         ],
                       ),
                     ),
@@ -307,5 +332,56 @@ class _HomeTabViewState extends State<HomeTabView> {
           color: Colors.grey,
           size: size,
         ));
+  }
+
+  // 点击更多按钮，弹出底部弹窗
+  _buildMoreBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            decoration: const BoxDecoration(
+              color: ColorUtil.primaryBackGroundColor,
+            ),
+            child: Wrap(
+              children: [
+                Column(
+                  children: [
+                    _buildMoreBottomSheetItem(() {}, Icons.do_not_disturb_on, "屏蔽该用户"),
+                    _buildMoreBottomSheetItem(() {}, Icons.warning, "举报"),
+                    _buildMoreBottomSheetItem(() {}, Icons.share, "分享"),
+                    _buildMoreBottomSheetItem(() {}, Icons.sms, "聊天"),
+                    _buildMoreBottomSheetItem(() {
+                      Navigator.pop(context);
+                    }, Icons.cancel, "取消"),
+                  ],
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  _buildMoreBottomSheetItem(Function() onTap, IconData icon, String text) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Colors.grey,
+            ),
+            const SizedBox(width: 15),
+            MyText(
+              text: text,
+              fontSize: 45,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

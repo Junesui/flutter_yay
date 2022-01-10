@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:imitate_yay/page/tab/chat_tab_page.dart';
 import 'package:imitate_yay/page/tab/circle_tab_page.dart';
 import 'package:imitate_yay/page/tab/home_tab_page.dart';
@@ -13,7 +14,7 @@ class Tabs extends StatefulWidget {
   _TabsState createState() => _TabsState();
 }
 
-class _TabsState extends State<Tabs> {
+class _TabsState extends State<Tabs> with AutomaticKeepAliveClientMixin {
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
 
@@ -33,9 +34,12 @@ class _TabsState extends State<Tabs> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    //_pageController.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -81,21 +85,22 @@ class _TabsState extends State<Tabs> {
           });
         },
         items: [
-          _buildBottomItem(Icons.home),
-          _buildBottomItem(Icons.device_hub),
-          _buildBottomItem(Icons.textsms),
-          _buildBottomItem(Icons.notifications),
-          _buildBottomItem(Icons.person),
+          _buildBottomItem(Icons.home, () {}),
+          _buildBottomItem(Icons.device_hub, () {}),
+          _buildBottomItem(Icons.textsms, () {}),
+          _buildBottomItem(Icons.notifications, () {}),
+          _buildBottomItem(Icons.person, () {}),
         ],
       ),
     );
   }
 
   /// 底部导航栏的item
-  _buildBottomItem(IconData icon) {
+  _buildBottomItem(IconData icon, Function() onDoubleTap) {
     return BottomNavigationBarItem(
-      icon: Icon(icon),
+      icon: GestureDetector(onDoubleTap: onDoubleTap, child: Icon(icon)),
       label: "",
+      tooltip: "",
     );
   }
 }

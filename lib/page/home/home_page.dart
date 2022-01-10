@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/page/home/home_tab_view.dart';
+import 'package:imitate_yay/constant/home_constant.dart';
+import 'package:imitate_yay/page/home/home_tabview_page.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
+/// 首页
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -10,96 +12,100 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  // tabBar类型
+  List<int> tabBarTypes = HomeConstant.tabBarTypes;
   late TabController _tabController;
-  List<int> types = [1, 2];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+    _tabController = TabController(length: tabBarTypes.length, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding:
-            EdgeInsets.only(top: ScreenUtil.getStateBarHeight(context) + 3),
+        padding: EdgeInsets.only(top: ScreenUtil.getStateBarHeight(context) + 3),
         child: Column(
           children: [
-            // 顶部
-            Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(30)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  // logo
-                  MyText(
-                    text: "Logo",
-                    color: Colors.grey,
-                  ),
-
-                  // 搜索按钮
-                  Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  ),
-                ],
-              ),
-            ),
-
-            _buildTabBar(),
-            _buildTabBarView(),
+            // appBar
+            _buildAppBar(),
+            // appBar以下的内容
+            _buildMainContent(),
           ],
         ),
       ),
     );
   }
 
-  /// TabBar
-  _buildTabBar() {
+  /// appBar
+  _buildAppBar() {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
-      width: ScreenUtil.getScreenWidth(),
-      height: 30,
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 0.1,
+      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(30)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const [
+          // logo
+          MyText(
+            text: "Logo",
+            color: Colors.grey,
           ),
-        ),
-      ),
-      child: TabBar(
-        controller: _tabController,
-        isScrollable: true,
-        indicatorColor: Colors.orangeAccent,
-        indicatorSize: TabBarIndicatorSize.label,
-        labelStyle: TextStyle(fontSize: ScreenUtil.setFontSize(45)),
-        tabs: types.map((type) {
-          return Tab(text: type == 1 ? "关 注" : "公 开");
-        }).toList(),
+
+          // 搜索按钮
+          Icon(
+            Icons.search,
+            color: Colors.grey,
+          ),
+        ],
       ),
     );
   }
 
-  /// TabBarView
-  _buildTabBarView() {
+  /// appBar以下的内容
+  _buildMainContent() {
     return Expanded(
-      flex: 1,
-      child: TabBarView(
-        controller: _tabController,
-        children: types.map((type) => HomeTabView(type: type)).toList(),
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        child: Column(
+          children: [
+            // tabBar
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white,
+                    width: 0.1,
+                  ),
+                ),
+              ),
+              alignment: Alignment.bottomCenter,
+              child: TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                indicatorColor: Colors.orangeAccent,
+                indicatorSize: TabBarIndicatorSize.label,
+                labelStyle: TextStyle(fontSize: ScreenUtil.setFontSize(45)),
+                tabs: tabBarTypes.map((type) {
+                  return SizedBox(
+                    height: 35,
+                    child: Tab(text: type == 0 ? "关注" : "公开"),
+                  );
+                }).toList(),
+              ),
+            ),
+            // tabBarView
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: tabBarTypes.map((type) {
+                  return HomeTabViewPage(type: type);
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

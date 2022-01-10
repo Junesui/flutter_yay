@@ -38,8 +38,16 @@ dependencies:
   flutter_screenutil: ^5.0.2
   # 下拉刷新-上拉加载
   pull_to_refresh: ^2.0.0
-  # 流式布局
-  flutter_staggered_grid_view: ^0.6.0
+  # 网络请求
+  dio: ^4.0.4
+#
+#  shared_preferences: ^2.0.11
+#
+#  webview_flutter: ^3.0.0
+#
+#  fluttertoast: ^8.0.8
+#
+#  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:
