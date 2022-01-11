@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
-import 'package:imitate_yay/page/home/home_tabview_page.dart';
+import 'package:imitate_yay/page/home/home_tabbar_view.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
@@ -13,14 +13,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  // tabBar类型
-  List<int> tabBarTypes = HomeConstant.tabBarTypes;
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabBarTypes.length, vsync: this);
+    _tabController = TabController(
+      length: HomeConstant.tabbarTypes.length,
+      vsync: this,
+      initialIndex: HomeConstant.tabbarTypes.indexOf(HomeConstant.openType),
+    );
   }
 
   @override
@@ -87,7 +89,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 indicatorColor: Colors.orangeAccent,
                 indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: TextStyle(fontSize: ScreenUtil.setFontSize(45)),
-                tabs: tabBarTypes.map((type) {
+                tabs: HomeConstant.tabbarTypes.map((type) {
                   return SizedBox(
                     height: 35,
                     child: Tab(text: type == 0 ? "关注" : "公开"),
@@ -99,8 +101,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: tabBarTypes.map((type) {
-                  return HomeTabViewPage(type: type);
+                children: HomeConstant.tabbarTypes.map((type) {
+                  return HomeTabView(type: type);
                 }).toList(),
               ),
             ),

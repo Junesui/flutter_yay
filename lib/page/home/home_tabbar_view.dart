@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
-import 'package:imitate_yay/model/calling_model.dart';
+import 'package:imitate_yay/model/home_calling_model.dart';
+import 'package:imitate_yay/model/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
+import 'package:imitate_yay/page/home/home_room_item.dart';
 import 'package:imitate_yay/util/color_util.dart';
+import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 /// 首页的 TabBarView
-class HomeTabViewPage extends StatefulWidget {
+class HomeTabView extends StatefulWidget {
   final int type;
 
-  const HomeTabViewPage({Key? key, required this.type}) : super(key: key);
+  const HomeTabView({Key? key, required this.type}) : super(key: key);
 
   @override
-  _HomeTabViewPageState createState() => _HomeTabViewPageState();
+  _HomeTabViewState createState() => _HomeTabViewState();
 }
 
-class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAliveClientMixin {
+class _HomeTabViewState extends State<HomeTabView> {
   // tabBar类型
-  final List<int> _tabBarTypes = HomeConstant.tabBarTypes;
+  final List<int> _tabBarTypes = HomeConstant.tabbarTypes;
   // 通话中的实体
-  CallingModel callingModel = CallingModel();
+  HomeCallingModel callingModel = HomeCallingModel();
+  // 用户发布内容的实体
+  HomeContentModel contentModel = HomeContentModel();
   // 下拉刷新控制器
   final List<RefreshController> _refreshControllerList = [];
 
@@ -32,7 +38,7 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
     for (final type in _tabBarTypes) {
       _refreshControllerList.add(RefreshController(initialRefresh: false));
     }
-    _getCalling();
+    _getHomeData();
   }
 
   @override
@@ -41,19 +47,21 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
     super.dispose();
   }
 
-  @override
-  bool get wantKeepAlive => true;
-
   // 回到顶部
   // backToTop() {
   //   _scrollController.jumpTo(0);
   // }
 
   // 获取聊天室房间
-  _getCalling() async {
+  _getHomeData() async {
     await HomeDao.getCallingTimeLine().then((model) {
       setState(() {
         callingModel = model;
+      });
+    });
+    await HomeDao.getPostContent().then((model) {
+      setState(() {
+        contentModel = model;
       });
     });
   }
@@ -97,11 +105,11 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
           child: ListView(
             // controller: _scrollController,
             children: [
-              // 聊天室水平列表
-              _buildChatRooms(),
+              // 聊天室水平列表 只在公开tab下展示
+              widget.type == HomeConstant.openType ? _buildChatRooms() : const SizedBox.shrink(),
 
               // 用户发表的内容列表
-              //_buildPublishContents(),
+              _buildPublishContents(),
             ],
           ),
         ),
@@ -128,57 +136,11 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
           // 创建房间
           _buildChatRoomBothEnds(Icons.add_ic_call, "发布通话", 40, 30),
           // 中间房间列表
-          ...?(callingModel.posts?.map<Widget>((room) {
-            return _buildChatRoom(room);
+          ...?(callingModel.posts?.map<Widget>((post) {
+            return HomeRoomItem(post: post);
           }).toList()),
           // 查看更多
           _buildChatRoomBothEnds(Icons.more_horiz, "查看更多", 50, 40),
-        ],
-      ),
-    );
-  }
-
-  /// 聊天室列表子项
-  _buildChatRoom(Posts room) {
-    return Container(
-      width: ScreenUtil.setWidth(230),
-      height: ScreenUtil.setHeight(300),
-      margin: const EdgeInsets.only(left: 10),
-      child: Column(
-        children: [
-          // 头像
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.orange,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(ScreenUtil.setWidth(20))),
-                child: Icon(
-                  Icons.phone,
-                  color: Colors.white,
-                  size: ScreenUtil.setFontSize(26),
-                ),
-              ),
-              const SizedBox(width: 5),
-              const MyText(
-                text: "3人参加中",
-                color: Colors.grey,
-                fontSize: 30,
-              ),
-            ],
-          ),
         ],
       ),
     );
@@ -220,19 +182,25 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
   }
 
   /// 用户发表的内容列表
-  // _buildPublishContents() {
-  //   return Container(
-  //     padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
-  //     child: Column(
-  //       children: _publishContentList.map<Widget>((content) {
-  //         return _buildPublishContent(content);
-  //       }).toList(),
-  //     ),
-  //   );
-  // }
+  _buildPublishContents() {
+    List<PostContents> postContents = [];
+    contentModel.posts?.forEach((post) {
+      if (post.postType == null) {
+        postContents.add(post);
+      }
+    });
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
+      child: Column(
+        children: postContents.map<Widget>((content) {
+          return _buildPublishContent(content);
+        }).toList(),
+      ),
+    );
+  }
 
   /// 用户发表的内容列表子项
-  _buildPublishContent(content) {
+  _buildPublishContent(PostContents content) {
     return Container(
       margin: const EdgeInsets.only(top: 15),
       padding: const EdgeInsets.only(bottom: 8),
@@ -250,9 +218,8 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
           // 左侧用户头像
           CircleAvatar(
             radius: ScreenUtil.setFontSize(60),
-            backgroundImage: const AssetImage(
-              "images/avatar.jpg",
-            ),
+            backgroundImage:
+                NetworkImage(content.user?.profileIconThumbnail ?? CommonConstant.defaultAvatar),
           ),
           const SizedBox(width: 12),
           // 右侧内容
@@ -266,13 +233,13 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
                   children: [
                     // 用户昵称
                     MyText(
-                      text: "用户昵称$content",
+                      text: "${content.user!.nickname}",
                       fontSize: 40,
                       fontWeight: FontWeight.w600,
                     ),
                     // 发布时间
-                    const MyText(
-                      text: "12分钟前",
+                    MyText(
+                      text: DateUtil.format(content.createdAt!),
                       color: Colors.grey,
                       fontSize: 36,
                     ),
@@ -281,7 +248,7 @@ class _HomeTabViewPageState extends State<HomeTabViewPage> with AutomaticKeepAli
                 const SizedBox(height: 10),
                 // 发布内容
                 MyText(
-                  text: "",
+                  text: "${content.text}",
                   fontSize: 40,
                 ),
                 const SizedBox(height: 10),
