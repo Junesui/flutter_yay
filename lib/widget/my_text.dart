@@ -28,6 +28,7 @@ class MyText extends StatelessWidget {
         fontSize: ScreenUtil.setFontSize(fontSize),
         fontWeight: fontWeight,
         decoration: decoration,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

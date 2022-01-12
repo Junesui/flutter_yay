@@ -6,9 +6,11 @@ import 'package:imitate_yay/model/home_calling_model.dart';
 import 'package:imitate_yay/model/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
 import 'package:imitate_yay/page/home/home_room_item.dart';
-import 'package:imitate_yay/util/color_util.dart';
 import 'package:imitate_yay/util/date_util.dart';
+import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_bottom_sheet.dart';
+import 'package:imitate_yay/widget/my_icon_btn.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -22,7 +24,7 @@ class HomeTabView extends StatefulWidget {
   _HomeTabViewState createState() => _HomeTabViewState();
 }
 
-class _HomeTabViewState extends State<HomeTabView> {
+class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClientMixin {
   // tabBar类型
   final List<int> _tabBarTypes = HomeConstant.tabbarTypes;
   // 通话中的实体
@@ -31,37 +33,52 @@ class _HomeTabViewState extends State<HomeTabView> {
   HomeContentModel contentModel = HomeContentModel();
   // 下拉刷新控制器
   final List<RefreshController> _refreshControllerList = [];
+  // 列表滚动控制器
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    // 初始化下拉刷新控制器
     for (final type in _tabBarTypes) {
       _refreshControllerList.add(RefreshController(initialRefresh: false));
     }
-    _getHomeData();
+    // 监听首页滚到顶部事件
+    EventBusUtil.listen<HomeBackToTopEvent>((event) {
+      _scrollController.animateTo(0,
+          duration: const Duration(microseconds: 500), curve: Curves.linear);
+    });
+
+    _getChatRooms();
+    _getPostContents();
   }
 
   @override
   void dispose() {
-    // _scrollController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
-  // 回到顶部
-  // backToTop() {
-  //   _scrollController.jumpTo(0);
-  // }
+  @override
+  bool get wantKeepAlive => true;
 
   // 获取聊天室房间
-  _getHomeData() async {
+  _getChatRooms() async {
     await HomeDao.getCallingTimeLine().then((model) {
       setState(() {
         callingModel = model;
       });
     });
+  }
+
+  _getPostContents({bool isLoadingMore = false}) async {
     await HomeDao.getPostContent().then((model) {
       setState(() {
-        contentModel = model;
+        if (isLoadingMore) {
+          contentModel.posts?.addAll(model.posts ?? []);
+        } else {
+          contentModel = model;
+        }
       });
     });
   }
@@ -69,24 +86,27 @@ class _HomeTabViewState extends State<HomeTabView> {
   // 下拉刷新
   _onRefresh() {
     print("_onRefresh");
-    setState(() {});
-
-    // int type = _tabController.index;
-    //
-    // _refreshControllerList[type].refreshCompleted();
-    // _refreshControllerList[1].refreshCompleted();
-    // print("--------_onRefresh--$type");
+    int index = HomeConstant.tabbarTypes.indexOf(widget.type);
+    try {
+      _getChatRooms();
+      _getPostContents();
+      _refreshControllerList[index].refreshCompleted();
+    } catch (e) {
+      _refreshControllerList[index].refreshFailed();
+    }
   }
 
   // 上拉加载
   _onLoading() {
     print("_onLoading");
-    // setState(() {
-    //   _publishContentList.add(_publishContentList.length);
-    // });
-    // if (mounted) setState(() {});
-    // int type = _tabController.index;
-    // _refreshControllerList[type].loadComplete();
+    int index = HomeConstant.tabbarTypes.indexOf(widget.type);
+    try {
+      _getPostContents(isLoadingMore: true);
+      if (mounted) setState(() {});
+      _refreshControllerList[index].loadComplete();
+    } catch (e) {
+      _refreshControllerList[index].loadFailed();
+    }
   }
 
   @override
@@ -103,7 +123,7 @@ class _HomeTabViewState extends State<HomeTabView> {
           onRefresh: _onRefresh,
           onLoading: _onLoading,
           child: ListView(
-            // controller: _scrollController,
+            controller: _scrollController,
             children: [
               // 聊天室水平列表 只在公开tab下展示
               widget.type == HomeConstant.openType ? _buildChatRooms() : const SizedBox.shrink(),
@@ -232,11 +252,20 @@ class _HomeTabViewState extends State<HomeTabView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 用户昵称
-                    MyText(
-                      text: "${content.user!.nickname}",
-                      fontSize: 40,
-                      fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          MyText(
+                            text: "${content.user!.nickname}",
+                            fontSize: 40,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ],
+                      ),
                     ),
+
+                    const SizedBox(width: 10),
                     // 发布时间
                     MyText(
                       text: DateUtil.format(content.createdAt!),
@@ -261,11 +290,25 @@ class _HomeTabViewState extends State<HomeTabView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildIconBtn(() {
-                            print("--- click reply btn");
-                          }, Icons.reply, 24),
-                          _buildIconBtn(() {}, Icons.upload, 22),
-                          _buildIconBtn(() {}, Icons.favorite, 18),
+                          MyIconBtn(
+                            onPressed: () {
+                              print("--- click reply btn");
+                            },
+                            icon: Icons.reply,
+                          ),
+                          MyIconBtn(
+                            onPressed: () {
+                              print("--- click rePost btn");
+                            },
+                            icon: Icons.upload,
+                          ),
+                          MyIconBtn(
+                            onPressed: () {
+                              print("--- click like btn");
+                            },
+                            icon: Icons.favorite,
+                            size: 50,
+                          ),
                         ],
                       ),
                     ),
@@ -274,7 +317,11 @@ class _HomeTabViewState extends State<HomeTabView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          _buildIconBtn(_buildMoreBottomSheet, Icons.more_vert, 24),
+                          MyIconBtn(
+                            onPressed: _buildMoreBottomSheet,
+                            icon: Icons.more_vert,
+                            size: 70,
+                          ),
                         ],
                       ),
                     ),
@@ -288,67 +335,23 @@ class _HomeTabViewState extends State<HomeTabView> {
     );
   }
 
-  // 图标按钮
-  _buildIconBtn(VoidCallback onPressed, IconData icon, double size) {
-    return IconButton(
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-        onPressed: onPressed,
-        icon: Icon(
-          icon,
-          color: Colors.grey,
-          size: size,
-        ));
-  }
-
   // 点击更多按钮，弹出底部弹窗
   _buildMoreBottomSheet() {
+    List<BottomSheetParam> params = [];
+    params.add(BottomSheetParam(onTap: () {}, icon: Icons.do_not_disturb_on, text: "屏蔽该用户"));
+    params.add(BottomSheetParam(onTap: () {}, icon: Icons.warning, text: "举报"));
+    params.add(BottomSheetParam(onTap: () {}, icon: Icons.share, text: "分享"));
+    params.add(BottomSheetParam(onTap: () {}, icon: Icons.sms, text: "聊天"));
+    params.add(BottomSheetParam(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        icon: Icons.cancel,
+        text: "取消"));
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
-            decoration: const BoxDecoration(
-              color: ColorUtil.primaryBackGroundColor,
-            ),
-            child: Wrap(
-              children: [
-                Column(
-                  children: [
-                    _buildMoreBottomSheetItem(() {}, Icons.do_not_disturb_on, "屏蔽该用户"),
-                    _buildMoreBottomSheetItem(() {}, Icons.warning, "举报"),
-                    _buildMoreBottomSheetItem(() {}, Icons.share, "分享"),
-                    _buildMoreBottomSheetItem(() {}, Icons.sms, "聊天"),
-                    _buildMoreBottomSheetItem(() {
-                      Navigator.pop(context);
-                    }, Icons.cancel, "取消"),
-                  ],
-                ),
-              ],
-            ),
-          );
+          return MyBottomSheet(params: params);
         });
-  }
-
-  _buildMoreBottomSheetItem(Function() onTap, IconData icon, String text) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 15),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: Colors.grey,
-            ),
-            const SizedBox(width: 15),
-            MyText(
-              text: text,
-              fontSize: 45,
-            )
-          ],
-        ),
-      ),
-    );
   }
 }

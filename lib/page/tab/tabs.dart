@@ -5,6 +5,7 @@ import 'package:imitate_yay/page/tab/circle_tab_page.dart';
 import 'package:imitate_yay/page/tab/home_tab_page.dart';
 import 'package:imitate_yay/page/tab/message_tab_page.dart';
 import 'package:imitate_yay/page/tab/my_tab_page.dart';
+import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 
 class Tabs extends StatefulWidget {
@@ -79,26 +80,27 @@ class _TabsState extends State<Tabs> with AutomaticKeepAliveClientMixin {
         showUnselectedLabels: false,
         iconSize: ScreenUtil.setFontSize(70),
         onTap: (index) {
+          //  如果当前页是首页，则发送首页回到顶部事件
+          if (_currentIndex == index) {
+            EventBusUtil.fire<HomeBackToTopEvent>(HomeBackToTopEvent());
+          }
           _pageController.jumpToPage(index);
-          setState(() {
-            _currentIndex = index;
-          });
         },
         items: [
-          _buildBottomItem(Icons.home, () {}),
-          _buildBottomItem(Icons.device_hub, () {}),
-          _buildBottomItem(Icons.textsms, () {}),
-          _buildBottomItem(Icons.notifications, () {}),
-          _buildBottomItem(Icons.person, () {}),
+          _buildBottomItem(Icons.home),
+          _buildBottomItem(Icons.device_hub),
+          _buildBottomItem(Icons.textsms),
+          _buildBottomItem(Icons.notifications),
+          _buildBottomItem(Icons.person),
         ],
       ),
     );
   }
 
   /// 底部导航栏的item
-  _buildBottomItem(IconData icon, Function() onDoubleTap) {
+  _buildBottomItem(IconData icon) {
     return BottomNavigationBarItem(
-      icon: GestureDetector(onDoubleTap: onDoubleTap, child: Icon(icon)),
+      icon: GestureDetector(child: Icon(icon)),
       label: "",
       tooltip: "",
     );
