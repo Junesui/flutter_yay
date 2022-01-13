@@ -11,6 +11,7 @@ import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
+import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -71,6 +72,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     });
   }
 
+  // 获取发表的内容
   _getPostContents({bool isLoadingMore = false}) async {
     await HomeDao.getPostContent().then((model) {
       setState(() {
@@ -111,27 +113,30 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MediaQuery.removePadding(
       removeTop: true,
       context: context,
       child: Container(
         padding: const EdgeInsets.only(top: 5),
-        child: SmartRefresher(
-          enablePullUp: true,
-          enablePullDown: true,
-          controller: _refreshControllerList[_tabBarTypes.indexOf(widget.type)],
+        child: MyPullToRefresh(
+          refreshController: _refreshControllerList[_tabBarTypes.indexOf(widget.type)],
           onRefresh: _onRefresh,
           onLoading: _onLoading,
-          child: ListView(
-            controller: _scrollController,
-            children: [
-              // 聊天室水平列表 只在公开tab下展示
-              widget.type == HomeConstant.openType ? _buildChatRooms() : const SizedBox.shrink(),
-
-              // 用户发表的内容列表
-              _buildPublishContents(),
-            ],
-          ),
+          child: ListView.builder(
+              controller: _scrollController,
+              itemCount: 1,
+              itemBuilder: (_, index) {
+                return Column(
+                  children: [
+                    // 聊天室水平列表 只在公开tab下展示
+                    widget.type == HomeConstant.openType
+                        ? _buildChatRooms()
+                        : const SizedBox.shrink(),
+                    _buildPublishContents(),
+                  ],
+                );
+              }),
         ),
       ),
     );
@@ -211,10 +216,13 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     });
     return Container(
       padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
-      child: Column(
-        children: postContents.map<Widget>((content) {
-          return _buildPublishContent(content);
-        }).toList(),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: postContents.length,
+        itemBuilder: (context, index) {
+          return _buildPublishContent(postContents[index]);
+        },
       ),
     );
   }
@@ -253,18 +261,12 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
                   children: [
                     // 用户昵称
                     Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          MyText(
-                            text: "${content.user!.nickname}",
-                            fontSize: 40,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ],
+                      child: MyText(
+                        text: "${content.user!.nickname}",
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-
                     const SizedBox(width: 10),
                     // 发布时间
                     MyText(

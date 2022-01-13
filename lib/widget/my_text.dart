@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 
+/// 自定义text
 class MyText extends StatelessWidget {
   final String text;
   final double fontSize;

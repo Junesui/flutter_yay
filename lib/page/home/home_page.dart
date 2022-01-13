@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
-import 'package:imitate_yay/page/home/home_tabbar_view.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
+
+import 'home_tabbar_view.dart';
 
 /// 首页
 class HomePage extends StatefulWidget {
