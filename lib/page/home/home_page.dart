@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
-import 'home_tabbar_view.dart';
+import 'home_tab_view.dart';
 
 /// 首页
 class HomePage extends StatefulWidget {
@@ -29,15 +30,17 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: ScreenUtil.getStateBarHeight(context) + 3),
-        child: Column(
-          children: [
-            // appBar
-            _buildAppBar(),
-            // appBar以下的内容
-            _buildMainContent(),
-          ],
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(top: CommonConstant.fromStateBar),
+          child: Column(
+            children: [
+              // appBar
+              _buildAppBar(),
+              // appBar以下的内容
+              _buildMainContent(),
+            ],
+          ),
         ),
       ),
     );

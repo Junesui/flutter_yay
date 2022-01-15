@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
-import 'package:imitate_yay/model/home_calling_model.dart';
-import 'package:imitate_yay/model/home_content_model.dart';
+import 'package:imitate_yay/model/home/home_calling_model.dart';
+import 'package:imitate_yay/model/home/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
 import 'package:imitate_yay/page/home/home_room_item.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
+import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
+import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -36,6 +38,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   final List<RefreshController> _refreshControllerList = [];
   // 列表滚动控制器
   final ScrollController _scrollController = ScrollController();
+  // 数据加载状态
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -49,9 +53,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
       _scrollController.animateTo(0,
           duration: const Duration(microseconds: 500), curve: Curves.linear);
     });
-
-    _getChatRooms();
-    _getPostContents();
+    _getHomeData();
   }
 
   @override
@@ -62,6 +64,15 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
 
   @override
   bool get wantKeepAlive => true;
+
+  // 获取首页数据
+  _getHomeData() async {
+    await _getChatRooms();
+    await _getPostContents();
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   // 获取聊天室房间
   _getChatRooms() async {
@@ -87,7 +98,6 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
 
   // 下拉刷新
   _onRefresh() {
-    print("_onRefresh");
     int index = HomeConstant.tabbarTypes.indexOf(widget.type);
     try {
       _getChatRooms();
@@ -100,7 +110,6 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
 
   // 上拉加载
   _onLoading() {
-    print("_onLoading");
     int index = HomeConstant.tabbarTypes.indexOf(widget.type);
     try {
       _getPostContents(isLoadingMore: true);
@@ -114,29 +123,32 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return MediaQuery.removePadding(
-      removeTop: true,
-      context: context,
-      child: Container(
-        padding: const EdgeInsets.only(top: 5),
-        child: MyPullToRefresh(
-          refreshController: _refreshControllerList[_tabBarTypes.indexOf(widget.type)],
-          onRefresh: _onRefresh,
-          onLoading: _onLoading,
-          child: ListView.builder(
-              controller: _scrollController,
-              itemCount: 1,
-              itemBuilder: (_, index) {
-                return Column(
-                  children: [
-                    // 聊天室水平列表 只在公开tab下展示
-                    widget.type == HomeConstant.openType
-                        ? _buildChatRooms()
-                        : const SizedBox.shrink(),
-                    _buildPublishContents(),
-                  ],
-                );
-              }),
+    return MyLoadingContainer(
+      isLoading: _isLoading,
+      child: MediaQuery.removePadding(
+        removeTop: true,
+        context: context,
+        child: Container(
+          padding: const EdgeInsets.only(top: 5),
+          child: MyPullToRefresh(
+            refreshController: _refreshControllerList[_tabBarTypes.indexOf(widget.type)],
+            onRefresh: _onRefresh,
+            onLoading: _onLoading,
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: 1,
+                itemBuilder: (_, index) {
+                  return Column(
+                    children: [
+                      // 聊天室水平列表 只在公开tab下展示
+                      widget.type == HomeConstant.openType
+                          ? _buildChatRooms()
+                          : const SizedBox.shrink(),
+                      _buildPublishContents(),
+                    ],
+                  );
+                }),
+          ),
         ),
       ),
     );
@@ -215,7 +227,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
       }
     });
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(40)),
+      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(CommonConstant.mainLRPadding)),
       child: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -244,11 +256,14 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 左侧用户头像
-          CircleAvatar(
-            radius: ScreenUtil.setFontSize(60),
-            backgroundImage:
-                NetworkImage(content.user?.profileIconThumbnail ?? CommonConstant.defaultAvatar),
+          ClipOval(
+            child: SizedBox(
+              height: ScreenUtil.setHeight(90),
+              width: ScreenUtil.setWidth(90),
+              child: MyCacheNetImg(imgUrl: content.user?.profileIconThumbnail ?? ""),
+            ),
           ),
+
           const SizedBox(width: 12),
           // 右侧内容
           Expanded(

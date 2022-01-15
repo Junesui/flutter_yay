@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/constant/common_constant.dart';
-import 'package:imitate_yay/model/home_calling_model.dart';
+import 'package:imitate_yay/model/home/home_calling_model.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
 /// 首页聊天室子项
@@ -58,24 +58,23 @@ class HomeRoomItem extends StatelessWidget {
   _buildRoomCover(int joinUserCnt) {
     switch (joinUserCnt) {
       case 1:
-        String avatarUrl = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.transparent,
-            image: DecorationImage(
-              image: NetworkImage(avatarUrl),
-              fit: BoxFit.cover,
+        String avatarUrl = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ?? "";
+        return PhysicalModel(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+          clipBehavior: Clip.antiAlias,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+              color: Colors.transparent,
             ),
+            child: MyCacheNetImg(imgUrl: avatarUrl),
           ),
         );
 
       case 2:
-        String avatarUrl1 = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        String avatarUrl2 = post.conferenceCall?.conferenceCallUsers![1].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
+        String avatarUrl1 = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ?? "";
+        String avatarUrl2 = post.conferenceCall?.conferenceCallUsers![1].profileIconThumbnail ?? "";
 
         return PhysicalModel(
           color: Colors.transparent,
@@ -88,37 +87,16 @@ class HomeRoomItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(avatarUrl1),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(avatarUrl2),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                _buildExpandedAvatar(avatarUrl1),
+                _buildExpandedAvatar(avatarUrl2),
               ],
             ),
           ),
         );
       case 3:
-        String avatarUrl1 = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        String avatarUrl2 = post.conferenceCall?.conferenceCallUsers![1].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        String avatarUrl3 = post.conferenceCall?.conferenceCallUsers![2].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
+        String avatarUrl1 = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ?? "";
+        String avatarUrl2 = post.conferenceCall?.conferenceCallUsers![1].profileIconThumbnail ?? "";
+        String avatarUrl3 = post.conferenceCall?.conferenceCallUsers![2].profileIconThumbnail ?? "";
         return PhysicalModel(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
@@ -133,52 +111,21 @@ class HomeRoomItem extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(avatarUrl1),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(avatarUrl2),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
+                      _buildExpandedAvatar(avatarUrl1),
+                      _buildExpandedAvatar(avatarUrl2),
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(avatarUrl3),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                _buildExpandedAvatar(avatarUrl3),
               ],
             ),
           ),
         );
       default:
-        String avatarUrl1 = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        String avatarUrl2 = post.conferenceCall?.conferenceCallUsers![1].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        String avatarUrl3 = post.conferenceCall?.conferenceCallUsers![2].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
-        String avatarUrl4 = post.conferenceCall?.conferenceCallUsers![3].profileIconThumbnail ??
-            CommonConstant.defaultAvatar;
+        String avatarUrl1 = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ?? "";
+        String avatarUrl2 = post.conferenceCall?.conferenceCallUsers![1].profileIconThumbnail ?? "";
+        String avatarUrl3 = post.conferenceCall?.conferenceCallUsers![2].profileIconThumbnail ?? "";
+        String avatarUrl4 = post.conferenceCall?.conferenceCallUsers![3].profileIconThumbnail ?? "";
         return PhysicalModel(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
@@ -193,52 +140,16 @@ class HomeRoomItem extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(avatarUrl1),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(avatarUrl2),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
+                      _buildExpandedAvatar(avatarUrl1),
+                      _buildExpandedAvatar(avatarUrl2),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(avatarUrl3),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(avatarUrl4),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
+                      _buildExpandedAvatar(avatarUrl3),
+                      _buildExpandedAvatar(avatarUrl4),
                     ],
                   ),
                 ),
@@ -247,5 +158,16 @@ class HomeRoomItem extends StatelessWidget {
           ),
         );
     }
+  }
+
+  // 头像
+  _buildExpandedAvatar(String avatarUrl) {
+    return Expanded(
+      child: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: MyCacheNetImg(imgUrl: avatarUrl),
+      ),
+    );
   }
 }
