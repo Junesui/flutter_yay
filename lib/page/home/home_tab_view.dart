@@ -84,10 +84,10 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   }
 
   // 获取发表的内容
-  _getPostContents({bool isLoadingMore = false}) async {
+  _getPostContents({bool isLoadMore = false}) async {
     await HomeDao.getPostContent().then((model) {
       setState(() {
-        if (isLoadingMore) {
+        if (isLoadMore) {
           contentModel.posts?.addAll(model.posts ?? []);
         } else {
           contentModel = model;
@@ -112,7 +112,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   _onLoading() {
     int index = HomeConstant.tabbarTypes.indexOf(widget.type);
     try {
-      _getPostContents(isLoadingMore: true);
+      _getPostContents(isLoadMore: true);
       if (mounted) setState(() {});
       _refreshControllerList[index].loadComplete();
     } catch (e) {

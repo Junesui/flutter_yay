@@ -10,6 +10,8 @@ class MyText extends StatelessWidget {
   final FontWeight fontWeight;
   final Color color;
   final TextDecoration decoration;
+  final TextOverflow overflow;
+  final int maxLines;
 
   const MyText(
       {Key? key,
@@ -17,19 +19,23 @@ class MyText extends StatelessWidget {
       this.fontSize = 24,
       this.fontWeight = FontWeight.normal,
       this.color = Colors.white,
-      this.decoration = TextDecoration.none})
+      this.decoration = TextDecoration.none,
+      this.overflow = TextOverflow.ellipsis,
+      this.maxLines = 999999999})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: maxLines,
       style: TextStyle(
         color: color,
         fontSize: ScreenUtil.setFontSize(fontSize),
         fontWeight: fontWeight,
         decoration: decoration,
-        overflow: TextOverflow.ellipsis,
+        overflow: overflow,
+        height: 1,
       ),
     );
   }

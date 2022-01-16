@@ -103,7 +103,7 @@ class _MyAppState extends State<MyApp> {
           );
         },
       ),
-      headerTriggerDistance: 100.0,
+      headerTriggerDistance: 80.0,
       maxOverScrollExtent: 120,
       maxUnderScrollExtent: 0,
       enableScrollWhenRefreshCompleted: true,

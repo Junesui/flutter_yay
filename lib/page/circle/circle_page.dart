@@ -5,6 +5,7 @@ import 'package:imitate_yay/model/circle/circle_category_model.dart';
 import 'package:imitate_yay/net/dao/circle_dao.dart';
 import 'package:imitate_yay/page/circle/circle_tab_view.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
@@ -15,8 +16,7 @@ class CirclePage extends StatefulWidget {
   _CirclePageState createState() => _CirclePageState();
 }
 
-class _CirclePageState extends State<CirclePage>
-    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final PageController _pageController = PageController(initialPage: 0);
   // 当前的 pageIndex
@@ -38,9 +38,6 @@ class _CirclePageState extends State<CirclePage>
     _pageController.dispose();
     super.dispose();
   }
-
-  @override
-  bool get wantKeepAlive => true;
 
   // 获取分类
   _getCategory() async {
@@ -66,7 +63,7 @@ class _CirclePageState extends State<CirclePage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    print("---page build---");
     return MyLoadingContainer(
       isLoading: _isLoading,
       child: categoryModel == null
@@ -137,14 +134,23 @@ class _CirclePageState extends State<CirclePage>
                     (categoryModel?.groupCategories?.length ?? 0) + CircleConstant.frontTabBarCnt,
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    return CircleTabView(cid: -1);
+                    return CircleTabView(
+                      cid: -1,
+                      categoryModel: categoryModel!,
+                    );
                   }
                   if (index == 1) {
-                    return CircleTabView(cid: 0);
+                    return CircleTabView(
+                      cid: 0,
+                      categoryModel: categoryModel!,
+                    );
                   }
                   return CircleTabView(
-                      cid: categoryModel!
-                          .groupCategories![index - CircleConstant.frontTabBarCnt]!.id!);
+                    cid: categoryModel!
+                            .groupCategories?[index - CircleConstant.frontTabBarCnt]?.id ??
+                        0,
+                    categoryModel: categoryModel!,
+                  );
                 },
               ),
             ),
@@ -182,8 +188,8 @@ class _CirclePageState extends State<CirclePage>
           // 动态获取的分类 tabBar
           ...?categoryModel!.groupCategories?.map((category) {
             int index = categoryModel!.groupCategories!.indexOf(category);
-            return _buildTabBarItem(Image(image: NetworkImage(category.icon!)), category.name!, 0,
-                45, index + CircleConstant.frontTabBarCnt);
+            return _buildTabBarItem(MyCacheNetImg(imgUrl: category.icon!), category.name!, 0, 45,
+                index + CircleConstant.frontTabBarCnt);
           }).toList(),
         ],
       ),
@@ -194,9 +200,6 @@ class _CirclePageState extends State<CirclePage>
   _buildTabBarItem(Widget child, String name, double left, double right, int index) {
     return InkWell(
       onTap: () {
-        setState(() {
-          _pageIndex = index;
-        });
         _pageController.jumpToPage(index);
       },
       child: Container(
