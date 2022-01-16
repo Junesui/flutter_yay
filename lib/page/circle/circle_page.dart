@@ -18,11 +18,7 @@ class CirclePage extends StatefulWidget {
 
 class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final PageController _pageController = PageController(initialPage: 0);
-  // 当前的 pageIndex
-  int _pageIndex = 0;
   CircleCategoryModel? categoryModel;
-
   // 数据加载状态
   bool _isLoading = true;
 
@@ -35,7 +31,6 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
   @override
   void dispose() {
     _tabController.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -45,25 +40,18 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
       setState(() {
         categoryModel = category;
         // 初始化 TabController
-        _initTabController();
-
+        _tabController = TabController(
+          length: (categoryModel?.groupCategories?.length ?? 0) + CircleConstant.frontTabBarCnt,
+          vsync: this,
+          initialIndex: 0,
+        );
         _isLoading = false;
       });
     });
   }
 
-  // 初始化 TabController
-  _initTabController() {
-    _tabController = TabController(
-      length: (categoryModel?.groupCategories?.length ?? 0) + CircleConstant.frontTabBarCnt,
-      vsync: this,
-      initialIndex: 0,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    print("---page build---");
     return MyLoadingContainer(
       isLoading: _isLoading,
       child: categoryModel == null
@@ -122,36 +110,27 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
             _buildTabBar(),
             // tabBarView
             Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  _tabController.animateTo(index);
-                  setState(() {
-                    _pageIndex = index;
-                  });
-                },
-                itemCount:
-                    (categoryModel?.groupCategories?.length ?? 0) + CircleConstant.frontTabBarCnt,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return CircleTabView(
-                      cid: -1,
-                      categoryModel: categoryModel!,
-                    );
-                  }
-                  if (index == 1) {
-                    return CircleTabView(
-                      cid: 0,
-                      categoryModel: categoryModel!,
-                    );
-                  }
-                  return CircleTabView(
-                    cid: categoryModel!
-                            .groupCategories?[index - CircleConstant.frontTabBarCnt]?.id ??
-                        0,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  // 参加中
+                  CircleTabView(
+                    cid: -1,
                     categoryModel: categoryModel!,
-                  );
-                },
+                  ),
+                  // 全部
+                  CircleTabView(
+                    cid: 0,
+                    categoryModel: categoryModel!,
+                  ),
+                  // 动态遍历
+                  ...?categoryModel!.groupCategories?.map((category) {
+                    return CircleTabView(
+                      cid: category.id!,
+                      categoryModel: categoryModel!,
+                    );
+                  }).toList(),
+                ],
               ),
             ),
           ],
@@ -176,19 +155,21 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
       child: TabBar(
         controller: _tabController,
         isScrollable: true,
-        indicator: const BoxDecoration(
-          color: Colors.transparent,
+        indicator: BoxDecoration(
+          color: Colors.black87,
+          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(20)),
         ),
-        labelPadding: EdgeInsets.zero,
+        labelPadding:
+            EdgeInsets.only(top: ScreenUtil.setHeight(20), bottom: ScreenUtil.setHeight(10)),
         tabs: [
           // 固定分类 tabBar
-          _buildTabBarItem(const Icon(Icons.home), "参加中", 30, 45, 0),
-          _buildTabBarItem(const Icon(Icons.linked_camera), "全て", 0, 45, 1),
+          _buildTabBarItem(const Icon(Icons.home), "参加中", 0),
+          _buildTabBarItem(const Icon(Icons.linked_camera), "全て", 1),
 
           // 动态获取的分类 tabBar
           ...?categoryModel!.groupCategories?.map((category) {
             int index = categoryModel!.groupCategories!.indexOf(category);
-            return _buildTabBarItem(MyCacheNetImg(imgUrl: category.icon!), category.name!, 0, 45,
+            return _buildTabBarItem(MyCacheNetImg(imgUrl: category.icon!), category.name!,
                 index + CircleConstant.frontTabBarCnt);
           }).toList(),
         ],
@@ -197,50 +178,39 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
   }
 
   /// TabBar 子项
-  _buildTabBarItem(Widget child, String name, double left, double right, int index) {
-    return InkWell(
-      onTap: () {
-        _pageController.jumpToPage(index);
-      },
-      child: Container(
-        height: ScreenUtil.setHeight(200),
-        width: ScreenUtil.setWidth(160),
-        margin: EdgeInsets.only(
-          left: ScreenUtil.setWidth(left),
-          right: ScreenUtil.setWidth(right),
-          bottom: 2,
-        ),
-        child: Column(
-          children: [
-            // 图标
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(ScreenUtil.setHeight(100)),
-                      border: Border.all(
-                        color: index == _pageIndex
-                            ? Colors.orangeAccent
-                            : Colors.grey[800] ?? Colors.grey,
-                        width: 1,
-                      )),
-                  child: Center(
-                    child: child,
-                  ),
+  _buildTabBarItem(Widget child, String name, int index) {
+    return Container(
+      height: ScreenUtil.setHeight(200),
+      width: ScreenUtil.setWidth(180),
+      margin: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(24)),
+      child: Column(
+        children: [
+          // 图标
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(ScreenUtil.setHeight(100)),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                    )),
+                child: Center(
+                  child: child,
                 ),
               ),
             ),
-            const SizedBox(height: 5),
-            // 名称
-            MyText(
-              text: name,
-              color: Colors.grey,
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 5),
+          // 名称
+          MyText(
+            text: name,
+            color: Colors.grey,
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+          ),
+        ],
       ),
     );
   }
