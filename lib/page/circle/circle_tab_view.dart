@@ -9,6 +9,7 @@ import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
+import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,6 +31,8 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
   // 下拉刷新控制器
   final List<RefreshController> _refreshControllerList = [];
   int _categoryTabBarIndex = 0;
+  // 数据加载状态
+  bool _isLoading = true;
 
   // 初始化
   @override
@@ -56,6 +59,7 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
         }
         circleGroupModel = group;
       });
+      _isLoading = false;
     });
   }
 
@@ -109,19 +113,23 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
     super.build(context);
     print("---view build---");
     _categoryTabBarIndex = _getCategoryIndex();
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(CommonConstant.mainLRPadding)),
-      child: MyPullToRefresh(
-        refreshController: _refreshControllerList[_categoryTabBarIndex],
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: circleGroupModel?.groups == null
-            ? const SizedBox()
-            : ListView.builder(
-                itemCount: circleGroupModel?.groups?.length ?? 0,
-                itemBuilder: (context, index) {
-                  return _buildGroup(circleGroupModel!.groups![index]);
-                }),
+    return MyLoadingContainer(
+      isLoading: _isLoading,
+      child: Container(
+        padding:
+            EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(CommonConstant.mainLRPadding)),
+        child: MyPullToRefresh(
+          refreshController: _refreshControllerList[_categoryTabBarIndex],
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: circleGroupModel?.groups == null
+              ? const SizedBox()
+              : ListView.builder(
+                  itemCount: circleGroupModel?.groups?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return _buildGroup(circleGroupModel!.groups![index]);
+                  }),
+        ),
       ),
     );
   }
@@ -235,7 +243,7 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
                   width: 10,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: Colors.orangeAccent,
+                    color: CommonConstant.primaryColor,
                   ),
                 ),
                 // 分类名称
@@ -244,7 +252,7 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
                   child: MyText(
                     text: _findCategoryName(group.groupCategoryId!),
                     fontSize: 30,
-                    color: Colors.orangeAccent,
+                    color: CommonConstant.primaryColor,
                   ),
                 )
               ],

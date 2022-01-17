@@ -6,7 +6,6 @@ import 'package:imitate_yay/net/dao/circle_dao.dart';
 import 'package:imitate_yay/page/circle/circle_tab_view.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
-import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
 class CirclePage extends StatefulWidget {
@@ -19,8 +18,6 @@ class CirclePage extends StatefulWidget {
 class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   CircleCategoryModel? categoryModel;
-  // 数据加载状态
-  bool _isLoading = true;
 
   @override
   void initState() {
@@ -45,31 +42,27 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
           vsync: this,
           initialIndex: 0,
         );
-        _isLoading = false;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MyLoadingContainer(
-      isLoading: _isLoading,
-      child: categoryModel == null
-          ? const SizedBox()
-          : Scaffold(
-              body: SafeArea(
-                child: Container(
-                  padding: const EdgeInsets.only(top: CommonConstant.fromStateBar),
-                  child: Column(
-                    children: [
-                      _buildSearchBox(),
-                      _buildMainContent(),
-                    ],
-                  ),
+    return categoryModel == null
+        ? const SizedBox()
+        : Scaffold(
+            body: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.only(top: CommonConstant.fromStateBar),
+                child: Column(
+                  children: [
+                    _buildSearchBox(),
+                    _buildMainContent(),
+                  ],
                 ),
               ),
             ),
-    );
+          );
   }
 
   /// 搜索框

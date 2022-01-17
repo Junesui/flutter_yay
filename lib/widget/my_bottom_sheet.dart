@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/util/color_util.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
@@ -17,7 +17,7 @@ class MyBottomSheet extends StatelessWidget {
         bottom: ScreenUtil.setHeight(50),
       ),
       decoration: const BoxDecoration(
-        color: ColorUtil.primaryBackGroundColor,
+        color: CommonConstant.primaryBackGroundColor,
       ),
       child: Wrap(
         children: [

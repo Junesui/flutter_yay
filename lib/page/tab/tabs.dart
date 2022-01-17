@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/page/tab/chat_tab_page.dart';
 import 'package:imitate_yay/page/tab/circle_tab_page.dart';
 import 'package:imitate_yay/page/tab/home_tab_page.dart';
@@ -75,7 +76,7 @@ class _TabsState extends State<Tabs> with AutomaticKeepAliveClientMixin {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.white,
+        selectedItemColor: CommonConstant.primaryColor,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         iconSize: ScreenUtil.setFontSize(70),

@@ -19,7 +19,7 @@ class DateUtil {
       num seconds = toSeconds(delta);
       return (seconds <= 0 ? 1 : seconds).toInt().toString() + oneSecondAgo;
     }
-    if (delta < 45 * oneMINUTE) {
+    if (delta < 60 * oneMINUTE) {
       num minutes = toMinutes(delta);
       return (minutes <= 0 ? 1 : minutes).toInt().toString() + oneMinuteAgo;
     }

@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: TabBar(
                 controller: _tabController,
                 isScrollable: true,
-                indicatorColor: Colors.orangeAccent,
+                indicatorColor: CommonConstant.primaryColor,
                 indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: TextStyle(fontSize: ScreenUtil.setFontSize(45)),
                 tabs: HomeConstant.tabbarTypes.map((type) {

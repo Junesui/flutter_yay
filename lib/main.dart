@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/router/router.dart';
-import 'package:imitate_yay/util/color_util.dart';
 import 'package:imitate_yay/util/screen_util.dart' as myScreenUtil;
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
           initialRoute: "/",
           onGenerateRoute: onGenerateRoute,
           theme: ThemeData(
-            scaffoldBackgroundColor: ColorUtil.primaryBackGroundColor,
+            scaffoldBackgroundColor: CommonConstant.primaryBackGroundColor,
             // 取消一些组件的默认点击效果
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,

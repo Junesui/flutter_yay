@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 
 class MyLoadingContainer extends StatelessWidget {
   // 子组件
@@ -14,7 +15,7 @@ class MyLoadingContainer extends StatelessWidget {
   get _buildLoading {
     return const Center(
       child: SpinKitFadingCircle(
-        color: Colors.orangeAccent,
+        color: CommonConstant.primaryColor,
         size: 30,
       ),
     );
