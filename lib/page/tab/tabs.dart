@@ -5,7 +5,7 @@ import 'package:imitate_yay/page/tab/chat_tab_page.dart';
 import 'package:imitate_yay/page/tab/circle_tab_page.dart';
 import 'package:imitate_yay/page/tab/home_tab_page.dart';
 import 'package:imitate_yay/page/tab/message_tab_page.dart';
-import 'package:imitate_yay/page/tab/my_tab_page.dart';
+import 'package:imitate_yay/page/tab/profile_tab_page.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 
@@ -25,7 +25,7 @@ class _TabsState extends State<Tabs> with AutomaticKeepAliveClientMixin {
     CircleTabPage(),
     ChatTabPage(),
     MessageTabPage(),
-    MyTabPage(),
+    ProfileTabPage(),
   ];
 
   @override
