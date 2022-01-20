@@ -16,7 +16,7 @@ class Tabs extends StatefulWidget {
   _TabsState createState() => _TabsState();
 }
 
-class _TabsState extends State<Tabs> with AutomaticKeepAliveClientMixin {
+class _TabsState extends State<Tabs> {
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
 
@@ -39,9 +39,6 @@ class _TabsState extends State<Tabs> with AutomaticKeepAliveClientMixin {
     //_pageController.dispose();
     super.dispose();
   }
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:imitate_yay/constant/common_constant.dart';
+import 'package:lottie/lottie.dart';
 
 class MyLoadingContainer extends StatelessWidget {
   // 子组件
@@ -13,11 +12,8 @@ class MyLoadingContainer extends StatelessWidget {
 
   // 加载动画
   get _buildLoading {
-    return const Center(
-      child: SpinKitFadingCircle(
-        color: CommonConstant.primaryColor,
-        size: 30,
-      ),
+    return Center(
+      child: Lottie.asset('assets/animation/loading_button.json'),
     );
   }
 

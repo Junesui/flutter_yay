@@ -8,9 +8,13 @@ class CircleTabPage extends StatefulWidget {
   _CircleTabPageState createState() => _CircleTabPageState();
 }
 
-class _CircleTabPageState extends State<CircleTabPage> {
+class _CircleTabPageState extends State<CircleTabPage> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CirclePage();
   }
 }

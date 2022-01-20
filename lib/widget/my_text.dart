@@ -8,7 +8,7 @@ class MyText extends StatelessWidget {
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
-  final Color color;
+  final Color? color;
   final TextDecoration decoration;
   final TextOverflow overflow;
   final int maxLines;

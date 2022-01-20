@@ -111,7 +111,6 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print("---view build---");
     _categoryTabBarIndex = _getCategoryIndex();
     return MyLoadingContainer(
       isLoading: _isLoading,

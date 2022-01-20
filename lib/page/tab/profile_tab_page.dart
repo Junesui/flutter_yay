@@ -8,9 +8,13 @@ class ProfileTabPage extends StatefulWidget {
   _ProfileTabPageState createState() => _ProfileTabPageState();
 }
 
-class _ProfileTabPageState extends State<ProfileTabPage> {
+class _ProfileTabPageState extends State<ProfileTabPage> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ProfilePage();
   }
 }

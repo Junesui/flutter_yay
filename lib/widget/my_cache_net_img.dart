@@ -22,7 +22,7 @@ class MyCacheNetImg extends StatelessWidget {
   SizedBox _buildPlaceholder() {
     return SizedBox(
       child: Image.asset(
-        "images/avatar.jpg",
+        "assets/images/avatar.jpg",
         fit: BoxFit.cover,
       ),
     );

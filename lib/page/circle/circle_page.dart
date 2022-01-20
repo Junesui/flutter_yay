@@ -148,6 +148,8 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
       child: TabBar(
         controller: _tabController,
         isScrollable: true,
+        labelColor: Colors.orangeAccent,
+        unselectedLabelColor: Colors.grey,
         indicator: BoxDecoration(
           color: Colors.black87,
           borderRadius: BorderRadius.circular(ScreenUtil.setHeight(20)),
@@ -156,8 +158,8 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
             EdgeInsets.only(top: ScreenUtil.setHeight(20), bottom: ScreenUtil.setHeight(10)),
         tabs: [
           // 固定分类 tabBar
-          _buildTabBarItem(const Icon(Icons.home), "参加中", 0),
-          _buildTabBarItem(const Icon(Icons.linked_camera), "全て", 1),
+          _buildTabBarItem(const Icon(Icons.home, color: Colors.grey), "参加中", 0),
+          _buildTabBarItem(const Icon(Icons.linked_camera, color: Colors.grey), "全て", 1),
 
           // 动态获取的分类 tabBar
           ...?categoryModel!.groupCategories?.map((category) {
@@ -199,7 +201,7 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
           // 名称
           MyText(
             text: name,
-            color: Colors.grey,
+            color: null,
             fontSize: 30,
             fontWeight: FontWeight.w700,
           ),
