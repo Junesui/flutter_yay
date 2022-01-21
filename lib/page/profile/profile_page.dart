@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     super.dispose();
   }
 
-  // 获取基本信息
+  /// 获取基本信息
   _getProfileData() async {
     await ProfileDao.getProfileData().then((model) {
       setState(() {

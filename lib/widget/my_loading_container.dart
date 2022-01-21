@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imitate_yay/util/screen_util.dart';
 import 'package:lottie/lottie.dart';
 
 class MyLoadingContainer extends StatelessWidget {
@@ -13,7 +14,10 @@ class MyLoadingContainer extends StatelessWidget {
   // 加载动画
   get _buildLoading {
     return Center(
-      child: Lottie.asset('assets/animation/loading_button.json'),
+      child: SizedBox(
+        width: ScreenUtil.getScreenWidth() / 3,
+        child: Lottie.asset('assets/animation/loading_button.json'),
+      ),
     );
   }
 

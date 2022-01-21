@@ -34,6 +34,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   HomeCallingModel callingModel = HomeCallingModel();
   // 用户发布内容的实体
   HomeContentModel contentModel = HomeContentModel();
+  List<PostContents> postContents = [];
   // 下拉刷新控制器
   final List<RefreshController> _refreshControllerList = [];
   // 列表滚动控制器
@@ -50,8 +51,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     }
     // 监听首页滚到顶部事件
     EventBusUtil.listen<HomeBackToTopEvent>((event) {
-      _scrollController.animateTo(0,
-          duration: const Duration(microseconds: 500), curve: Curves.linear);
+      _scrollController.jumpTo(0);
     });
     _getHomeData();
   }
@@ -92,6 +92,11 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
         } else {
           contentModel = model;
         }
+        contentModel.posts?.forEach((post) {
+          if (post.postType == null) {
+            postContents.add(post);
+          }
+        });
       });
     });
   }
@@ -136,17 +141,15 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
             onLoading: _onLoading,
             child: ListView.builder(
                 controller: _scrollController,
-                itemCount: 1,
-                itemBuilder: (_, index) {
-                  return Column(
-                    children: [
-                      // 聊天室水平列表 只在公开tab下展示
-                      widget.type == HomeConstant.openType
-                          ? _buildChatRooms()
-                          : const SizedBox.shrink(),
-                      _buildPublishContents(),
-                    ],
-                  );
+                itemCount: postContents.length,
+                itemBuilder: (context, index) {
+                  if (widget.type == HomeConstant.openType && index == 0) {
+                    return _buildChatRooms();
+                  } else if (widget.type == HomeConstant.followType && index == 0) {
+                    return const SizedBox();
+                  } else {
+                    return _buildPublishContent(postContents[index - 1]);
+                  }
                 }),
           ),
         ),
@@ -218,32 +221,15 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     );
   }
 
-  /// 用户发表的内容列表
-  _buildPublishContents() {
-    List<PostContents> postContents = [];
-    contentModel.posts?.forEach((post) {
-      if (post.postType == null) {
-        postContents.add(post);
-      }
-    });
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(CommonConstant.mainLRPadding)),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: postContents.length,
-        itemBuilder: (context, index) {
-          return _buildPublishContent(postContents[index]);
-        },
-      ),
-    );
-  }
-
   /// 用户发表的内容列表子项
   _buildPublishContent(PostContents content) {
     return Container(
+      padding: EdgeInsets.only(
+        left: ScreenUtil.setWidth(CommonConstant.mainLRPadding),
+        right: ScreenUtil.setWidth(CommonConstant.mainLRPadding),
+        bottom: 8,
+      ),
       margin: const EdgeInsets.only(top: 15),
-      padding: const EdgeInsets.only(bottom: 8),
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -352,7 +338,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     );
   }
 
-  // 点击更多按钮，弹出底部弹窗
+  /// 点击更多按钮，弹出底部弹窗
   _buildMoreBottomSheet() {
     List<BottomSheetParam> params = [];
     params.add(BottomSheetParam(onTap: () {}, icon: Icons.do_not_disturb_on, text: "屏蔽该用户"));
