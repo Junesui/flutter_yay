@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   _buildSliverAppBar(user),
                   // 间距
                   const SliverToBoxAdapter(
-                    child: SizedBox(height: 18),
+                    child: SizedBox(height: 10),
                   ),
                   // tabbar区域
                   _buildTabBar(user),
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       pinned: true,
       delegate: StickyTabBarDelegate(
         child: Container(
-          padding: const EdgeInsets.only(top: 10, bottom: 8),
+          padding: const EdgeInsets.only(top: 8, bottom: 8),
           decoration: const BoxDecoration(
             color: CommonConstant.primaryBackGroundColor,
             border: Border(
@@ -119,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       elevation: 0.8,
       backgroundColor: CommonConstant.primaryBackGroundColor,
       pinned: true,
-      expandedHeight: ScreenUtil.setHeight(800),
+      expandedHeight: SU.setHeight(720),
       leading: Center(
         child: MyText(
           text: user.nickname ?? "",
@@ -128,10 +128,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: CommonConstant.mainLRPadding / 2),
+          padding: EdgeInsets.only(right: SU.setWidth(CommonConstant.mainLRPadding)),
           child: Icon(
             Icons.settings,
-            size: ScreenUtil.setFontSize(60),
+            size: SU.setFontSize(60),
           ),
         ),
       ],
@@ -147,7 +147,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(
-                        flex: 4,
+                        flex: 3,
                         child: Stack(
                           children: [
                             // 背景图片
@@ -186,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         // 头像
                         ClipOval(
                           child: SizedBox(
-                            height: ScreenUtil.setHeight(260),
+                            height: SU.setHeight(260),
                             child: MyCacheNetImg(imgUrl: user.profileIconThumbnail ?? ""),
                           ),
                         ),
@@ -207,10 +207,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             ),
             // 个性签名
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                CommonConstant.mainLRPadding / 2,
+              padding: EdgeInsets.fromLTRB(
+                SU.setWidth(CommonConstant.mainLRPadding),
                 10,
-                CommonConstant.mainLRPadding / 2,
+                SU.setWidth(CommonConstant.mainLRPadding),
                 0,
               ),
               child: MyText(
@@ -250,7 +250,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   /// TabBar Item
   _buildTabBarItem(String text, int count, bool rightBorder) {
     return Container(
-      width: ScreenUtil.getScreenWidth() / 4,
+      width: SU.getScreenWidth() / 4,
       decoration: BoxDecoration(
         border: Border(
           right: BorderSide(

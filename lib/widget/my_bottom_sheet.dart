@@ -13,8 +13,8 @@ class MyBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        left: ScreenUtil.setWidth(32),
-        bottom: ScreenUtil.setHeight(50),
+        left: SU.setWidth(32),
+        bottom: SU.setHeight(50),
       ),
       decoration: const BoxDecoration(
         color: CommonConstant.primaryBackGroundColor,
@@ -35,18 +35,18 @@ class MyBottomSheet extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.only(top: ScreenUtil.setHeight(60)),
+        padding: EdgeInsets.only(top: SU.setHeight(60)),
         child: Row(
           children: [
             Icon(
               icon,
               color: Colors.grey,
-              size: ScreenUtil.setFontSize(60),
+              size: SU.setFontSize(60),
             ),
             ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 15),
                 child: SizedBox(
-                  width: ScreenUtil.setWidth(50),
+                  width: SU.setWidth(50),
                 )),
             MyText(
               text: text,

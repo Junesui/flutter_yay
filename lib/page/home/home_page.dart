@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   /// appBar
   _buildAppBar() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(30)),
+      padding: EdgeInsets.symmetric(horizontal: SU.setWidth(30)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const [
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 isScrollable: true,
                 indicatorColor: CommonConstant.primaryColor,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: TextStyle(fontSize: ScreenUtil.setFontSize(45)),
+                labelStyle: TextStyle(fontSize: SU.setFontSize(45)),
                 tabs: HomeConstant.tabbarTypes.map((type) {
                   return SizedBox(
                     height: 35,

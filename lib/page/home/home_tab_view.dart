@@ -5,7 +5,6 @@ import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/model/home/home_calling_model.dart';
 import 'package:imitate_yay/model/home/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
-import 'package:imitate_yay/page/home/home_room_item.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
@@ -16,6 +15,8 @@ import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'home_room_item.dart';
 
 /// 首页的 TabBarView
 class HomeTabView extends StatefulWidget {
@@ -51,6 +52,9 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     }
     // 监听首页滚到顶部事件
     EventBusUtil.listen<HomeBackToTopEvent>((event) {
+      setState(() {
+        postContents.removeRange(30, postContents.length);
+      });
       _scrollController.jumpTo(0);
     });
     _getHomeData();
@@ -161,7 +165,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   _buildChatRooms() {
     return Container(
       padding: const EdgeInsets.only(top: 5, bottom: 8),
-      height: ScreenUtil.setHeight(300),
+      height: SU.setHeight(300),
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -170,17 +174,28 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           ),
         ),
       ),
-      child: ListView(
+      child: CustomScrollView(
         scrollDirection: Axis.horizontal,
-        children: [
+        slivers: [
           // 创建房间
-          _buildChatRoomBothEnds(Icons.add_ic_call, "发布通话", 40, 30),
+          SliverToBoxAdapter(
+            child: _buildChatRoomBothEnds(Icons.add_ic_call, "发布通话", 40, 30),
+          ),
           // 中间房间列表
-          ...?(callingModel.posts?.map<Widget>((post) {
-            return HomeRoomItem(post: post);
-          }).toList()),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return callingModel.posts == null
+                    ? const SizedBox()
+                    : HomeRoomItem(post: callingModel.posts![index]);
+              },
+              childCount: callingModel.posts?.length ?? 0,
+            ),
+          ),
           // 查看更多
-          _buildChatRoomBothEnds(Icons.more_horiz, "查看更多", 50, 40),
+          SliverToBoxAdapter(
+            child: _buildChatRoomBothEnds(Icons.more_horiz, "查看更多", 50, 40),
+          ),
         ],
       ),
     );
@@ -190,8 +205,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   _buildChatRoomBothEnds(IconData icon, String title, double left, double right) {
     return Container(
       margin: EdgeInsets.only(
-        left: ScreenUtil.setWidth(left),
-        right: ScreenUtil.setWidth(right),
+        left: SU.setWidth(left),
+        right: SU.setWidth(right),
         bottom: 2,
       ),
       child: Column(
@@ -200,8 +215,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
             flex: 1,
             child: Center(
               child: Container(
-                width: ScreenUtil.setWidth(150),
-                height: ScreenUtil.setHeight(150),
+                width: SU.setWidth(150),
+                height: SU.setHeight(150),
                 decoration: BoxDecoration(
                   border: Border.all(color: const Color(0xff545050), width: 2),
                   borderRadius: BorderRadius.circular(75),
@@ -225,8 +240,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   _buildPublishContent(PostContents content) {
     return Container(
       padding: EdgeInsets.only(
-        left: ScreenUtil.setWidth(CommonConstant.mainLRPadding),
-        right: ScreenUtil.setWidth(CommonConstant.mainLRPadding),
+        left: SU.setWidth(CommonConstant.mainLRPadding),
+        right: SU.setWidth(CommonConstant.mainLRPadding),
         bottom: 8,
       ),
       margin: const EdgeInsets.only(top: 15),
@@ -244,8 +259,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           // 左侧用户头像
           ClipOval(
             child: SizedBox(
-              height: ScreenUtil.setHeight(90),
-              width: ScreenUtil.setWidth(90),
+              height: SU.setHeight(90),
+              width: SU.setWidth(90),
               child: MyCacheNetImg(imgUrl: content.user?.profileIconThumbnail ?? ""),
             ),
           ),

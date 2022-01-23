@@ -115,8 +115,7 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
     return MyLoadingContainer(
       isLoading: _isLoading,
       child: Container(
-        padding:
-            EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(CommonConstant.mainLRPadding)),
+        padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
         child: MyPullToRefresh(
           refreshController: _refreshControllerList[_categoryTabBarIndex],
           onRefresh: _onRefresh,
@@ -157,16 +156,16 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
   /// 讨论组封面
   _buildCover(Groups group) {
     return SizedBox(
-      height: ScreenUtil.setHeight(255),
-      width: ScreenUtil.setWidth(255),
+      height: SU.setHeight(255),
+      width: SU.setWidth(255),
       child: Stack(
         children: [
           // 组封面图
           SizedBox(
-            height: ScreenUtil.setHeight(240),
-            width: ScreenUtil.setWidth(240),
+            height: SU.setHeight(240),
+            width: SU.setWidth(240),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(ScreenUtil.setHeight(50)),
+              borderRadius: BorderRadius.circular(SU.setHeight(50)),
               child: MyCacheNetImg(imgUrl: group.coverImageThumbnail ?? ""),
             ),
           ),
@@ -174,8 +173,8 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
           Align(
             alignment: Alignment.bottomRight,
             child: SizedBox(
-              height: ScreenUtil.setHeight(100),
-              width: ScreenUtil.setWidth(100),
+              height: SU.setHeight(100),
+              width: SU.setWidth(100),
               child: ClipOval(
                 child: MyCacheNetImg(imgUrl: group.owner?.profileIconThumbnail ?? ""),
               ),
@@ -309,7 +308,7 @@ class _CircleTabViewState extends State<CircleTabView> with AutomaticKeepAliveCl
           Icon(
             icon,
             color: Colors.white24,
-            size: ScreenUtil.setFontSize(45),
+            size: SU.setFontSize(45),
           ),
           const SizedBox(width: 2),
           MyText(

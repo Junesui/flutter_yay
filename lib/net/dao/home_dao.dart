@@ -14,7 +14,7 @@ class HomeDao {
   /// get : https://api.yay.space/v2/posts/timeline?number=10
   ///  首页发布的内容
   static Future<HomeContentModel> getPostContent() async {
-    String url = "https://api.yay.space/v2/posts/timeline?number=100";
+    String url = "https://api.yay.space/v2/posts/timeline?number=50";
     var response = await Dio().get(url);
     return HomeContentModel.fromJson(response.data);
   }

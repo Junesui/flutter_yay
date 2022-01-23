@@ -31,7 +31,7 @@ class MyText extends StatelessWidget {
       maxLines: maxLines,
       style: TextStyle(
         color: color,
-        fontSize: ScreenUtil.setFontSize(fontSize),
+        fontSize: SU.setFontSize(fontSize),
         fontWeight: fontWeight,
         decoration: decoration,
         overflow: overflow,

@@ -33,8 +33,8 @@ class _WelcomePageState extends State<WelcomePage> {
             Positioned(
               bottom: 0,
               child: Container(
-                width: ScreenUtil.getScreenWidth(),
-                height: ScreenUtil.getScreenHeight() / 3.5,
+                width: SU.getScreenWidth(),
+                height: SU.getScreenHeight() / 3.5,
                 decoration: const BoxDecoration(
                   color: Color(0xcc788c82),
                   border: Border(
@@ -62,8 +62,8 @@ class _WelcomePageState extends State<WelcomePage> {
   _buildRegisterBtn() {
     return Center(
       child: SizedBox(
-        width: ScreenUtil.setWidth(450),
-        height: ScreenUtil.setHeight(108),
+        width: SU.setWidth(450),
+        height: SU.setHeight(108),
         child: ElevatedButton(
           onPressed: () {
             print("click register button");
@@ -73,7 +73,7 @@ class _WelcomePageState extends State<WelcomePage> {
               elevation: 0,
               primary: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(ScreenUtil.setHeight(50)),
+                borderRadius: BorderRadius.circular(SU.setHeight(50)),
               )),
           child: const MyText(
             text: "注 册",

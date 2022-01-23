@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             Icon(
               Icons.check_circle,
               color: Colors.white60,
-              size: myScreenUtil.ScreenUtil.setFontSize(45),
+              size: myScreenUtil.SU.setFontSize(45),
             ),
             const SizedBox(width: 5),
             const MyText(
@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             Icon(
               Icons.error,
               color: Colors.white60,
-              size: myScreenUtil.ScreenUtil.setFontSize(45),
+              size: myScreenUtil.SU.setFontSize(45),
             ),
             const SizedBox(width: 5),
             const MyText(

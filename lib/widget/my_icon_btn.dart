@@ -18,7 +18,7 @@ class MyIconBtn extends StatelessWidget {
         icon: Icon(
           icon,
           color: Colors.grey,
-          size: ScreenUtil.setFontSize(size),
+          size: SU.setFontSize(size),
         ));
   }
 }

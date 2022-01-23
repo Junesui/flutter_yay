@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/model/profile/profile_post_model.dart';
 import 'package:imitate_yay/net/dao/profile_dao.dart';
+import 'package:imitate_yay/page/profile/profile_post_view.dart';
 
+/// 我的页面 TabView
 class ProfileTabView extends StatefulWidget {
   // TabBar的索引
   final int index;
@@ -12,7 +14,7 @@ class ProfileTabView extends StatefulWidget {
   _ProfileTabViewState createState() => _ProfileTabViewState();
 }
 
-class _ProfileTabViewState extends State<ProfileTabView> with AutomaticKeepAliveClientMixin {
+class _ProfileTabViewState extends State<ProfileTabView> {
   ProfilePostModel? profilePostModel;
   final ScrollController _scrollController = ScrollController();
 
@@ -30,23 +32,27 @@ class _ProfileTabViewState extends State<ProfileTabView> with AutomaticKeepAlive
     super.dispose();
   }
 
-  @override
-  bool get wantKeepAlive => true;
+  // @override
+  // bool get wantKeepAlive => true;
 
   /// 获取用户发布的信息
   _getPostData() async {
     await ProfileDao.getProfilePostData().then((model) {
       setState(() {
         profilePostModel = model;
+        print("model --> $profilePostModel");
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
     switch (widget.index) {
       case 0:
-        return _buildPostView();
+        return profilePostModel == null
+            ? const SizedBox()
+            : ProfilePostView(profilePostModel: profilePostModel!);
       case 1:
         return Container(color: Colors.orange[900]);
       case 2:
@@ -56,34 +62,5 @@ class _ProfileTabViewState extends State<ProfileTabView> with AutomaticKeepAlive
       default:
         return Container(color: Colors.orange[200]);
     }
-  }
-
-  /// 投稿
-  _buildPostView() {
-    return ListView(
-      children: [
-        // 发布的图片
-        Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: 0.2,
-                color: Colors.white24,
-              ),
-            ),
-          ),
-          child: ListView(
-            children: [
-              ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Text("");
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
   }
 }

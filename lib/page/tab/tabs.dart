@@ -76,7 +76,7 @@ class _TabsState extends State<Tabs> {
         selectedItemColor: CommonConstant.primaryColor,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        iconSize: ScreenUtil.setFontSize(70),
+        iconSize: SU.setFontSize(70),
         onTap: (index) {
           //  如果当前页是首页，则发送首页回到顶部事件
           if (_currentIndex == index) {

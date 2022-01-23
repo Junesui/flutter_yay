@@ -68,24 +68,24 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
   /// 搜索框
   _buildSearchBox() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(CommonConstant.mainLRPadding)),
+      margin: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
       padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
       decoration: BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(ScreenUtil.setHeight(50)),
+        borderRadius: BorderRadius.circular(SU.setHeight(50)),
       ),
       child: Row(
         children: [
           Icon(
             Icons.search,
             color: Colors.grey[600] ?? Colors.grey,
-            size: ScreenUtil.setFontSize(65),
+            size: SU.setFontSize(65),
           ),
           const SizedBox(width: 6),
           MyText(
             text: "サークルを検索",
             color: Colors.grey[600] ?? Colors.grey,
-            fontSize: ScreenUtil.setFontSize(120),
+            fontSize: SU.setFontSize(120),
           )
         ],
       ),
@@ -152,10 +152,9 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
         unselectedLabelColor: Colors.grey,
         indicator: BoxDecoration(
           color: Colors.black87,
-          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(20)),
+          borderRadius: BorderRadius.circular(SU.setHeight(20)),
         ),
-        labelPadding:
-            EdgeInsets.only(top: ScreenUtil.setHeight(20), bottom: ScreenUtil.setHeight(10)),
+        labelPadding: EdgeInsets.only(top: SU.setHeight(20), bottom: SU.setHeight(10)),
         tabs: [
           // 固定分类 tabBar
           _buildTabBarItem(const Icon(Icons.home, color: Colors.grey), "参加中", 0),
@@ -175,9 +174,9 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
   /// TabBar 子项
   _buildTabBarItem(Widget child, String name, int index) {
     return Container(
-      height: ScreenUtil.setHeight(200),
-      width: ScreenUtil.setWidth(180),
-      margin: EdgeInsets.symmetric(horizontal: ScreenUtil.setWidth(24)),
+      height: SU.setHeight(200),
+      width: SU.setWidth(180),
+      margin: EdgeInsets.symmetric(horizontal: SU.setWidth(24)),
       child: Column(
         children: [
           // 图标
@@ -186,7 +185,7 @@ class _CirclePageState extends State<CirclePage> with SingleTickerProviderStateM
               aspectRatio: 1,
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(ScreenUtil.setHeight(100)),
+                    borderRadius: BorderRadius.circular(SU.setHeight(100)),
                     border: Border.all(
                       color: Colors.grey,
                       width: 1,

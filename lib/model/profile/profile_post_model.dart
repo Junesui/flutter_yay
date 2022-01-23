@@ -1,7 +1,3 @@
-/// result : "success"
-/// posts : [{"id":244852666,"text":"","group_id":null,"font_size":0,"likes_count":1,"post_type":"image","color":0,"reposts_count":0,"created_at":1642742279,"updated_at":1642742279,"reported_count":0,"in_reply_to_post_count":0,"repostable":false,"attachment":"https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg","attachment_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/thumb_zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg","user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}},{"id":244851884,"text":"1","group_id":null,"font_size":0,"likes_count":0,"post_type":"call","color":0,"reposts_count":0,"created_at":1642741960,"updated_at":1642741960,"reported_count":0,"in_reply_to_post_count":0,"repostable":false,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false},"conference_call":{"id":49121176,"active":false,"conference_call_users_count":1,"call_type":"vdo","server":"wss://webrtc-p-002.batiapps.com:8443/room","mode":"call","agora_channel":"yay-49121176","agora_token":"00679046b8c9be54945b7f10a4d128d5395IABSAtnyl66tq2f6qh1WIDVl4qkPsaURAZS89KpBPPRH/3JYtjAAAAAAIgBdx2va1JXrYQQAAQAAAAAAAgAAAAAAAwAAAAAABAAAAAAA","locked":false,"open":false,"anonymous_call_users_count":0,"joinable_by":"users","max_participants":8,"post_id":244851884,"duration":7,"game":null,"conference_call_users":[{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}]}},{"id":244850740,"text":"そうですか\n何か問題あったら聞いてください","group_id":null,"font_size":0,"likes_count":0,"post_type":null,"color":0,"reposts_count":0,"created_at":1642741484,"updated_at":1642741484,"reported_count":0,"in_reply_to_post_count":0,"repostable":false,"in_reply_to":244593237,"conversation_id":15669743,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false},"in_reply_to_post":{"id":244593237,"text":"課題だったんですけど、期限も過ぎて終わったので大丈夫です。ありがとうございます。\nm(*_ _)m","group_id":null,"color":0,"created_at":1642664559,"user":{"id":4632942,"username":"JMAG235","nickname":"ななな","prefecture":"山口県","biography":"02    19歳    学生\n男女共にたくさん友達欲しいです\nチャット派だけど通話もしたい\nフォロバしてくれなかったらフォローはずすかもm(*_ _)m","followers_count":463,"followings_count":456,"gender":1,"ticket":0,"is_private":true,"title":null,"posts_count":70,"groups_users_count":25,"reviews_count":30,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","cover_image":null,"profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/thumb_EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","last_loggedin_at":1642738229,"created_at":1639791568,"login_streak_count":35,"is_online":false,"online_status":"offline","country_code":"JP","vip":false,"mobile_verified":true,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}},"mentions":[{"id":4632942,"nickname":"ななな","prefecture":"山口県","followers_count":463,"followings_count":456,"gender":1,"is_private":true,"title":null,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/thumb_EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","created_at":1639791568}]},{"id":244347441,"text":"できますけど","group_id":null,"font_size":0,"likes_count":0,"post_type":null,"color":0,"reposts_count":0,"created_at":1642588051,"updated_at":1642588051,"reported_count":0,"in_reply_to_post_count":1,"repostable":false,"in_reply_to":243816699,"conversation_id":15669743,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false},"in_reply_to_post":{"id":243816699,"text":"Excelの計算式できますか？？","group_id":null,"color":0,"created_at":1642423789,"user":{"id":4632942,"username":"JMAG235","nickname":"ななな","prefecture":"山口県","biography":"02    19歳    学生\n男女共にたくさん友達欲しいです\nチャット派だけど通話もしたい\nフォロバしてくれなかったらフォローはずすかもm(*_ _)m","followers_count":463,"followings_count":456,"gender":1,"ticket":0,"is_private":true,"title":null,"posts_count":70,"groups_users_count":25,"reviews_count":30,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","cover_image":null,"profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/thumb_EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","last_loggedin_at":1642738229,"created_at":1639791568,"login_streak_count":35,"is_online":false,"online_status":"offline","country_code":"JP","vip":false,"mobile_verified":true,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}},"mentions":[{"id":4632942,"nickname":"ななな","prefecture":"山口県","followers_count":463,"followings_count":456,"gender":1,"is_private":true,"title":null,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/thumb_EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","created_at":1639791568}]},{"id":243786993,"text":"何か質問がありますか","group_id":null,"font_size":0,"likes_count":1,"post_type":null,"color":0,"reposts_count":0,"created_at":1642418912,"updated_at":1642418912,"reported_count":0,"in_reply_to_post_count":1,"repostable":false,"in_reply_to":243755121,"conversation_id":15669743,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false},"in_reply_to_post":{"id":243755121,"text":"パソコン得意な人教えてー\nm(*_ _)m","group_id":null,"color":0,"created_at":1642412066,"user":{"id":4632942,"username":"JMAG235","nickname":"ななな","prefecture":"山口県","biography":"02    19歳    学生\n男女共にたくさん友達欲しいです\nチャット派だけど通話もしたい\nフォロバしてくれなかったらフォローはずすかもm(*_ _)m","followers_count":463,"followings_count":456,"gender":1,"ticket":0,"is_private":true,"title":null,"posts_count":70,"groups_users_count":25,"reviews_count":30,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","cover_image":null,"profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/thumb_EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","last_loggedin_at":1642738229,"created_at":1639791568,"login_streak_count":35,"is_online":false,"online_status":"offline","country_code":"JP","vip":false,"mobile_verified":true,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}},"mentions":[{"id":4632942,"nickname":"ななな","prefecture":"山口県","followers_count":463,"followings_count":456,"gender":1,"is_private":true,"title":null,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/14/thumb_EkmEQeTDQMsTBdsA_1642156474708_0_size_432x432.jpg","created_at":1639791568}]},{"id":243140244,"text":"フォロワーもらいたいです。10人でいいです。笑","group_id":null,"font_size":0,"likes_count":1,"post_type":null,"color":0,"reposts_count":0,"created_at":1642244359,"updated_at":1642244359,"reported_count":0,"in_reply_to_post_count":1,"repostable":false,"in_reply_to":243138409,"conversation_id":15614667,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false},"in_reply_to_post":{"id":243138409,"text":"レター送れなかったんでこっちに失礼します\n\nふぉろーあざまぁす！\nなんとなくサークル見たらうちにサークル入ってくれてるやん！\nまじであざます！","group_id":null,"color":0,"created_at":1642243945,"user":{"id":4519946,"username":null,"nickname":"ゆきもも","prefecture":"","biography":"旦那さん→翼\nお母さん兼親友→なな元\nお姉ちゃん兼親友→牛乳\nお兄ちゃん→りょうた/遊\n弟→翠瀬\nペット兼親友→るき元\nペット→すこっち/そう\n親友→バルカン4号/mikan\n","followers_count":1159,"followings_count":1328,"gender":1,"ticket":0,"is_private":false,"title":null,"posts_count":1406,"groups_users_count":26,"reviews_count":334,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/1/gYnqB8NTzE27pPQT_1641034935975_0_size_937x937.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2022/1/1/x9jJrejigpPEHWx2_1641026220919_0_size_1920x960.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/1/thumb_gYnqB8NTzE27pPQT_1641034935975_0_size_937x937.jpg","last_loggedin_at":1642728656,"created_at":1637745340,"login_streak_count":23,"is_online":false,"online_status":"offline","country_code":"JP","vip":false,"mobile_verified":true,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":0,"new_user":false}},"mentions":[{"id":4519946,"nickname":"ゆきもも","prefecture":"","followers_count":1159,"followings_count":1328,"gender":1,"is_private":false,"title":null,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/1/gYnqB8NTzE27pPQT_1641034935975_0_size_937x937.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2022/1/1/thumb_gYnqB8NTzE27pPQT_1641034935975_0_size_937x937.jpg","created_at":1637745340}]},{"id":243134669,"text":"フォローしてくれませんか？","group_id":null,"font_size":0,"likes_count":1,"post_type":null,"color":0,"reposts_count":0,"created_at":1642243103,"updated_at":1642243945,"reported_count":0,"in_reply_to_post_count":3,"repostable":false,"conversation_id":15614667,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}},{"id":124165204,"text":"Yay!に登録しました！よろしくお願いします！\n#初めての投稿","group_id":null,"font_size":0,"likes_count":17,"post_type":null,"color":0,"reposts_count":0,"created_at":1617060757,"updated_at":1617060757,"reported_count":0,"in_reply_to_post_count":0,"repostable":false,"user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}}]
-/// pinned_post : {"id":244852666,"text":"","group_id":null,"font_size":0,"likes_count":1,"post_type":"image","color":0,"reposts_count":0,"created_at":1642742279,"updated_at":1642742279,"reported_count":0,"in_reply_to_post_count":0,"repostable":false,"attachment":"https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg","attachment_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/thumb_zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg","user":{"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}}
-
 class ProfilePostModel {
   ProfilePostModel({
     this.result,
@@ -17,7 +13,7 @@ class ProfilePostModel {
         posts?.add(Posts.fromJson(v));
       });
     }
-    pinnedPost = json['pinned_post'] != null ? Pinned_post.fromJson(json['pinnedPost']) : null;
+    pinnedPost = json['pinned_post'] != null ? Pinned_post.fromJson(json['pinned_post']) : null;
   }
   String? result;
   List<Posts>? posts;
@@ -35,23 +31,6 @@ class ProfilePostModel {
     return map;
   }
 }
-
-/// id : 244852666
-/// text : ""
-/// group_id : null
-/// font_size : 0
-/// likes_count : 1
-/// post_type : "image"
-/// color : 0
-/// reposts_count : 0
-/// created_at : 1642742279
-/// updated_at : 1642742279
-/// reported_count : 0
-/// in_reply_to_post_count : 0
-/// repostable : false
-/// attachment : "https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg"
-/// attachment_thumbnail : "https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/thumb_zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg"
-/// user : {"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}
 
 class Pinned_post {
   Pinned_post({
@@ -89,6 +68,16 @@ class Pinned_post {
     repostable = json['repostable'];
     attachment = json['attachment'];
     attachmentThumbnail = json['attachment_thumbnail'];
+
+    attachment2Thumbnail = json['attachment_2_thumbnail'];
+    attachment3Thumbnail = json['attachment_3_thumbnail'];
+    attachment4Thumbnail = json['attachment_4_thumbnail'];
+    attachment5Thumbnail = json['attachment_5_thumbnail'];
+    attachment6Thumbnail = json['attachment_6_thumbnail'];
+    attachment7Thumbnail = json['attachment_7_thumbnail'];
+    attachment8Thumbnail = json['attachment_8_thumbnail'];
+    attachment9Thumbnail = json['attachment_9_thumbnail'];
+
     user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
   int? id;
@@ -106,6 +95,14 @@ class Pinned_post {
   bool? repostable;
   String? attachment;
   String? attachmentThumbnail;
+  String? attachment2Thumbnail;
+  String? attachment3Thumbnail;
+  String? attachment4Thumbnail;
+  String? attachment5Thumbnail;
+  String? attachment6Thumbnail;
+  String? attachment7Thumbnail;
+  String? attachment8Thumbnail;
+  String? attachment9Thumbnail;
   User? user;
 
   Map<String, dynamic> toJson() {
@@ -125,43 +122,22 @@ class Pinned_post {
     map['repostable'] = repostable;
     map['attachment'] = attachment;
     map['attachment_thumbnail'] = attachmentThumbnail;
+
+    map['attachment_2_thumbnail'] = attachment2Thumbnail;
+    map['attachment_3_thumbnail'] = attachment3Thumbnail;
+    map['attachment_4_thumbnail'] = attachment4Thumbnail;
+    map['attachment_5_thumbnail'] = attachment5Thumbnail;
+    map['attachment_6_thumbnail'] = attachment6Thumbnail;
+    map['attachment_7_thumbnail'] = attachment7Thumbnail;
+    map['attachment_8_thumbnail'] = attachment8Thumbnail;
+    map['attachment_9_thumbnail'] = attachment9Thumbnail;
+
     if (user != null) {
       map['user'] = user?.toJson();
     }
     return map;
   }
 }
-
-/// id : 2779412
-/// username : null
-/// nickname : "シン"
-/// prefecture : "千葉県"
-/// biography : "お願いします"
-/// followers_count : 30
-/// followings_count : 27
-/// gender : 0
-/// ticket : 0
-/// is_private : false
-/// title : null
-/// posts_count : 12
-/// groups_users_count : 4
-/// reviews_count : 0
-/// profile_icon : "https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg"
-/// cover_image : "https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg"
-/// profile_icon_thumbnail : "https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg"
-/// last_loggedin_at : 1642742450
-/// created_at : 1617060721
-/// login_streak_count : 15
-/// is_online : true
-/// online_status : "online"
-/// country_code : "JP"
-/// vip : false
-/// mobile_verified : false
-/// age_verified : true
-/// recently_kenta : false
-/// dangerous_user : false
-/// generation : 3
-/// new_user : false
 
 class User {
   User({
@@ -296,23 +272,6 @@ class User {
   }
 }
 
-/// id : 244852666
-/// text : ""
-/// group_id : null
-/// font_size : 0
-/// likes_count : 1
-/// post_type : "image"
-/// color : 0
-/// reposts_count : 0
-/// created_at : 1642742279
-/// updated_at : 1642742279
-/// reported_count : 0
-/// in_reply_to_post_count : 0
-/// repostable : false
-/// attachment : "https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg"
-/// attachment_thumbnail : "https://yay-cdn.com/file/yay-space/uploads/post/2022/1/21/thumb_zt32g3pu2uO3uuzp_1642742275013_0_size_1080x826.jpg"
-/// user : {"id":2779412,"username":null,"nickname":"シン","prefecture":"千葉県","biography":"お願いします","followers_count":30,"followings_count":27,"gender":0,"ticket":0,"is_private":false,"title":null,"posts_count":12,"groups_users_count":4,"reviews_count":0,"profile_icon":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","cover_image":"https://yay-cdn.com/file/yay-space/uploads/user_cover/2021/4/12/6138C30F-4B02-4B03-A37D-D9900E393753_1618235359_0.jpg","profile_icon_thumbnail":"https://yay-cdn.com/file/yay-space/uploads/user_avatar/2021/12/15/thumb_rBi9UVCPokoSfmtc_1639529855_0_size_1536x1536.jpg","last_loggedin_at":1642742450,"created_at":1617060721,"login_streak_count":15,"is_online":true,"online_status":"online","country_code":"JP","vip":false,"mobile_verified":false,"age_verified":true,"recently_kenta":false,"dangerous_user":false,"generation":3,"new_user":false}
-
 class Posts {
   Posts({
     this.id,
@@ -330,7 +289,16 @@ class Posts {
     this.repostable,
     this.attachment,
     this.attachmentThumbnail,
+    this.attachment2Thumbnail,
+    this.attachment3Thumbnail,
+    this.attachment4Thumbnail,
+    this.attachment5Thumbnail,
+    this.attachment6Thumbnail,
+    this.attachment7Thumbnail,
+    this.attachment8Thumbnail,
+    this.attachment9Thumbnail,
     this.user,
+    this.conferenceCall,
   });
 
   Posts.fromJson(dynamic json) {
@@ -350,6 +318,8 @@ class Posts {
     attachment = json['attachment'];
     attachmentThumbnail = json['attachment_thumbnail'];
     user = json['user'] != null ? User.fromJson(json['user']) : null;
+    conferenceCall =
+        json['conference_call'] != null ? Conference_call.fromJson(json['conference_call']) : null;
   }
   int? id;
   String? text;
@@ -366,7 +336,16 @@ class Posts {
   bool? repostable;
   String? attachment;
   String? attachmentThumbnail;
+  String? attachment2Thumbnail;
+  String? attachment3Thumbnail;
+  String? attachment4Thumbnail;
+  String? attachment5Thumbnail;
+  String? attachment6Thumbnail;
+  String? attachment7Thumbnail;
+  String? attachment8Thumbnail;
+  String? attachment9Thumbnail;
   User? user;
+  Conference_call? conferenceCall;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -385,9 +364,234 @@ class Posts {
     map['repostable'] = repostable;
     map['attachment'] = attachment;
     map['attachment_thumbnail'] = attachmentThumbnail;
+
     if (user != null) {
       map['user'] = user?.toJson();
     }
+    if (conferenceCall != null) {
+      map['conference_call'] = conferenceCall?.toJson();
+    }
+    return map;
+  }
+}
+
+class Conference_call {
+  Conference_call({
+    this.id,
+    this.active,
+    this.conferenceCallUsersCount,
+    this.callType,
+    this.server,
+    this.mode,
+    this.agoraChannel,
+    this.agoraToken,
+    this.locked,
+    this.open,
+    this.anonymousCallUsersCount,
+    this.joinableBy,
+    this.maxParticipants,
+    this.postId,
+    this.duration,
+    this.game,
+    this.conferenceCallUsers,
+  });
+
+  Conference_call.fromJson(dynamic json) {
+    id = json['id'];
+    active = json['active'];
+    conferenceCallUsersCount = json['conference_call_users_count'];
+    callType = json['call_type'];
+    server = json['server'];
+    mode = json['mode'];
+    agoraChannel = json['agora_channel'];
+    agoraToken = json['agora_token'];
+    locked = json['locked'];
+    open = json['open'];
+    anonymousCallUsersCount = json['anonymous_call_users_count'];
+    joinableBy = json['joinable_by'];
+    maxParticipants = json['max_participants'];
+    postId = json['post_id'];
+    duration = json['duration'];
+    game = json['game'];
+    if (json['conference_call_users'] != null) {
+      conferenceCallUsers = [];
+      json['conference_call_users'].forEach((v) {
+        conferenceCallUsers?.add(Conference_call_users.fromJson(v));
+      });
+    }
+  }
+  int? id;
+  bool? active;
+  int? conferenceCallUsersCount;
+  dynamic callType;
+  String? server;
+  String? mode;
+  String? agoraChannel;
+  String? agoraToken;
+  bool? locked;
+  bool? open;
+  int? anonymousCallUsersCount;
+  String? joinableBy;
+  int? maxParticipants;
+  int? postId;
+  int? duration;
+  dynamic game;
+  List<Conference_call_users>? conferenceCallUsers;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['active'] = active;
+    map['conference_call_users_count'] = conferenceCallUsersCount;
+    map['call_type'] = callType;
+    map['server'] = server;
+    map['mode'] = mode;
+    map['agora_channel'] = agoraChannel;
+    map['agora_token'] = agoraToken;
+    map['locked'] = locked;
+    map['open'] = open;
+    map['anonymous_call_users_count'] = anonymousCallUsersCount;
+    map['joinable_by'] = joinableBy;
+    map['max_participants'] = maxParticipants;
+    map['post_id'] = postId;
+    map['duration'] = duration;
+    map['game'] = game;
+    if (conferenceCallUsers != null) {
+      map['conference_call_users'] = conferenceCallUsers?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}
+
+class Conference_call_users {
+  Conference_call_users({
+    this.id,
+    this.username,
+    this.nickname,
+    this.prefecture,
+    this.biography,
+    this.followersCount,
+    this.followingsCount,
+    this.gender,
+    this.ticket,
+    this.isPrivate,
+    this.title,
+    this.postsCount,
+    this.groupsUsersCount,
+    this.reviewsCount,
+    this.profileIcon,
+    this.coverImage,
+    this.profileIconThumbnail,
+    this.lastLoggedinAt,
+    this.createdAt,
+    this.loginStreakCount,
+    this.isOnline,
+    this.onlineStatus,
+    this.countryCode,
+    this.vip,
+    this.mobileVerified,
+    this.ageVerified,
+    this.recentlyKenta,
+    this.dangerousUser,
+    this.generation,
+    this.newUser,
+  });
+
+  Conference_call_users.fromJson(dynamic json) {
+    id = json['id'];
+    username = json['username'];
+    nickname = json['nickname'];
+    prefecture = json['prefecture'];
+    biography = json['biography'];
+    followersCount = json['followers_count'];
+    followingsCount = json['followings_count'];
+    gender = json['gender'];
+    ticket = json['ticket'];
+    isPrivate = json['is_private'];
+    title = json['title'];
+    postsCount = json['posts_count'];
+    groupsUsersCount = json['groups_users_count'];
+    reviewsCount = json['reviews_count'];
+    profileIcon = json['profile_icon'];
+    coverImage = json['cover_image'];
+    profileIconThumbnail = json['profile_icon_thumbnail'];
+    lastLoggedinAt = json['last_loggedin_at'];
+    createdAt = json['created_at'];
+    loginStreakCount = json['login_streak_count'];
+    isOnline = json['is_online'];
+    onlineStatus = json['online_status'];
+    countryCode = json['country_code'];
+    vip = json['vip'];
+    mobileVerified = json['mobile_verified'];
+    ageVerified = json['age_verified'];
+    recentlyKenta = json['recently_kenta'];
+    dangerousUser = json['dangerous_user'];
+    generation = json['generation'];
+    newUser = json['new_user'];
+  }
+  int? id;
+  dynamic username;
+  String? nickname;
+  String? prefecture;
+  String? biography;
+  int? followersCount;
+  int? followingsCount;
+  int? gender;
+  int? ticket;
+  bool? isPrivate;
+  dynamic title;
+  int? postsCount;
+  int? groupsUsersCount;
+  int? reviewsCount;
+  String? profileIcon;
+  String? coverImage;
+  String? profileIconThumbnail;
+  int? lastLoggedinAt;
+  int? createdAt;
+  int? loginStreakCount;
+  bool? isOnline;
+  String? onlineStatus;
+  String? countryCode;
+  bool? vip;
+  bool? mobileVerified;
+  bool? ageVerified;
+  bool? recentlyKenta;
+  bool? dangerousUser;
+  int? generation;
+  bool? newUser;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['username'] = username;
+    map['nickname'] = nickname;
+    map['prefecture'] = prefecture;
+    map['biography'] = biography;
+    map['followers_count'] = followersCount;
+    map['followings_count'] = followingsCount;
+    map['gender'] = gender;
+    map['ticket'] = ticket;
+    map['is_private'] = isPrivate;
+    map['title'] = title;
+    map['posts_count'] = postsCount;
+    map['groups_users_count'] = groupsUsersCount;
+    map['reviews_count'] = reviewsCount;
+    map['profile_icon'] = profileIcon;
+    map['cover_image'] = coverImage;
+    map['profile_icon_thumbnail'] = profileIconThumbnail;
+    map['last_loggedin_at'] = lastLoggedinAt;
+    map['created_at'] = createdAt;
+    map['login_streak_count'] = loginStreakCount;
+    map['is_online'] = isOnline;
+    map['online_status'] = onlineStatus;
+    map['country_code'] = countryCode;
+    map['vip'] = vip;
+    map['mobile_verified'] = mobileVerified;
+    map['age_verified'] = ageVerified;
+    map['recently_kenta'] = recentlyKenta;
+    map['dangerous_user'] = dangerousUser;
+    map['generation'] = generation;
+    map['new_user'] = newUser;
     return map;
   }
 }

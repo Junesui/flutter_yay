@@ -15,8 +15,8 @@ class HomeRoomItem extends StatelessWidget {
     int joinUserCnt = post.conferenceCall?.conferenceCallUsers?.length ?? 0;
     if (joinUserCnt == 0) return const SizedBox.shrink();
     return Container(
-      width: ScreenUtil.setWidth(200),
-      height: ScreenUtil.setWidth(200),
+      width: SU.setWidth(200),
+      height: SU.setWidth(200),
       margin: const EdgeInsets.only(left: 12),
       child: Column(
         children: [
@@ -33,12 +33,11 @@ class HomeRoomItem extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(ScreenUtil.setWidth(20))),
+                    color: Colors.green, borderRadius: BorderRadius.circular(SU.setWidth(20))),
                 child: Icon(
                   Icons.phone,
                   color: Colors.white,
-                  size: ScreenUtil.setFontSize(20),
+                  size: SU.setFontSize(20),
                 ),
               ),
               const SizedBox(width: 5),
@@ -61,11 +60,11 @@ class HomeRoomItem extends StatelessWidget {
         String avatarUrl = post.conferenceCall?.conferenceCallUsers![0].profileIconThumbnail ?? "";
         return PhysicalModel(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+          borderRadius: BorderRadius.circular(SU.setHeight(40)),
           clipBehavior: Clip.antiAlias,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+              borderRadius: BorderRadius.circular(SU.setHeight(40)),
               color: Colors.transparent,
             ),
             child: MyCacheNetImg(imgUrl: avatarUrl),
@@ -78,11 +77,11 @@ class HomeRoomItem extends StatelessWidget {
 
         return PhysicalModel(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+          borderRadius: BorderRadius.circular(SU.setHeight(40)),
           clipBehavior: Clip.antiAlias,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+              borderRadius: BorderRadius.circular(SU.setHeight(40)),
               color: Colors.transparent,
             ),
             child: Row(
@@ -99,11 +98,11 @@ class HomeRoomItem extends StatelessWidget {
         String avatarUrl3 = post.conferenceCall?.conferenceCallUsers![2].profileIconThumbnail ?? "";
         return PhysicalModel(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+          borderRadius: BorderRadius.circular(SU.setHeight(40)),
           clipBehavior: Clip.antiAlias,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+              borderRadius: BorderRadius.circular(SU.setHeight(40)),
               color: Colors.transparent,
             ),
             child: Column(
@@ -128,11 +127,11 @@ class HomeRoomItem extends StatelessWidget {
         String avatarUrl4 = post.conferenceCall?.conferenceCallUsers![3].profileIconThumbnail ?? "";
         return PhysicalModel(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+          borderRadius: BorderRadius.circular(SU.setHeight(40)),
           clipBehavior: Clip.antiAlias,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(ScreenUtil.setHeight(40)),
+              borderRadius: BorderRadius.circular(SU.setHeight(40)),
               color: Colors.transparent,
             ),
             child: Column(
