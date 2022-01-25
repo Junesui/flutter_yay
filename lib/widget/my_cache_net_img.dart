@@ -29,4 +29,9 @@ class MyCacheNetImg extends StatelessWidget {
       ),
     );
   }
+
+  /// 图片缓存的提供器
+  static ImageProvider provider(String imgUrl) {
+    return CachedNetworkImageProvider(imgUrl);
+  }
 }

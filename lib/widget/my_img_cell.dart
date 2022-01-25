@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:imitate_yay/util/photo_view_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 
 /// 九宫格图片展示组件
 class MyImgCell extends StatelessWidget {
   // 图片URL列表
-  final List<String> imgUrlList;
+  final List<String> imgUrls;
 
-  const MyImgCell({Key? key, required this.imgUrlList}) : super(key: key);
+  const MyImgCell({Key? key, required this.imgUrls}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (imgUrlList.length == 1) {
+    if (imgUrls.length == 1) {
       return Container(
         constraints: BoxConstraints(
           maxHeight: SU.setHeight(500),
         ),
-        child: MyCacheNetImg(imgUrl: imgUrlList[0]),
+        child: InkWell(
+          onTap: () {
+            PhotoViewUtil.view(context, imgUrls, 0);
+          },
+          child: MyCacheNetImg(imgUrl: imgUrls[0]),
+        ),
       );
     }
-    if (imgUrlList.length <= 3) {
+    if (imgUrls.length <= 3) {
       return GridView.count(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         crossAxisSpacing: 3,
-        crossAxisCount: imgUrlList.length,
-        children: imgUrlList.map((url) {
-          return MyCacheNetImg(imgUrl: url);
+        crossAxisCount: imgUrls.length,
+        children: imgUrls.map((url) {
+          return InkWell(
+            onTap: () {
+              PhotoViewUtil.view(context, imgUrls, imgUrls.indexOf(url));
+            },
+            child: MyCacheNetImg(imgUrl: url),
+          );
         }).toList(),
       );
     } else {
@@ -36,8 +47,13 @@ class MyImgCell extends StatelessWidget {
         crossAxisSpacing: 3,
         mainAxisSpacing: 3,
         crossAxisCount: 3,
-        children: imgUrlList.map((url) {
-          return MyCacheNetImg(imgUrl: url);
+        children: imgUrls.map((url) {
+          return InkWell(
+            onTap: () {
+              PhotoViewUtil.view(context, imgUrls, imgUrls.indexOf(url));
+            },
+            child: MyCacheNetImg(imgUrl: url),
+          );
         }).toList(),
       );
     }

@@ -381,9 +381,9 @@ class _ProfilePostViewState extends State<ProfilePostView> {
     List<String> imgUrlList = [];
     int imgCnt = 2;
     for (var i = 0; i < imgCnt; i++) {
-      imgUrlList.add("https://picsum.photos/id/1/300/520");
+      imgUrlList.add("https://picsum.photos/id/${i + 12}/300/520");
     }
-    return MyImgCell(imgUrlList: imgUrlList);
+    return MyImgCell(imgUrls: imgUrlList);
   }
 
   /// 点击更多按钮，弹出底部弹窗
