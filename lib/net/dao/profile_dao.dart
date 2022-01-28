@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:imitate_yay/model/profile/profile_follower_model.dart';
+import 'package:imitate_yay/model/profile/profile_letter_model.dart';
 import 'package:imitate_yay/model/profile/profile_model.dart';
 import 'package:imitate_yay/model/profile/profile_post_model.dart';
 
@@ -17,5 +19,21 @@ class ProfileDao {
     String url = "https://api.yay.space/v2/posts/user_timeline?user_id=2779412&number=50";
     var response = await Dio().get(url);
     return ProfilePostModel.fromJson(response.data);
+  }
+
+  /// https://api.yay.space/v1/users/reviews/2779412
+  /// 获取留言
+  static Future<ProfileLetterModel> getProfileLetterData() async {
+    String url = "https://api.yay.space/v1/users/reviews/2779412";
+    var response = await Dio().get(url);
+    return ProfileLetterModel.fromJson(response.data);
+  }
+
+  /// https://api.yay.space/v2/users/2779412/web_followers?number=50
+  /// 获取粉丝信息
+  static Future<ProfileFollowerModel> getProfileFollowerData() async {
+    String url = "https://api.yay.space/v2/users/2779412/web_followers?number=50";
+    var response = await Dio().get(url);
+    return ProfileFollowerModel.fromJson(response.data);
   }
 }

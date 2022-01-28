@@ -19,9 +19,13 @@ class ProfilePostView extends StatefulWidget {
   _ProfilePostViewState createState() => _ProfilePostViewState();
 }
 
-class _ProfilePostViewState extends State<ProfilePostView> {
+class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     ProfilePostModel profilePostModel = widget.profilePostModel;
     return _buildPostView(profilePostModel);
   }
@@ -381,7 +385,7 @@ class _ProfilePostViewState extends State<ProfilePostView> {
     List<String> imgUrlList = [];
     int imgCnt = 2;
     for (var i = 0; i < imgCnt; i++) {
-      imgUrlList.add("https://picsum.photos/id/${i + 12}/300/520");
+      imgUrlList.add("https://picsum.photos/id/${i + 18}/300/520");
     }
     return MyImgCell(imgUrls: imgUrlList);
   }

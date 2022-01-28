@@ -6,7 +6,9 @@ import 'package:imitate_yay/net/dao/profile_dao.dart';
 import 'package:imitate_yay/page/profile/profile_tab_view.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
+import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   ProfileModel? profileModel;
   late TabController _tabController;
+  final RefreshController _refreshController = RefreshController();
 
   @override
   void initState() {
@@ -49,27 +52,32 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     return Scaffold(
       body: profileModel?.user == null
           ? const SizedBox()
-          : NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                User user = profileModel!.user!;
-                return <Widget>[
-                  _buildSliverAppBar(user),
-                  // 间距
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: 10),
-                  ),
-                  // tabbar区域
-                  _buildTabBar(user),
-                ];
-              },
-              body: TabBarView(
-                controller: _tabController,
-                children: const [
-                  ProfileTabView(index: 0),
-                  ProfileTabView(index: 1),
-                  ProfileTabView(index: 2),
-                  ProfileTabView(index: 3),
-                ],
+          : MyPullToRefresh(
+              refreshController: _refreshController,
+              onRefresh: () {},
+              onLoading: () {},
+              child: NestedScrollView(
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  User user = profileModel!.user!;
+                  return <Widget>[
+                    _buildSliverAppBar(user),
+                    // 间距
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 10),
+                    ),
+                    // tabbar区域
+                    _buildTabBar(user),
+                  ];
+                },
+                body: TabBarView(
+                  controller: _tabController,
+                  children: const [
+                    ProfileTabView(index: 0),
+                    ProfileTabView(index: 1),
+                    ProfileTabView(index: 2),
+                    ProfileTabView(index: 3),
+                  ],
+                ),
               ),
             ),
     );

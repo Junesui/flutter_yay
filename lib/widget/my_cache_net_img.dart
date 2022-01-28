@@ -32,6 +32,10 @@ class MyCacheNetImg extends StatelessWidget {
 
   /// 图片缓存的提供器
   static ImageProvider provider(String imgUrl) {
-    return CachedNetworkImageProvider(imgUrl);
+    if (imgUrl.isNotEmpty) {
+      return CachedNetworkImageProvider(imgUrl);
+    } else {
+      return const AssetImage("assets/images/avatar.jpg");
+    }
   }
 }

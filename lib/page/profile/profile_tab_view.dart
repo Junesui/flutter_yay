@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/model/profile/profile_post_model.dart';
 import 'package:imitate_yay/net/dao/profile_dao.dart';
+import 'package:imitate_yay/page/profile/profile_follower_view.dart';
+import 'package:imitate_yay/page/profile/profile_letter_view.dart';
 import 'package:imitate_yay/page/profile/profile_post_view.dart';
 
 /// 我的页面 TabView
@@ -54,13 +56,13 @@ class _ProfileTabViewState extends State<ProfileTabView> {
             ? const SizedBox()
             : ProfilePostView(profilePostModel: profilePostModel!);
       case 1:
-        return Container(color: Colors.orange[900]);
+        return const ProfileLetterView();
       case 2:
-        return Container(color: Colors.orange[600]);
+        return const ProfileFollowerView();
       case 3:
-        return Container(color: Colors.orange[400]);
+        return const ProfileFollowerView();
       default:
-        return Container(color: Colors.orange[200]);
+        return const SizedBox();
     }
   }
 }

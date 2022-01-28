@@ -281,6 +281,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
                         text: "${content.user!.nickname}",
                         fontSize: 40,
                         fontWeight: FontWeight.w600,
+                        maxLines: 1,
                       ),
                     ),
                     const SizedBox(width: 10),
