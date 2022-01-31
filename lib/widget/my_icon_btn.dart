@@ -6,7 +6,13 @@ class MyIconBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
   final double size;
-  const MyIconBtn({Key? key, required this.onPressed, required this.icon, this.size = 60})
+  final Color color;
+  const MyIconBtn(
+      {Key? key,
+      required this.onPressed,
+      required this.icon,
+      this.size = 60,
+      this.color = Colors.grey})
       : super(key: key);
 
   @override
@@ -17,7 +23,7 @@ class MyIconBtn extends StatelessWidget {
         onPressed: onPressed,
         icon: Icon(
           icon,
-          color: Colors.grey,
+          color: color,
           size: SU.setFontSize(size),
         ));
   }

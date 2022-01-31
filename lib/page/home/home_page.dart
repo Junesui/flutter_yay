@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
+import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_icon_btn.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
 import 'home_tab_view.dart';
@@ -28,6 +30,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -48,21 +56,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   /// appBar
   _buildAppBar() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: SU.setWidth(30)),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           // logo
           MyText(
             text: "Logo",
-            color: Colors.grey,
+            color: CommonConstant.primaryColor,
+            fontSize: 50,
+            fontWeight: FontWeight.bold,
           ),
 
           // 搜索按钮
-          Icon(
-            Icons.search,
-            color: Colors.grey,
+          MyIconBtn(
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouterName.search);
+            },
+            icon: Icons.search,
+            size: 75,
           ),
         ],
       ),

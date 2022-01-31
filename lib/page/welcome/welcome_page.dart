@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -24,10 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
           children: [
             // 背景图片
             Positioned.fill(
-              child: Image.network(
-                backImgUrl,
-                fit: BoxFit.fill,
-              ),
+              child: MyCacheNetImg(imgUrl: backImgUrl),
             ),
             // 底部注册或登录框
             Positioned(

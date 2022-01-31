@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/util/photo_view_util.dart';
+import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 
@@ -19,7 +19,10 @@ class MyImgCell extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            PhotoViewUtil.view(context, imgUrls, 0);
+            Navigator.of(context).pushNamed(
+              RouterName.photoView,
+              arguments: {"imgUrls": imgUrls, "index": 0},
+            );
           },
           child: MyCacheNetImg(imgUrl: imgUrls[0]),
         ),
@@ -34,7 +37,10 @@ class MyImgCell extends StatelessWidget {
         children: imgUrls.map((url) {
           return InkWell(
             onTap: () {
-              PhotoViewUtil.view(context, imgUrls, imgUrls.indexOf(url));
+              Navigator.of(context).pushNamed(
+                RouterName.photoView,
+                arguments: {"imgUrls": imgUrls, "index": imgUrls.indexOf(url)},
+              );
             },
             child: MyCacheNetImg(imgUrl: url),
           );
@@ -50,7 +56,10 @@ class MyImgCell extends StatelessWidget {
         children: imgUrls.map((url) {
           return InkWell(
             onTap: () {
-              PhotoViewUtil.view(context, imgUrls, imgUrls.indexOf(url));
+              Navigator.of(context).pushNamed(
+                RouterName.photoView,
+                arguments: {"imgUrls": imgUrls, "index": imgUrls.indexOf(url)},
+              );
             },
             child: MyCacheNetImg(imgUrl: url),
           );

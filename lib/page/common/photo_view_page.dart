@@ -5,16 +5,13 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 /// (点击图片)查看大图页面
 class PhotoViewPage extends StatefulWidget {
-  // 图片URL列表
-  final List<String> imgUrls;
-  // 被点击图片在图片URL列表中的index
-  final int index;
-  // 是否隐藏关闭按钮
-  final bool isHiddenCloseBtn;
+  final Map arguments;
+  // arguments 说明:
+  // 图片URL列表 - List<String> imgUrls;
+  // 被点击图片在图片URL列表中的index - int index;
+  // 是否隐藏关闭按钮 - bool isHiddenCloseBtn;[默认 true]
 
-  const PhotoViewPage(
-      {Key? key, required this.imgUrls, required this.index, this.isHiddenCloseBtn = true})
-      : super(key: key);
+  const PhotoViewPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   _PhotoViewPageState createState() => _PhotoViewPageState();
@@ -33,8 +30,8 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: widget.index);
-    _currentIndex = widget.index;
+    _pageController = PageController(initialPage: widget.arguments["index"]);
+    _currentIndex = widget.arguments["index"];
   }
 
   @override
@@ -74,13 +71,13 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
             scrollPhysics: const BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
-                imageProvider: MyCacheNetImg.provider(widget.imgUrls[index]),
+                imageProvider: MyCacheNetImg.provider(widget.arguments["imgUrls"][index]),
                 initialScale: PhotoViewComputedScale.contained,
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2,
               );
             },
-            itemCount: widget.imgUrls.length,
+            itemCount: widget.arguments["imgUrls"].length,
             loadingBuilder: (context, event) => const Center(
               child: SizedBox(
                 width: 28.0,
@@ -108,7 +105,7 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
       right: 20,
       height: 20,
       child: Offstage(
-        offstage: widget.isHiddenCloseBtn,
+        offstage: widget.arguments["isHiddenCloseBtn"] ?? true,
         child: IconButton(
           onPressed: () {},
           icon: const Icon(
@@ -126,11 +123,11 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: widget.imgUrls.length == 1 ? 0 : 50,
+        height: widget.arguments["imgUrls"].length == 1 ? 0 : 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            widget.imgUrls.length,
+            widget.arguments["imgUrls"].length,
             (index) {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 3),

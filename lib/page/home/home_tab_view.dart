@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
@@ -5,6 +6,7 @@ import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/model/home/home_calling_model.dart';
 import 'package:imitate_yay/model/home/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
+import 'package:imitate_yay/page/home/home_expanded_room.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
@@ -187,7 +189,20 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
               (context, index) {
                 return callingModel.posts == null
                     ? const SizedBox()
-                    : HomeRoomItem(post: callingModel.posts![index]);
+                    : InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  backgroundColor: Colors.transparent,
+                                  insetPadding: EdgeInsets.zero,
+                                  child: HomeExpandedRoom(posts: callingModel.posts!, index: index),
+                                );
+                              });
+                        },
+                        child: HomeRoomItem(post: callingModel.posts![index]),
+                      );
               },
               childCount: callingModel.posts?.length ?? 0,
             ),

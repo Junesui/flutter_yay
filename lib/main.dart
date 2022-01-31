@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/router/router.dart';
 import 'package:imitate_yay/util/screen_util.dart' as myScreenUtil;
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'constant/common_constant.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,8 +34,10 @@ class _MyAppState extends State<MyApp> {
       builder: () => _buildPullToRefresh(
         MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: "/",
+          initialRoute: "/search",
           onGenerateRoute: onGenerateRoute,
+
+          // 主题
           theme: ThemeData(
             scaffoldBackgroundColor: CommonConstant.primaryBackGroundColor,
             // 取消一些组件的默认点击效果

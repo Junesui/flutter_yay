@@ -47,11 +47,17 @@ class _ProfileFollowerViewState extends State<ProfileFollowerView>
             removeTop: true,
             context: context,
             child: Padding(
-              padding: const EdgeInsets.only(top: 6),
-              child: ListView.builder(
+              padding: const EdgeInsets.only(top: 12),
+              child: ListView.separated(
                 itemCount: profileFollowerModel!.users!.length,
                 itemBuilder: (context, index) {
                   return _buildFollower(profileFollowerModel!.users![index]);
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    color: Colors.white10,
+                    height: 18,
+                  );
                 },
               ),
             ),
@@ -60,56 +66,48 @@ class _ProfileFollowerViewState extends State<ProfileFollowerView>
 
   /// 粉丝子项
   _buildFollower(Users user) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.white10),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // 头像，昵称
-            Expanded(
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: SU.setHeight(60),
-                    backgroundImage: MyCacheNetImg.provider(user.profileIconThumbnail ?? ""),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // 头像，昵称
+          Expanded(
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: SU.setHeight(60),
+                  backgroundImage: MyCacheNetImg.provider(user.profileIconThumbnail ?? ""),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: MyText(
+                    text: user.nickname ?? "",
+                    fontSize: 45,
+                    maxLines: 2,
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: MyText(
-                      text: user.nickname ?? "",
-                      fontSize: 45,
-                      maxLines: 2,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(width: 18),
-            // 关注按钮
-            const Chip(
-              avatar: Icon(
-                Icons.done,
-                color: Colors.white,
-                size: 20,
-              ),
-              label: MyText(
-                text: "已关注",
-                fontSize: 35,
-              ),
-              backgroundColor: Colors.brown,
-              side: BorderSide(
-                color: Colors.brown,
-              ),
+          ),
+          const SizedBox(width: 18),
+          // 关注按钮
+          const Chip(
+            avatar: Icon(
+              Icons.done,
+              color: Colors.white,
+              size: 20,
             ),
-          ],
-        ),
+            label: MyText(
+              text: "已关注",
+              fontSize: 35,
+            ),
+            backgroundColor: Colors.brown,
+            side: BorderSide(
+              color: Colors.brown,
+            ),
+          ),
+        ],
       ),
     );
   }

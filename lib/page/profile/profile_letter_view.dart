@@ -47,96 +47,97 @@ class _ProfileLetterViewState extends State<ProfileLetterView> with AutomaticKee
         : MediaQuery.removePadding(
             removeTop: true,
             context: context,
-            child: ListView.builder(
-              itemCount: profileLetterModel!.reviews!.length,
-              itemBuilder: (context, index) {
-                return _buildLetter(profileLetterModel!.reviews![index]);
-              },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: ListView.separated(
+                itemCount: profileLetterModel!.reviews!.length,
+                itemBuilder: (context, index) {
+                  return _buildLetter(profileLetterModel!.reviews![index]);
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    color: Colors.white10,
+                    height: 32,
+                  );
+                },
+              ),
             ),
           );
   }
 
   /// 留言子项
   _buildLetter(Reviews review) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.white10),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 头像，昵称 时间
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // 头像和昵称
-                Expanded(
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: SU.setHeight(50),
-                        backgroundImage:
-                            MyCacheNetImg.provider(review.reviewer?.profileIconThumbnail ?? ""),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: MyText(
-                          text: review.reviewer?.nickname ?? "",
-                          fontSize: 42,
-                          maxLines: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // 时间
-                MyText(
-                  text: DateUtil.format(review.createdAt ?? 0).toString(),
-                  fontSize: 38,
-                  color: Colors.white38,
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            // 留言内容
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  flex: 7,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: MyText(
-                      text: review.comment ?? "",
-                      fontSize: 42,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 头像，昵称 时间
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // 头像和昵称
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: SU.setHeight(50),
+                      backgroundImage:
+                          MyCacheNetImg.provider(review.reviewer?.profileIconThumbnail ?? ""),
                     ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: MyIconBtn(
-                      onPressed: () {
-                        _buildMoreBottomSheet();
-                      },
-                      icon: Icons.more_vert,
-                      size: 68,
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: MyText(
+                        text: review.reviewer?.nickname ?? "",
+                        fontSize: 42,
+                        maxLines: 1,
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              // 时间
+              MyText(
+                text: DateUtil.format(review.createdAt ?? 0).toString(),
+                fontSize: 38,
+                color: Colors.white38,
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // 留言内容
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                flex: 7,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: MyText(
+                    text: review.comment ?? "",
+                    fontSize: 42,
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: MyIconBtn(
+                    onPressed: () {
+                      _buildMoreBottomSheet();
+                    },
+                    icon: Icons.more_vert,
+                    size: 68,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

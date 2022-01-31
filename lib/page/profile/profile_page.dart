@@ -6,9 +6,7 @@ import 'package:imitate_yay/net/dao/profile_dao.dart';
 import 'package:imitate_yay/page/profile/profile_tab_view.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
-import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -20,7 +18,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   ProfileModel? profileModel;
   late TabController _tabController;
-  final RefreshController _refreshController = RefreshController();
 
   @override
   void initState() {
@@ -50,71 +47,33 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: profileModel?.user == null
-          ? const SizedBox()
-          : MyPullToRefresh(
-              refreshController: _refreshController,
-              onRefresh: () {},
-              onLoading: () {},
-              child: NestedScrollView(
-                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                  User user = profileModel!.user!;
-                  return <Widget>[
-                    _buildSliverAppBar(user),
-                    // 间距
-                    const SliverToBoxAdapter(
-                      child: SizedBox(height: 10),
-                    ),
-                    // tabbar区域
-                    _buildTabBar(user),
-                  ];
-                },
-                body: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    ProfileTabView(index: 0),
-                    ProfileTabView(index: 1),
-                    ProfileTabView(index: 2),
-                    ProfileTabView(index: 3),
-                  ],
-                ),
-              ),
-            ),
+      body: profileModel?.user == null ? const SizedBox() : _buildNestedScrollView(),
     );
   }
 
-  /// TabBar
-  _buildTabBar(User user) {
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: StickyTabBarDelegate(
-        child: Container(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          decoration: const BoxDecoration(
-            color: CommonConstant.primaryBackGroundColor,
-            border: Border(
-              bottom: BorderSide(
-                width: 0.2,
-                color: Colors.white24,
-              ),
-            ),
+  /// NestedScrollView
+  _buildNestedScrollView() {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        User user = profileModel!.user!;
+        return <Widget>[
+          _buildSliverAppBar(user),
+          // 间距
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
           ),
-          child: TabBar(
-            controller: _tabController,
-            labelPadding: EdgeInsets.zero,
-            labelColor: CommonConstant.primaryColor,
-            unselectedLabelColor: Colors.white24,
-            indicator: const BoxDecoration(
-              color: Colors.transparent,
-            ),
-            tabs: [
-              _buildTabBarItem("投稿", user.postsCount ?? 0, true),
-              _buildTabBarItem("レター", user.reviewsCount ?? 0, true),
-              _buildTabBarItem("フォロワー", user.followersCount ?? 0, true),
-              _buildTabBarItem("フォロー中", user.followingsCount ?? 0, false),
-            ],
-          ),
-        ),
+          // tabbar区域
+          _buildTabBar(user),
+        ];
+      },
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          ProfileTabView(index: 0),
+          ProfileTabView(index: 1),
+          ProfileTabView(index: 2),
+          ProfileTabView(index: 3),
+        ],
       ),
     );
   }
@@ -228,6 +187,42 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// TabBar
+  _buildTabBar(User user) {
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: StickyTabBarDelegate(
+        child: Container(
+          padding: const EdgeInsets.only(top: 8, bottom: 8),
+          decoration: const BoxDecoration(
+            color: CommonConstant.primaryBackGroundColor,
+            border: Border(
+              bottom: BorderSide(
+                width: 0.2,
+                color: Colors.white24,
+              ),
+            ),
+          ),
+          child: TabBar(
+            controller: _tabController,
+            labelPadding: EdgeInsets.zero,
+            labelColor: CommonConstant.primaryColor,
+            unselectedLabelColor: Colors.white24,
+            indicator: const BoxDecoration(
+              color: Colors.transparent,
+            ),
+            tabs: [
+              _buildTabBarItem("投稿", user.postsCount ?? 0, true),
+              _buildTabBarItem("レター", user.reviewsCount ?? 0, true),
+              _buildTabBarItem("フォロワー", user.followersCount ?? 0, true),
+              _buildTabBarItem("フォロー中", user.followingsCount ?? 0, false),
+            ],
+          ),
         ),
       ),
     );

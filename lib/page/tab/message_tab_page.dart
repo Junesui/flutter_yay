@@ -7,9 +7,13 @@ class MessageTabPage extends StatefulWidget {
   _MessageTabPageState createState() => _MessageTabPageState();
 }
 
-class _MessageTabPageState extends State<MessageTabPage> {
+class _MessageTabPageState extends State<MessageTabPage> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container();
   }
 }
