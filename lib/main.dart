@@ -15,6 +15,8 @@ void main() {
   // 设置状态栏背景为透明
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  // 设置状态栏文字为白色
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 }
 
 class MyApp extends StatefulWidget {
@@ -34,7 +36,7 @@ class _MyAppState extends State<MyApp> {
       builder: () => _buildPullToRefresh(
         MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: "/search",
+          initialRoute: "/",
           onGenerateRoute: onGenerateRoute,
 
           // 主题

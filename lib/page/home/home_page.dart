@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // logo
-          MyText(
+          const MyText(
             text: "Logo",
             color: CommonConstant.primaryColor,
             fontSize: 50,

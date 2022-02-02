@@ -83,6 +83,7 @@ class _ProfileLetterViewState extends State<ProfileLetterView> with AutomaticKee
                   children: [
                     CircleAvatar(
                       radius: SU.setHeight(50),
+                      backgroundColor: Colors.transparent,
                       backgroundImage:
                           MyCacheNetImg.provider(review.reviewer?.profileIconThumbnail ?? ""),
                     ),

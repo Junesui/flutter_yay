@@ -12,6 +12,7 @@ class MyText extends StatelessWidget {
   final TextDecoration decoration;
   final TextOverflow overflow;
   final int maxLines;
+  final TextAlign textAlign;
 
   const MyText(
       {Key? key,
@@ -21,7 +22,8 @@ class MyText extends StatelessWidget {
       this.color = Colors.white,
       this.decoration = TextDecoration.none,
       this.overflow = TextOverflow.ellipsis,
-      this.maxLines = 999999999})
+      this.maxLines = 999999999,
+      this.textAlign = TextAlign.start})
       : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class MyText extends StatelessWidget {
     return Text(
       text,
       maxLines: maxLines,
+      textAlign: textAlign,
       style: TextStyle(
         color: color,
         fontSize: SU.setFontSize(fontSize),

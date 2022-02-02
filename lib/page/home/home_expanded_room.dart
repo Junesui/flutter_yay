@@ -85,6 +85,7 @@ class _HomeExpandedRoomState extends State<HomeExpandedRoom> {
               post.conferenceCall?.conferenceCallUsers == null
                   ? CircleAvatar(
                       backgroundImage: const AssetImage("assets/images/avatar.jpg"),
+                      backgroundColor: Colors.transparent,
                       radius: SU.setHeight(50),
                     )
                   : Wrap(

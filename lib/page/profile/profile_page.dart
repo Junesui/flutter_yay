@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/model/profile/profile_model.dart';
 import 'package:imitate_yay/net/dao/profile_dao.dart';
@@ -23,8 +22,6 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   void initState() {
     super.initState();
     // 设置状态栏背景色
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Color(0x55000000)));
     _tabController = TabController(length: 4, vsync: this);
     _getProfileData();
   }

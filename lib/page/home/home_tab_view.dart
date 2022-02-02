@@ -139,7 +139,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
       child: MediaQuery.removePadding(
         removeTop: true,
         context: context,
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.only(top: 5),
           child: MyPullToRefresh(
             refreshController: _refreshControllerList[_tabBarTypes.indexOf(widget.type)],

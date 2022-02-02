@@ -77,6 +77,7 @@ class _ProfileFollowerViewState extends State<ProfileFollowerView>
               children: [
                 CircleAvatar(
                   radius: SU.setHeight(60),
+                  backgroundColor: Colors.transparent,
                   backgroundImage: MyCacheNetImg.provider(user.profileIconThumbnail ?? ""),
                 ),
                 const SizedBox(width: 10),

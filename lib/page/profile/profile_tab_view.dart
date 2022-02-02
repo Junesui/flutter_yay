@@ -34,22 +34,17 @@ class _ProfileTabViewState extends State<ProfileTabView> {
     super.dispose();
   }
 
-  // @override
-  // bool get wantKeepAlive => true;
-
   /// 获取用户发布的信息
   _getPostData() async {
     await ProfileDao.getProfilePostData().then((model) {
       setState(() {
         profilePostModel = model;
-        print("model --> $profilePostModel");
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
     switch (widget.index) {
       case 0:
         return profilePostModel == null
