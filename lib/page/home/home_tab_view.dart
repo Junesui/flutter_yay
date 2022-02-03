@@ -6,7 +6,6 @@ import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/model/home/home_calling_model.dart';
 import 'package:imitate_yay/model/home/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
-import 'package:imitate_yay/page/home/home_expanded_room.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
@@ -18,6 +17,7 @@ import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'home_expanded_room.dart';
 import 'home_room_item.dart';
 
 /// 首页的 TabBarView

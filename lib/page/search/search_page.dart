@@ -6,6 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/model/search/search_hima_users_model.dart';
 import 'package:imitate_yay/net/dao/search_dao.dart';
+import 'package:imitate_yay/page/search/search_input.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
@@ -425,7 +426,17 @@ class _SearchPageState extends State<SearchPage> {
   /// 悬浮搜素按钮
   _buildSearchBtn() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const Dialog(
+                backgroundColor: Colors.transparent,
+                insetPadding: EdgeInsets.zero,
+                child: SearchInput(),
+              );
+            });
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -161,7 +161,7 @@ class _HomeExpandedRoomState extends State<HomeExpandedRoom> {
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                        SU.setFontSize(50),
+                        SU.setHeight(100),
                       ),
                     ),
                   ),
