@@ -23,7 +23,7 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMixin {
+class _SearchPageState extends State<SearchPage> {
   final RefreshController _refreshController = RefreshController();
   SearchHimaUsersModel? searchHimaUsersModel;
   // 是否隐藏分享区域
@@ -42,9 +42,6 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
     _refreshController.dispose();
     super.dispose();
   }
-
-  @override
-  bool get wantKeepAlive => true;
 
   /// 获取空闲用户数据
   _getHimaUsers() async {
@@ -66,7 +63,6 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       backgroundColor: CommonConstant.primaryBackGroundColor,
       appBar: _buildAppBar(),
