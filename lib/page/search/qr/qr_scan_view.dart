@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/util/toast_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -64,6 +67,7 @@ class _QRScanViewState extends State<QRScanView> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         _result = scanData;
+        print("-----> ${describeEnum(_result!.format)} -- ${_result!.code} ");
       });
     });
   }
@@ -72,6 +76,7 @@ class _QRScanViewState extends State<QRScanView> {
   _onPermissionSet(BuildContext context, QRViewController qrViewController, bool perms) {
     if (!perms) {
       Navigator.of(context).pushReplacementNamed(RouterName.qr);
+      ToastUtil.show(msg: "需要相机权限扫描二维码", toastLength: Toast.LENGTH_LONG);
     }
   }
 }

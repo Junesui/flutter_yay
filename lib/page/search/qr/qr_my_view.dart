@@ -3,8 +3,10 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
+import 'package:imitate_yay/widget/my_icon_btn.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// 我的二维码TabBarView
 class QRMyView extends StatelessWidget {
@@ -91,10 +93,13 @@ class QRMyView extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white24),
           borderRadius: BorderRadius.circular(SU.setHeight(70))),
-      child: Icon(
-        Icons.share,
+      child: MyIconBtn(
+        onPressed: () {
+          Share.share('シェア.https://xxxx');
+        },
+        icon: Icons.share,
         color: CommonConstant.primaryColor,
-        size: SU.setFontSize(50),
+        size: SU.setFontSize(150),
       ),
     );
   }

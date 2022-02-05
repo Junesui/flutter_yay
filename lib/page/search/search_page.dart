@@ -14,6 +14,7 @@ import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// 搜索页面
 class SearchPage extends StatefulWidget {
@@ -299,10 +300,13 @@ class _SearchPageState extends State<SearchPage> {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white24),
           borderRadius: BorderRadius.circular(SU.setHeight(70))),
-      child: Icon(
-        Icons.share,
+      child: MyIconBtn(
+        onPressed: () {
+          Share.share('シェア.https://xxxx');
+        },
+        icon: Icons.share,
         color: CommonConstant.primaryColor,
-        size: SU.setFontSize(50),
+        size: SU.setFontSize(150),
       ),
     );
   }
