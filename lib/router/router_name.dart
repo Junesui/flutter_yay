@@ -9,4 +9,6 @@ class RouterName {
   static const welcome = "/welcome";
   // 搜索页
   static const search = "/search";
+  // qr页
+  static const qr = "/qr";
 }
