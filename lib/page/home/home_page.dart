@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
-import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
 import 'package:imitate_yay/widget/my_text.dart';
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           // 搜索按钮
           MyIconBtn(
             onPressed: () {
-              Navigator.of(context).pushNamed(RouterName.search);
+              //Navigator.of(context).pushNamed(RouterName.search);
             },
             icon: Icons.search,
             size: 75,

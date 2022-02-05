@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/model/search/search_hima_users_model.dart';
 import 'package:imitate_yay/net/dao/search_dao.dart';
 import 'package:imitate_yay/page/search/search_input.dart';
+import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
+import 'package:imitate_yay/widget/my_loading_container.dart';
 import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -23,11 +23,13 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMixin {
   final RefreshController _refreshController = RefreshController();
   SearchHimaUsersModel? searchHimaUsersModel;
   // 是否隐藏分享区域
   bool _isHideShare = false;
+  // 加载状态
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -41,11 +43,15 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  @override
+  bool get wantKeepAlive => true;
+
   /// 获取空闲用户数据
   _getHimaUsers() async {
     await SearchDao.getHimaUsers().then((model) {
       setState(() {
         searchHimaUsersModel = model;
+        _isLoading = false;
       });
     });
   }
@@ -60,33 +66,37 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: CommonConstant.primaryBackGroundColor,
       appBar: _buildAppBar(),
-      body: MyPullToRefresh(
-        refreshController: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: CustomScrollView(
-          slivers: [
-            // 水平列表
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  _buildHorizontalUser(),
-                  const Divider(color: Colors.white24, thickness: 0.5, height: 20)
-                ],
+      body: MyLoadingContainer(
+        isLoading: _isLoading,
+        child: MyPullToRefresh(
+          refreshController: _refreshController,
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: CustomScrollView(
+            slivers: [
+              // 水平列表
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    _buildHorizontalUser(),
+                    const Divider(color: Colors.white24, thickness: 0.5, height: 20)
+                  ],
+                ),
               ),
-            ),
-            // 外部应用添加朋友
-            SliverToBoxAdapter(
-              child: _buildShare(),
-            ),
-            // 用户卡片
-            SliverToBoxAdapter(
-              child: _buildUserCards(searchHimaUsersModel?.himaUsers ?? []),
-            ),
-          ],
+              // 外部应用添加朋友
+              SliverToBoxAdapter(
+                child: _buildShare(),
+              ),
+              // 用户卡片
+              SliverToBoxAdapter(
+                child: _buildUserCards(searchHimaUsersModel?.himaUsers ?? []),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: _buildSearchBtn(),
@@ -103,14 +113,19 @@ class _SearchPageState extends State<SearchPage> {
         },
         icon: Icons.arrow_back_ios,
       ),
-      title: const Text("検索"),
+      title: MyText(
+        text: "検索",
+        fontSize: SU.setFontSize(150),
+      ),
       actions: [
         Padding(
           padding: EdgeInsets.only(right: SU.setWidth(CommonConstant.mainLRPadding)),
-          child: Icon(
-            Icons.qr_code,
-            color: Colors.grey,
-            size: SU.setFontSize(75),
+          child: MyIconBtn(
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouterName.qr);
+            },
+            icon: Icons.qr_code,
+            size: SU.setFontSize(180),
           ),
         )
       ],

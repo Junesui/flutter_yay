@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:imitate_yay/page/common/photo_view_page.dart';
+import 'package:imitate_yay/page/search/qr/qr_page.dart';
 import 'package:imitate_yay/page/search/search_page.dart';
 import 'package:imitate_yay/page/tab/tabs.dart';
 import 'package:imitate_yay/page/welcome/welcome_page.dart';
@@ -11,6 +12,7 @@ final Map<String, Function> routes = {
   RouterName.root: (context) => Tabs(),
   RouterName.welcome: (context) => WelcomePage(),
   RouterName.search: (context) => SearchPage(),
+  RouterName.qr: (context) => SearchQRPage(),
 };
 
 //固定写法 [CupertinoPageRoute: ios风格的路由]

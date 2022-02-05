@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imitate_yay/router/router.dart';
-import 'package:imitate_yay/util/screen_util.dart' as myScreenUtil;
+import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             Icon(
               Icons.check_circle,
               color: Colors.white60,
-              size: myScreenUtil.SU.setFontSize(45),
+              size: SU.setFontSize(45),
             ),
             const SizedBox(width: 5),
             const MyText(
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             Icon(
               Icons.error,
               color: Colors.white60,
-              size: myScreenUtil.SU.setFontSize(45),
+              size: SU.setFontSize(45),
             ),
             const SizedBox(width: 5),
             const MyText(
