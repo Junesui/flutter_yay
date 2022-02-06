@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               Navigator.of(context).pushNamed(RouterName.search);
             },
             icon: Icons.search,
-            size: 75,
+            size: 85,
           ),
         ],
       ),

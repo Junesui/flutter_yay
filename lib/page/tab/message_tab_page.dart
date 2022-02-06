@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/widget/my_icon_btn.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class MessageTabPage extends StatefulWidget {
   const MessageTabPage({Key? key}) : super(key: key);
@@ -17,11 +16,18 @@ class _MessageTabPageState extends State<MessageTabPage> {
 
   /// Test
   Widget _buildTest() {
-    return MyIconBtn(
-      onPressed: () {
-        Share.share('check out my website https://example.com');
+    return Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return Center(
+          child: Container(
+            height: index * 30,
+            color: Colors.primaries[index % 18],
+          ),
+        );
       },
-      icon: Icons.home,
+      itemCount: 10,
+      viewportFraction: 0.8,
+      scale: 0.8,
     );
   }
 }

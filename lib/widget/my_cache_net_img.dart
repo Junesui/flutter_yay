@@ -10,14 +10,16 @@ class MyCacheNetImg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imgUrl,
-      fit: fit,
-      // 占位符
-      placeholder: (context, url) => _buildPlaceholder(),
-      // 错误时候占位符
-      errorWidget: (context, url, error) => _buildPlaceholder(),
-    );
+    return imgUrl.isEmpty
+        ? const SizedBox()
+        : CachedNetworkImage(
+            imageUrl: imgUrl,
+            fit: fit,
+            // 占位符
+            placeholder: (context, url) => _buildPlaceholder(),
+            // 错误时候占位符
+            errorWidget: (context, url, error) => _buildPlaceholder(),
+          );
   }
 
   // 占位符

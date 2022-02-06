@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/model/search/search_hima_users_model.dart';
 import 'package:imitate_yay/net/dao/search_dao.dart';
+import 'package:imitate_yay/page/search/search_float_user.dart';
 import 'package:imitate_yay/page/search/search_input.dart';
 import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
@@ -217,16 +218,27 @@ class _SearchPageState extends State<SearchPage> {
 
   /// 用户水平列表子项
   _buildUser(HimaUsers user) {
-    return Container(
+    return SizedBox(
       width: SU.setWidth(210),
       height: SU.setHeight(150),
       child: Column(
         children: [
           Expanded(
-            child: CircleAvatar(
-              radius: SU.setHeight(72),
-              backgroundColor: Colors.transparent,
-              backgroundImage: MyCacheNetImg.provider(user.user?.profileIconThumbnail ?? ""),
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      List<HimaUsers> himaUsers = searchHimaUsersModel!.himaUsers!;
+                      int index = himaUsers.indexOf(user);
+                      return SearchFloatUser(himaUsers: himaUsers, index: index);
+                    });
+              },
+              child: CircleAvatar(
+                radius: SU.setHeight(72),
+                backgroundColor: Colors.transparent,
+                backgroundImage: MyCacheNetImg.provider(user.user?.profileIconThumbnail ?? ""),
+              ),
             ),
           ),
           MyText(
@@ -349,6 +361,9 @@ class _SearchPageState extends State<SearchPage> {
     return Card(
       shadowColor: Colors.white24,
       color: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Column(
         children: [
           // 背景图，头像，更多按钮
@@ -358,13 +373,13 @@ class _SearchPageState extends State<SearchPage> {
             child: Stack(
               children: [
                 // 封面图
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                    height: SU.getScreenWidth() / 4,
-                    width: double.infinity,
-                    child: MyCacheNetImg(
-                      imgUrl: user.user?.coverImageThumbnail ?? "",
+                Container(
+                  height: SU.getScreenWidth() / 4,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: MyCacheNetImg.provider(user.user?.coverImageThumbnail ?? ""),
                       fit: BoxFit.cover,
                     ),
                   ),

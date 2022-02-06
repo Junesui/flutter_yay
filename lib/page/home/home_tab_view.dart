@@ -17,7 +17,7 @@ import 'package:imitate_yay/widget/my_pull_to_refresh.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'home_expanded_room.dart';
+import 'home_float_room.dart';
 import 'home_room_item.dart';
 
 /// 首页的 TabBarView
@@ -189,16 +189,12 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
               (context, index) {
                 return callingModel.posts == null
                     ? const SizedBox()
-                    : InkWell(
+                    : GestureDetector(
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return Dialog(
-                                  backgroundColor: Colors.transparent,
-                                  insetPadding: EdgeInsets.zero,
-                                  child: HomeExpandedRoom(posts: callingModel.posts!, index: index),
-                                );
+                                return HomeFloatRoom(posts: callingModel.posts!, index: index);
                               });
                         },
                         child: HomeRoomItem(post: callingModel.posts![index]),
