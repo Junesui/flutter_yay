@@ -78,7 +78,7 @@ class _SearchFloatUserState extends State<SearchFloatUser> {
                       Align(
                         alignment: Alignment.topRight,
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                           child: MyIconBtn(
                             onPressed: _buildMoreBottomSheet,
                             icon: Icons.more_horiz,

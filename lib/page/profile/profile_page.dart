@@ -195,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       pinned: true,
       delegate: StickyTabBarDelegate(
         child: Container(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
+          padding: const EdgeInsets.symmetric(vertical: 3),
           decoration: const BoxDecoration(
             color: CommonConstant.primaryBackGroundColor,
             border: Border(
@@ -262,16 +262,19 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          const Expanded(flex: 2, child: SizedBox()),
           MyText(
             text: text,
             color: null,
             fontSize: 36,
           ),
+          const Expanded(flex: 1, child: SizedBox()),
           MyText(
             text: count.toString(),
             color: Colors.white24,
             fontSize: 36,
           ),
+          const Expanded(flex: 2, child: SizedBox()),
         ],
       ),
     );
