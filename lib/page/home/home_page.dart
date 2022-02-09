@@ -90,30 +90,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         child: Column(
           children: [
             // tabBar
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    width: 0.1,
-                  ),
-                ),
-              ),
-              alignment: Alignment.bottomCenter,
-              child: TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                indicatorColor: CommonConstant.primaryColor,
-                indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: TextStyle(fontSize: SU.setFontSize(45)),
-                tabs: HomeConstant.tabbarTypes.map((type) {
-                  return SizedBox(
-                    height: 35,
-                    child: Tab(text: type == 0 ? "关注" : "公开"),
-                  );
-                }).toList(),
-              ),
-            ),
+            _buildTabBar(),
+            const Divider(color: Colors.white24, height: 0),
             // tabBarView
             Expanded(
               child: TabBarView(
@@ -126,6 +104,34 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ],
         ),
       ),
+    );
+  }
+
+  /// TabBar
+  _buildTabBar() {
+    return TabBar(
+      controller: _tabController,
+      isScrollable: true,
+      indicatorColor: CommonConstant.primaryColor,
+      indicatorSize: TabBarIndicatorSize.label,
+      tabs: HomeConstant.tabbarTypes.map((type) {
+        return SizedBox(
+          height: 35,
+          child: Tab(
+            child: type == 0
+                ? const MyText(
+                    text: "关注",
+                    color: Colors.grey,
+                    fontSize: 50,
+                  )
+                : const MyText(
+                    text: "公开",
+                    color: Colors.grey,
+                    fontSize: 50,
+                  ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

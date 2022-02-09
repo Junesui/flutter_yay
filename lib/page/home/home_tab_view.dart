@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/model/home/home_calling_model.dart';
 import 'package:imitate_yay/model/home/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
+import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
@@ -54,11 +53,14 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     }
     // 监听首页滚到顶部事件
     EventBusUtil.listen<HomeBackToTopEvent>((event) {
-      setState(() {
-        postContents.removeRange(30, postContents.length);
-      });
+      if (postContents.length > 30) {
+        setState(() {
+          postContents.removeRange(30, postContents.length);
+        });
+      }
       _scrollController.jumpTo(0);
     });
+
     _getHomeData();
   }
 
@@ -149,10 +151,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
                 controller: _scrollController,
                 itemCount: postContents.length,
                 itemBuilder: (context, index) {
-                  if (widget.type == HomeConstant.openType && index == 0) {
+                  if (index == 0) {
                     return _buildChatRooms();
-                  } else if (widget.type == HomeConstant.followType && index == 0) {
-                    return const SizedBox();
                   } else {
                     return _buildPublishContent(postContents[index - 1]);
                   }
@@ -181,7 +181,9 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
         slivers: [
           // 创建房间
           SliverToBoxAdapter(
-            child: _buildChatRoomBothEnds(Icons.add_ic_call, "发布通话", 40, 30),
+            child: _buildChatRoomBothEnds(Icons.add_ic_call, () {
+              _buildMoreBottomSheet();
+            }, "发布通话", 40, 30),
           ),
           // 中间房间列表
           SliverList(
@@ -205,7 +207,9 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           ),
           // 查看更多
           SliverToBoxAdapter(
-            child: _buildChatRoomBothEnds(Icons.more_horiz, "查看更多", 50, 40),
+            child: _buildChatRoomBothEnds(Icons.more_horiz, () {
+              Navigator.of(context).pushNamed(RouterName.call_timeline);
+            }, "查看更多", 50, 40),
           ),
         ],
       ),
@@ -213,7 +217,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   }
 
   /// 聊天列表两端的子项
-  _buildChatRoomBothEnds(IconData icon, String title, double left, double right) {
+  _buildChatRoomBothEnds(
+      IconData icon, VoidCallback onTap, String title, double left, double right) {
     return Container(
       margin: EdgeInsets.only(
         left: SU.setWidth(left),
@@ -225,14 +230,17 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           Expanded(
             flex: 1,
             child: Center(
-              child: Container(
-                width: SU.setWidth(150),
-                height: SU.setHeight(150),
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xff545050), width: 2),
-                  borderRadius: BorderRadius.circular(75),
+              child: GestureDetector(
+                onTap: onTap,
+                child: Container(
+                  width: SU.setWidth(150),
+                  height: SU.setHeight(150),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: const Color(0xff545050), width: 2),
+                    borderRadius: BorderRadius.circular(75),
+                  ),
+                  child: Icon(icon, color: Colors.green),
                 ),
-                child: Icon(icon, color: Colors.green),
               ),
             ),
           ),

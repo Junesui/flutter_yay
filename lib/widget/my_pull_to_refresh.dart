@@ -19,11 +19,12 @@ class MyPullToRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
-        enablePullUp: true,
-        enablePullDown: true,
-        controller: refreshController,
-        onRefresh: onRefresh,
-        onLoading: onLoading,
-        child: child);
+      enablePullUp: true,
+      enablePullDown: true,
+      controller: refreshController,
+      onRefresh: onRefresh,
+      onLoading: onLoading,
+      child: child,
+    );
   }
 }

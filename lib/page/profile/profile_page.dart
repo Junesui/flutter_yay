@@ -44,7 +44,17 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: profileModel?.user == null ? const SizedBox() : _buildNestedScrollView(),
+      body: profileModel?.user == null
+          ? const SizedBox()
+          : RefreshIndicator(
+              onRefresh: () async {
+                await Future.delayed(const Duration(seconds: 1));
+              },
+              notificationPredicate: (n) {
+                return n.depth == 2;
+              },
+              child: _buildNestedScrollView(),
+            ),
     );
   }
 

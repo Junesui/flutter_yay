@@ -115,6 +115,7 @@ class _SearchPageState extends State<SearchPage> {
         text: "検索",
         fontSize: SU.setFontSize(150),
       ),
+      centerTitle: true,
       actions: [
         Padding(
           padding: EdgeInsets.only(right: SU.setWidth(CommonConstant.mainLRPadding)),

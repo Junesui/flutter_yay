@@ -1,132 +1,151 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
-import 'package:imitate_yay/model/profile/profile_post_model.dart';
+import 'package:imitate_yay/model/home/home_calling_model.dart';
+import 'package:imitate_yay/net/dao/home_dao.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
-import 'package:imitate_yay/widget/my_img_cell.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
-/// 投稿内容
-class ProfilePostView extends StatefulWidget {
-  final ProfilePostModel profilePostModel;
-
-  const ProfilePostView({Key? key, required this.profilePostModel}) : super(key: key);
+/// 更多 通话页
+class CallTimelinePage extends StatefulWidget {
+  const CallTimelinePage({Key? key}) : super(key: key);
 
   @override
-  _ProfilePostViewState createState() => _ProfilePostViewState();
+  _CallTimelinePageState createState() => _CallTimelinePageState();
 }
 
-class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAliveClientMixin {
+class _CallTimelinePageState extends State<CallTimelinePage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  // 通话中的实体
+  HomeCallingModel callingModel = HomeCallingModel();
+
+  // 两个tab
+  List tabs = [0, 1];
+
   @override
-  bool get wantKeepAlive => true;
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _getChatRooms();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  // 获取聊天室房间 测试目的，所有和首页共用一个接口
+  _getChatRooms() async {
+    await HomeDao.getCallingTimeLine().then((model) {
+      setState(() {
+        callingModel = model;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    ProfilePostModel profilePostModel = widget.profilePostModel;
-    return _buildPostView(profilePostModel);
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+    );
   }
 
-  /// 投稿
-  _buildPostView(ProfilePostModel profilePostModel) {
-    List<Posts> postImgList = [];
-    postImgList = profilePostModel.posts
-            ?.where((post) => post.postType == CommonConstant.postTypeImage)
-            .toList() ??
-        [];
+  /// AppBar
+  _buildAppBar() {
+    return AppBar(
+      leading: MyIconBtn(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: Icons.arrow_back_ios,
+      ),
+      title: MyText(
+        text: "通話募集",
+        fontSize: SU.setFontSize(140),
+      ),
+      centerTitle: true,
+      backgroundColor: CommonConstant.primaryBackGroundColor,
+      elevation: 0,
+    );
+  }
+
+  /// Body
+  _buildBody() {
     return Column(
       children: [
-        // 投稿图片横向列表
-        postImgList.isEmpty ? const SizedBox() : _buildPostImgs(postImgList),
-        //投稿内容
+        _buildTabBar(),
+        const Divider(color: Colors.white24, height: 0),
+        const SizedBox(height: 8),
         Expanded(
-          child: _buildPosts(profilePostModel),
+          child: _buildTabBarView(),
         ),
       ],
     );
   }
 
-  /// 投稿水平图片一览
-  _buildPostImgs(List<Posts> postImgList) {
-    return Container(
-      height: SU.setHeight(200),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 0.2,
-            color: Colors.white24,
+  /// TabBar
+  _buildTabBar() {
+    return TabBar(
+      controller: _tabController,
+      indicatorColor: CommonConstant.primaryColor,
+      indicatorSize: TabBarIndicatorSize.label,
+      tabs: const <Widget>[
+        SizedBox(
+          height: 40,
+          child: Tab(
+            child: MyText(
+              text: "フォロー中",
+              color: Colors.grey,
+              fontSize: 50,
+            ),
           ),
         ),
-      ),
-      child: CustomScrollView(
-        scrollDirection: Axis.horizontal,
-        slivers: [
-          // 投稿图片
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return _buildPostImg(
-                    MyCacheNetImg(imgUrl: postImgList[index].attachmentThumbnail ?? ""));
-              },
-              childCount: postImgList.length,
+        SizedBox(
+          height: 40,
+          child: Tab(
+            child: MyText(
+              text: "オーペン",
+              color: Colors.grey,
+              fontSize: 50,
             ),
           ),
-          // 更多
-          SliverToBoxAdapter(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SU.setHeight(20)),
-                  border: Border.all(
-                    color: Colors.white24,
-                    width: 0.5,
-                  ),
-                ),
-                child: Icon(
-                  Icons.more_horiz,
-                  color: CommonConstant.primaryColor,
-                  size: SU.setFontSize(80),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  /// 投稿水平图片子项
-  _buildPostImg(Widget widget) {
+  /// TabBarView
+  _buildTabBarView() {
+    return TabBarView(
+      controller: _tabController,
+      children: tabs.map<Widget>((index) {
+        return _buildChatRooms(index);
+      }).toList(),
+    );
+  }
+
+  /// 房间列表
+  _buildChatRooms(int index) {
+    int len = callingModel.posts?.length ?? 0;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(SU.setHeight(20)),
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: widget,
-        ),
+      padding: const EdgeInsets.only(top: 5),
+      child: ListView.builder(
+        itemCount: len,
+        itemBuilder: (context, index) {
+          return _buildChatRoomItem(callingModel.posts![index]);
+        },
       ),
     );
   }
 
-  /// 投稿内容列表
-  _buildPosts(ProfilePostModel profilePostModel) {
-    return ListView.builder(
-        itemCount: profilePostModel.posts?.length ?? 0,
-        itemBuilder: (context, index) {
-          return _buildPost(profilePostModel, index);
-        });
-  }
-
-  /// 投稿内容子项
-  _buildPost(ProfilePostModel profilePostModel, int index) {
-    Posts post = profilePostModel.posts![index];
-    User user = post.user!;
+  /// 房间子项
+  _buildChatRoomItem(Posts post) {
+    User user = post.user ?? User();
     return Container(
       margin: EdgeInsets.fromLTRB(
         SU.setWidth(CommonConstant.mainLRPadding),
@@ -152,7 +171,6 @@ class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAli
             backgroundColor: Colors.transparent,
             backgroundImage: MyCacheNetImg.provider(user.profileIconThumbnail ?? ""),
           ),
-
           const SizedBox(width: 12),
           // 右侧内容
           Expanded(
@@ -166,7 +184,7 @@ class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAli
                     // 用户昵称
                     Expanded(
                       child: MyText(
-                        text: "${user.nickname}",
+                        text: user.nickname ?? "",
                         fontSize: 40,
                         fontWeight: FontWeight.w600,
                       ),
@@ -241,15 +259,6 @@ class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAli
 
   /// 发布的内容
   _buildPostContent(Posts post, User user) {
-    // TODO reply
-    // 1. type -> null
-    if (post.postType == null) {
-      return MyText(
-        text: "${post.text}",
-        fontSize: 40,
-      );
-    }
-    // 2. type -> call
     if (post.postType == CommonConstant.postTypCall) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,9 +287,9 @@ class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAli
                 // 通话图标
                 CircleAvatar(
                   radius: SU.setHeight(50),
-                  backgroundColor: Colors.grey,
+                  backgroundColor: Colors.green,
                   child: Icon(
-                    Icons.call_end,
+                    Icons.call,
                     color: Colors.white,
                     size: SU.setFontSize(55),
                   ),
@@ -291,13 +300,13 @@ class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAli
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const MyText(
-                        text: "だれビが終了しました",
+                        text: "だれビのメンバー募集",
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
                       ),
                       const SizedBox(height: 5),
                       const MyText(
-                        text: "1人で１分通話したよ！",
+                        text: "現在４人参加中！",
                         fontSize: 28,
                       ),
                       const SizedBox(height: 5),
@@ -349,33 +358,6 @@ class _ProfilePostViewState extends State<ProfilePostView> with AutomaticKeepAli
         ],
       );
     }
-    // 3. type -> image
-    if (post.postType == CommonConstant.postTypeImage) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 文字
-          post.text?.trim() == ""
-              ? const SizedBox()
-              : MyText(
-                  text: "${post.text}",
-                  fontSize: 40,
-                ),
-          const SizedBox(height: 5),
-          _buildImgCell(post),
-        ],
-      );
-    }
-  }
-
-  /// 根据发布图片的数量，不同排列方式
-  _buildImgCell(Posts post) {
-    List<String> imgUrlList = [];
-    int imgCnt = 2;
-    for (var i = 0; i < imgCnt; i++) {
-      imgUrlList.add("https://picsum.photos/id/${i + 18}/300/520");
-    }
-    return MyImgCell(imgUrls: imgUrlList);
   }
 
   /// 点击更多按钮，弹出底部弹窗
