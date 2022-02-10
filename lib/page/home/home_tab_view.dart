@@ -376,16 +376,14 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
   /// 点击更多按钮，弹出底部弹窗
   _buildMoreBottomSheet() {
     List<BottomSheetParam> params = [];
-    params.add(BottomSheetParam(onTap: () {}, icon: Icons.do_not_disturb_on, text: "屏蔽该用户"));
-    params.add(BottomSheetParam(onTap: () {}, icon: Icons.warning, text: "举报"));
-    params.add(BottomSheetParam(onTap: () {}, icon: Icons.share, text: "分享"));
-    params.add(BottomSheetParam(onTap: () {}, icon: Icons.sms, text: "聊天"));
     params.add(BottomSheetParam(
         onTap: () {
-          Navigator.pop(context);
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed(RouterName.calling);
         },
-        icon: Icons.cancel,
-        text: "取消"));
+        icon: Icons.call,
+        text: "だれでも通話"));
+    params.add(BottomSheetParam(onTap: () {}, icon: Icons.video_call, text: "だれでもビデオ"));
     showModalBottomSheet(
         context: context,
         builder: (context) {

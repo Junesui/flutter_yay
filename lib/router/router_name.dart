@@ -13,4 +13,6 @@ class RouterName {
   static const qr = "/qr";
   // 通话中的列表页
   static const call_timeline = "/call_timeline";
+  // 通话页面
+  static const calling = "/calling";
 }
