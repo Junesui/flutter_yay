@@ -12,7 +12,13 @@ class RouterName {
   // qr页
   static const qr = "/qr";
   // 通话中的列表页
-  static const call_timeline = "/call_timeline";
+  static const callTimeline = "/call_timeline";
   // 通话页面
   static const calling = "/calling";
+  // 通话邀请列表页面
+  static const callingInvite = "/calling_invite";
+  // 通话设置页面
+  static const callingSettings = "/calling_settings";
+  // 游戏列表页
+  static const game = "/game";
 }

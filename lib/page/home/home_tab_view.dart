@@ -208,7 +208,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           // 查看更多
           SliverToBoxAdapter(
             child: _buildChatRoomBothEnds(Icons.more_horiz, () {
-              Navigator.of(context).pushNamed(RouterName.call_timeline);
+              Navigator.of(context).pushNamed(RouterName.callTimeline);
             }, "查看更多", 50, 40),
           ),
         ],

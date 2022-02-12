@@ -8,6 +8,7 @@ import 'package:imitate_yay/page/search/search_float_user.dart';
 import 'package:imitate_yay/page/search/search_input.dart';
 import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_appbar.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
@@ -104,31 +105,12 @@ class _SearchPageState extends State<SearchPage> {
 
   /// appBar
   _buildAppBar() {
-    return AppBar(
-      leading: MyIconBtn(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: Icons.arrow_back_ios,
-      ),
-      title: MyText(
-        text: "検索",
-        fontSize: SU.setFontSize(150),
-      ),
-      centerTitle: true,
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: SU.setWidth(CommonConstant.mainLRPadding)),
-          child: MyIconBtn(
-            onPressed: () {
-              Navigator.of(context).pushNamed(RouterName.qr);
-            },
-            icon: Icons.qr_code,
-            size: SU.setFontSize(180),
-          ),
-        )
-      ],
-      backgroundColor: CommonConstant.primaryBackGroundColor,
+    return MyAppBar(
+      myTitle: "検索",
+      actionIcon: Icons.qr_code,
+      actionIconOnTap: () {
+        Navigator.of(context).pushNamed(RouterName.qr);
+      },
     );
   }
 

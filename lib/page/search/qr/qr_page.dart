@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/page/search/qr/qr_my_view.dart';
 import 'package:imitate_yay/page/search/qr/qr_scan_view.dart';
-import 'package:imitate_yay/util/screen_util.dart';
-import 'package:imitate_yay/widget/my_icon_btn.dart';
-import 'package:imitate_yay/widget/my_text.dart';
+import 'package:imitate_yay/widget/my_appbar.dart';
 
 class QRPage extends StatefulWidget {
   const QRPage({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class _QRPageState extends State<QRPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: MyAppBar(myTitle: "QRコード"),
       body: Column(
         children: [
           _buildTabBar(),
@@ -46,23 +44,6 @@ class _QRPageState extends State<QRPage> with SingleTickerProviderStateMixin {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  /// AppBar
-  _buildAppBar() {
-    return AppBar(
-      backgroundColor: CommonConstant.primaryBackGroundColor,
-      leading: MyIconBtn(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: Icons.arrow_back_ios,
-      ),
-      title: MyText(
-        text: "QRコード",
-        fontSize: SU.setFontSize(150),
       ),
     );
   }

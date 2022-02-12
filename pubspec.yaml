@@ -66,9 +66,12 @@ dependencies:
   permission_handler: ^8.3.0
   # 计时器
   stop_watch_timer: ^1.3.1
+  # 表情
+  emojis: ^0.9.9
 
   # 即构 RTC
   # zego_express_engine: ^2.15.0
+
 
 dev_dependencies:
   flutter_test:

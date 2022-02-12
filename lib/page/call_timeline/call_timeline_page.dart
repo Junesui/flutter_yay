@@ -4,6 +4,7 @@ import 'package:imitate_yay/model/home/home_calling_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
 import 'package:imitate_yay/util/date_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
+import 'package:imitate_yay/widget/my_appbar.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
@@ -50,27 +51,8 @@ class _CallTimelinePageState extends State<CallTimelinePage> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: MyAppBar(myTitle: "通話募集"),
       body: _buildBody(),
-    );
-  }
-
-  /// AppBar
-  _buildAppBar() {
-    return AppBar(
-      leading: MyIconBtn(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: Icons.arrow_back_ios,
-      ),
-      title: MyText(
-        text: "通話募集",
-        fontSize: SU.setFontSize(140),
-      ),
-      centerTitle: true,
-      backgroundColor: CommonConstant.primaryBackGroundColor,
-      elevation: 0,
     );
   }
 

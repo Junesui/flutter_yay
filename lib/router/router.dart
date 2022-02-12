@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:imitate_yay/page/call_timeline/call_timeline_page.dart';
+import 'package:imitate_yay/page/calling/calling_invite_page.dart';
 import 'package:imitate_yay/page/calling/calling_page.dart';
+import 'package:imitate_yay/page/calling/calling_settings_page.dart';
 import 'package:imitate_yay/page/common/photo_view_page.dart';
+import 'package:imitate_yay/page/game/calling_game_page.dart';
 import 'package:imitate_yay/page/search/qr/qr_page.dart';
 import 'package:imitate_yay/page/search/search_page.dart';
 import 'package:imitate_yay/page/tab/tabs.dart';
@@ -15,8 +18,11 @@ final Map<String, Function> routes = {
   RouterName.welcome: (context) => WelcomePage(),
   RouterName.search: (context) => SearchPage(),
   RouterName.qr: (context) => QRPage(),
-  RouterName.call_timeline: (context) => CallTimelinePage(),
+  RouterName.callTimeline: (context) => CallTimelinePage(),
   RouterName.calling: (context) => CallingPage(),
+  RouterName.callingInvite: (context) => CallingInvitePage(),
+  RouterName.callingSettings: (context) => CallingSettingsPage(),
+  RouterName.game: (context) => CallingGamePage(),
 };
 
 //固定写法 [CupertinoPageRoute: ios风格的路由]

@@ -1,6 +1,8 @@
+import 'package:emojis/emojis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
+import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
@@ -23,6 +25,14 @@ class _CallingPageState extends State<CallingPage> {
   final TextEditingController _editingController = TextEditingController();
   // 输入框后面的图标是否是拷贝
   bool _isCopy = true;
+  // 房主等待用户加入状态
+  bool _isOwnerWaiting = true;
+  // 是否展示表情
+  bool _isHideEmoji = true;
+
+  // test avatar
+  String testAvatarUrl =
+      "https://images.pexels.com/photos/4386364/pexels-photo-4386364.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
 
   @override
   void initState() {
@@ -55,12 +65,12 @@ class _CallingPageState extends State<CallingPage> {
               _buildAppBar(),
               const SizedBox(height: 6),
               _buildInput(),
-              Expanded(child: _buildUserAvatars()),
-              const MyText(text: "他の参加者を待っています...", fontSize: 50),
+              Expanded(child: _isOwnerWaiting ? _buildOwnerWaitingAvatar() : _buildAvatars()),
+              _buildTextAndEmojis(),
               const SizedBox(height: 6),
               _buildSmallPlayIcon(),
               const SizedBox(height: 6),
-              _buildBigFuncionIcon(),
+              _buildBigFunctionIcon(),
             ],
           ),
         ),
@@ -93,23 +103,28 @@ class _CallingPageState extends State<CallingPage> {
         ),
         const Spacer(),
         // 招待ボタン
-        Chip(
-          backgroundColor: Colors.grey[800],
-          labelPadding: const EdgeInsets.symmetric(horizontal: 5),
-          label: Row(
-            children: [
-              Icon(
-                Icons.person_add_alt,
-                color: Colors.white70,
-                size: SU.setFontSize(52),
-              ),
-              const SizedBox(width: 3),
-              const MyText(
-                text: "招待",
-                fontSize: 35,
-                color: Colors.white70,
-              ),
-            ],
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(RouterName.callingInvite);
+          },
+          child: Chip(
+            backgroundColor: Colors.grey[800],
+            labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+            label: Row(
+              children: [
+                Icon(
+                  Icons.person_add_alt,
+                  color: Colors.white70,
+                  size: SU.setFontSize(52),
+                ),
+                const SizedBox(width: 3),
+                const MyText(
+                  text: "招待",
+                  fontSize: 35,
+                  color: Colors.white70,
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(width: 3),
@@ -194,10 +209,8 @@ class _CallingPageState extends State<CallingPage> {
     );
   }
 
-  /// 中间用户头像区域
-  _buildUserAvatars() {
-    String testAvatarUrl =
-        "https://images.pexels.com/photos/4386364/pexels-photo-4386364.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+  /// 中间部分：房主等待状态的头像
+  _buildOwnerWaitingAvatar() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -233,33 +246,100 @@ class _CallingPageState extends State<CallingPage> {
     );
   }
 
+  /// 中间部分：用户头像
+  _buildAvatars() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        physics: const BouncingScrollPhysics(),
+        itemCount: 17,
+        itemBuilder: (context, index) {
+          return Center(
+            child: Column(
+              children: [
+                // 头像
+                CircleAvatar(
+                  radius: SU.setHeight(100),
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: MyCacheNetImg.provider(testAvatarUrl),
+                ),
+                const SizedBox(height: 8),
+                // 昵称
+                MyText(
+                  text: "名前$index",
+                  fontSize: 36,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  /// 等待用户加入，和表情
+  _buildTextAndEmojis() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // 文字
+        const MyText(text: "他の参加者を待っています...", fontSize: 50),
+        // 表情
+        Offstage(
+          offstage: _isHideEmoji,
+          child: _buildEmojis(),
+        ),
+      ],
+    );
+  }
+
   /// 四个小按钮 【游戏，表情，说话，设置】
   _buildSmallPlayIcon() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildSmallPlayIconItem(Icons.sports_esports),
-        _buildSmallPlayIconItem(Icons.tag_faces),
-        _buildSmallPlayIconItem(Icons.record_voice_over),
-        _buildSmallPlayIconItem(Icons.settings),
+        // 游戏
+        _buildSmallPlayIconItem(Icons.sports_esports, () {
+          Navigator.of(context).pushNamed(RouterName.game);
+        }),
+        // 表情
+        _buildSmallPlayIconItem(Icons.tag_faces, () {
+          setState(() {
+            _isHideEmoji = !_isHideEmoji;
+          });
+        }),
+        // 说话
+        _buildSmallPlayIconItem(Icons.record_voice_over, () {}),
+        //设置
+        _buildSmallPlayIconItem(Icons.settings, () {
+          Navigator.of(context).pushNamed(RouterName.callingSettings);
+        }),
       ],
     );
   }
 
   /// 小按钮子项
-  _buildSmallPlayIconItem(IconData icon) {
-    return Chip(
-      backgroundColor: Colors.grey[800],
-      shape: const CircleBorder(),
-      padding: const EdgeInsets.all(5),
-      label: Icon(icon, size: SU.setFontSize(62), color: Colors.white70),
+  _buildSmallPlayIconItem(IconData icon, VoidCallback ontap) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Chip(
+        backgroundColor: Colors.grey[800],
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(5),
+        label: Icon(
+          icon,
+          size: SU.setFontSize(62),
+          color: Colors.white70,
+        ),
+      ),
     );
   }
 
   /// 最底部四个大按钮 【音乐，扩声器，麦克风，退出】
-  _buildBigFuncionIcon() {
+  _buildBigFunctionIcon() {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SU.setHeight(36)),
         color: Colors.grey[800],
@@ -313,6 +393,22 @@ class _CallingPageState extends State<CallingPage> {
       child: const VerticalDivider(
         color: Colors.white12,
       ),
+    );
+  }
+
+  /// 表情
+  _buildEmojis() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: const [
+        MyText(text: Emojis.fire, fontSize: 60),
+        MyText(text: Emojis.redHeart, fontSize: 60),
+        MyText(text: Emojis.pileOfPoo, fontSize: 60),
+        MyText(text: Emojis.wavingHand, fontSize: 60),
+        MyText(text: Emojis.clappingHands, fontSize: 60),
+        MyText(text: Emojis.faceWithTearsOfJoy, fontSize: 60),
+        MyText(text: Emojis.loudlyCryingFace, fontSize: 60),
+      ],
     );
   }
 }
