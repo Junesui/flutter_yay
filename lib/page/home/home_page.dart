@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/router/router_name.dart';
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ),
         ),
       ),
+      floatingActionButton: _buildPostBtn(),
     );
   }
 
@@ -132,6 +134,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ),
         );
       }).toList(),
+    );
+  }
+
+  /// 发布按钮
+  _buildPostBtn() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(RouterName.post);
+      },
+      child: CircleAvatar(
+        radius: SU.setHeight(80),
+        backgroundColor: CommonConstant.primaryColor,
+        child: Icon(FontAwesome.edit, color: Colors.white, size: SU.setFontSize(62)),
+      ),
     );
   }
 }

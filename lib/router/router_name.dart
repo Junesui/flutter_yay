@@ -21,4 +21,8 @@ class RouterName {
   static const callingSettings = "/calling_settings";
   // 游戏列表页
   static const game = "/game";
+  // 用户信息页
+  static const userInfo = "/user_info";
+  // 发布页
+  static const post = "/post";
 }

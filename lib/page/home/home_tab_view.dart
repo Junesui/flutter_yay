@@ -276,11 +276,17 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 左侧用户头像
-          ClipOval(
-            child: SizedBox(
-              height: SU.setHeight(90),
-              width: SU.setWidth(90),
-              child: MyCacheNetImg(imgUrl: content.user?.profileIconThumbnail ?? ""),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                RouterName.userInfo,
+                arguments: {"id": content.user!.id},
+              );
+            },
+            child: CircleAvatar(
+              backgroundImage: MyCacheNetImg.provider(content.user?.profileIconThumbnail ?? ""),
+              backgroundColor: Colors.transparent,
+              radius: SU.setHeight(50),
             ),
           ),
 
