@@ -68,6 +68,9 @@ dependencies:
   stop_watch_timer: ^1.3.1
   # 表情
   emojis: ^0.9.9
+  # 图库选择
+  image_picker: ^0.8.4+8
+
 
   # 即构 RTC
   # zego_express_engine: ^2.15.0
