@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_appbar.dart';
+import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
 import 'package:imitate_yay/widget/my_text.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// 发布页面
 class PostPage extends StatefulWidget {
@@ -184,7 +186,7 @@ class _PostPageState extends State<PostPage> {
         children: [
           // 选择图片
           MyIconBtn(
-            onPressed: () {},
+            onPressed: _buildMoreBottomSheet,
             icon: Icons.image,
             size: 90,
             color: Colors.grey,
@@ -205,5 +207,22 @@ class _PostPageState extends State<PostPage> {
         ],
       ),
     );
+  }
+
+  // 拍照，从相册选择
+  _buildMoreBottomSheet() {
+    List<BottomSheetParam> params = [];
+    params.add(BottomSheetParam(onTap: () {}, icon: Icons.photo_camera, text: "拍摄"));
+    params.add(BottomSheetParam(onTap: _pickImg, icon: Icons.collections, text: "从相册选择"));
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return MyBottomSheet(params: params);
+        });
+  }
+
+  /// 从相册选择
+  _pickImg() async {
+    final List<AssetEntity>? assets = await AssetPicker.pickAssets(context);
   }
 }
