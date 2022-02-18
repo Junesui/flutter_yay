@@ -5,7 +5,7 @@ import 'package:imitate_yay/page/calling/calling_page.dart';
 import 'package:imitate_yay/page/calling/calling_settings_page.dart';
 import 'package:imitate_yay/page/common/photo_view_page.dart';
 import 'package:imitate_yay/page/game/calling_game_page.dart';
-import 'package:imitate_yay/page/post/PostPage.dart';
+import 'package:imitate_yay/page/post/post_page.dart';
 import 'package:imitate_yay/page/search/qr/qr_page.dart';
 import 'package:imitate_yay/page/search/search_page.dart';
 import 'package:imitate_yay/page/tab/tabs.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
+import 'package:imitate_yay/page/post/post_img_cell.dart';
+import 'package:imitate_yay/util/pick_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_appbar.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
@@ -20,6 +22,9 @@ class _PostPageState extends State<PostPage> {
 
   // 投稿类型 0:文字，1:语音，2:视频
   int _postType = 0;
+
+  // 要上传的图片
+  List<AssetEntity> pickImgs = [];
 
   @override
   void dispose() {
@@ -45,7 +50,7 @@ class _PostPageState extends State<PostPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(child: _buildInputArea()),
+          Expanded(child: _buildContentArea()),
           _buildCallAndVideoBtn(),
           _buildBottomRow(),
         ],
@@ -54,32 +59,41 @@ class _PostPageState extends State<PostPage> {
   }
 
   /// 输入内容区域
-  _buildInputArea() {
-    return TextFormField(
-      controller: _editingController,
-      cursorColor: CommonConstant.primaryColor,
-      textAlignVertical: TextAlignVertical.center,
-      maxLines: 999,
-      minLines: 1,
-      maxLength: 200,
-      autofocus: true,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: SU.setFontSize(48),
-      ),
-      decoration: InputDecoration(
-        hintText: "今日あったこと、話したいこと、興味のあること、なんでも気軽につぶやいていよう！",
-        hintStyle: TextStyle(
-          color: Colors.grey,
-          fontSize: SU.setFontSize(42),
-        ),
-        isCollapsed: true,
-        border: InputBorder.none,
-        counterStyle: TextStyle(
-          color: Colors.grey,
-          fontSize: SU.setFontSize(42),
-          height: 2,
-        ),
+  _buildContentArea() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // 文字区域
+          TextFormField(
+            controller: _editingController,
+            cursorColor: CommonConstant.primaryColor,
+            textAlignVertical: TextAlignVertical.center,
+            maxLines: 999,
+            minLines: 1,
+            maxLength: 200,
+            autofocus: true,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: SU.setFontSize(48),
+            ),
+            decoration: InputDecoration(
+              hintText: "今日あったこと、話したいこと、興味のあること、なんでも気軽につぶやいていよう！",
+              hintStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: SU.setFontSize(42),
+              ),
+              isCollapsed: true,
+              border: InputBorder.none,
+              counterStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: SU.setFontSize(42),
+                height: 2,
+              ),
+            ),
+          ),
+          // 图片区域
+          pickImgs.isEmpty ? const SizedBox() : PostImgCell(imgs: pickImgs),
+        ],
       ),
     );
   }
@@ -209,7 +223,7 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
-  // 拍照，从相册选择
+  /// 拍照，从相册选择
   _buildMoreBottomSheet() {
     List<BottomSheetParam> params = [];
     params.add(BottomSheetParam(onTap: () {}, icon: Icons.photo_camera, text: "拍摄"));
@@ -223,6 +237,11 @@ class _PostPageState extends State<PostPage> {
 
   /// 从相册选择
   _pickImg() async {
-    final List<AssetEntity>? assets = await AssetPicker.pickAssets(context);
+    List<AssetEntity>? entities = await PickUtil.pick(context);
+    if (entities.isNotEmpty) {
+      setState(() {
+        pickImgs.addAll(entities);
+      });
+    }
   }
 }
