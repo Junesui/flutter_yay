@@ -70,7 +70,11 @@ dependencies:
   emojis: ^0.9.9
   # 相册选择图片
   wechat_assets_picker: ^6.3.1
-
+  # 拍照
+  camera: ^0.9.4+14
+  wechat_camera_picker: ^2.6.5
+  # 图片裁剪
+  image_cropper: ^1.4.1
 
   # 即构 RTC
   # zego_express_engine: ^2.15.0

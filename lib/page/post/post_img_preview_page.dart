@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:imitate_yay/widget/my_cache_net_img.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-/// (点击图片)查看大图页面
-class PhotoViewPage extends StatefulWidget {
+/// 图片预览页面
+class PostImgPreviewPage extends StatefulWidget {
   final Map arguments;
   // arguments 说明:
   // 图片URL列表 - List<String> imgUrls;
   // 被点击图片在图片URL列表中的index - int index;
   // 是否隐藏关闭按钮 - bool isHiddenCloseBtn;[默认 true]
 
-  const PhotoViewPage({Key? key, required this.arguments}) : super(key: key);
+  const PostImgPreviewPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
-  _PhotoViewPageState createState() => _PhotoViewPageState();
+  _PostImgPreviewPageState createState() => _PostImgPreviewPageState();
 }
 
-class _PhotoViewPageState extends State<PhotoViewPage> {
+class _PostImgPreviewPageState extends State<PostImgPreviewPage> {
   // 控制器
   PageController _pageController = PageController(initialPage: 0);
   // 当前页Index
@@ -71,13 +71,13 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
             scrollPhysics: const BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
-                imageProvider: MyCacheNetImg.provider(widget.arguments["imgUrls"][index]),
+                imageProvider: AssetEntityImageProvider(widget.arguments["imgs"][index]),
                 initialScale: PhotoViewComputedScale.contained,
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2,
               );
             },
-            itemCount: widget.arguments["imgUrls"].length,
+            itemCount: widget.arguments["imgs"].length,
             loadingBuilder: (context, event) => const Center(
               child: SizedBox(
                 width: 28.0,
@@ -123,11 +123,11 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: widget.arguments["imgUrls"].length == 1 ? 0 : 50,
+        height: widget.arguments["imgs"].length == 1 ? 0 : 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            widget.arguments["imgUrls"].length,
+            widget.arguments["imgs"].length,
             (index) {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 3),

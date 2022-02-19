@@ -25,4 +25,6 @@ class RouterName {
   static const userInfo = "/user_info";
   // 发布页
   static const post = "/post";
+  // 图片预览页
+  static const postImgPreview = "/post_img_preview";
 }

@@ -17,14 +17,13 @@ class MyIconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-        onPressed: onPressed,
-        icon: Icon(
-          icon,
-          color: color,
-          size: SU.setFontSize(size),
-        ));
+    return GestureDetector(
+      onTap: onPressed,
+      child: Icon(
+        icon,
+        color: color,
+        size: SU.setFontSize(size),
+      ),
+    );
   }
 }

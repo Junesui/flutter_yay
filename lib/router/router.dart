@@ -5,6 +5,7 @@ import 'package:imitate_yay/page/calling/calling_page.dart';
 import 'package:imitate_yay/page/calling/calling_settings_page.dart';
 import 'package:imitate_yay/page/common/photo_view_page.dart';
 import 'package:imitate_yay/page/game/calling_game_page.dart';
+import 'package:imitate_yay/page/post/post_img_preview_page.dart';
 import 'package:imitate_yay/page/post/post_page.dart';
 import 'package:imitate_yay/page/search/qr/qr_page.dart';
 import 'package:imitate_yay/page/search/search_page.dart';
@@ -27,6 +28,7 @@ final Map<String, Function> routes = {
   RouterName.game: (context) => CallingGamePage(),
   RouterName.userInfo: (context, {arguments}) => UserInfoPage(arguments: arguments),
   RouterName.post: (context) => PostPage(),
+  RouterName.postImgPreview: (context, {arguments}) => PostImgPreviewPage(arguments: arguments),
 };
 
 //固定写法 [CupertinoPageRoute: ios风格的路由]

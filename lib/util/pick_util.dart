@@ -1,17 +1,22 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// 从图库选择资源
 class PickUtil {
-  static Future<List<AssetEntity>> pick(BuildContext context) async {
+  static Future<List<AssetEntity>> pick(
+      BuildContext context, List<AssetEntity> selectedAssets) async {
     List<AssetEntity>? imgs = await AssetPicker.pickAssets(
       context,
       themeColor: CommonConstant.primaryColor,
+      selectedAssets: selectedAssets,
       sortPathDelegate: const CustomSortPathDelegate(),
     );
+    if (imgs == null) {
+      return Future.value([]);
+    }
     return Future.value(imgs);
   }
 }

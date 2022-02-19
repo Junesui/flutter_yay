@@ -13,6 +13,6 @@ class CommonConstant {
   static const double fromStateBar = 5;
 
   // 发布内容的类型
-  static const postTypeImage = "image";
-  static const postTypCall = "call";
+  static const String postTypeImage = "image";
+  static const String postTypCall = "call";
 }

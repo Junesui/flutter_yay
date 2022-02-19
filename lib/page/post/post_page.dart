@@ -8,6 +8,7 @@ import 'package:imitate_yay/widget/my_bottom_sheet.dart';
 import 'package:imitate_yay/widget/my_icon_btn.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
 /// 发布页面
 class PostPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _PostPageState extends State<PostPage> {
   int _postType = 0;
 
   // 要上传的图片
-  List<AssetEntity> pickImgs = [];
+  List<AssetEntity> _pickImgs = [];
 
   @override
   void dispose() {
@@ -92,7 +93,7 @@ class _PostPageState extends State<PostPage> {
             ),
           ),
           // 图片区域
-          pickImgs.isEmpty ? const SizedBox() : PostImgCell(imgs: pickImgs),
+          _pickImgs.isEmpty ? const SizedBox() : PostImgCell(imgs: _pickImgs),
         ],
       ),
     );
@@ -100,101 +101,104 @@ class _PostPageState extends State<PostPage> {
 
   /// 通话和视频按钮
   _buildCallAndVideoBtn() {
-    return Row(
-      children: [
-        // 通话
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              if (_postType == 1) {
-                _postType = 0;
-              } else {
-                _postType = 1;
-              }
-            });
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: _postType == 1 ? Colors.green : CommonConstant.primaryBackGroundColor,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(50),
-                bottomLeft: Radius.circular(50),
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Row(
+        children: [
+          // 通话
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_postType == 1) {
+                  _postType = 0;
+                } else {
+                  _postType = 1;
+                }
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: _postType == 1 ? Colors.green : CommonConstant.primaryBackGroundColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  bottomLeft: Radius.circular(50),
+                ),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, blurRadius: 3, offset: Offset(0, 2))
+                ],
               ),
-              boxShadow: const [
-                BoxShadow(color: Colors.black, blurRadius: 3, offset: Offset(0, 2))
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.call,
-                  color: _postType == 1 ? Colors.white : Colors.green,
-                  size: SU.setFontSize(60),
-                ),
-                const SizedBox(width: 5),
-                MyText(
-                  text: "だれ通",
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: _postType == 1 ? Colors.white : Colors.green,
-                ),
-              ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.call,
+                    color: _postType == 1 ? Colors.white : Colors.green,
+                    size: SU.setFontSize(60),
+                  ),
+                  const SizedBox(width: 5),
+                  MyText(
+                    text: "だれ通",
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                    color: _postType == 1 ? Colors.white : Colors.green,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 2),
-        // 视频
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              if (_postType == 2) {
-                _postType = 0;
-              } else {
-                _postType = 2;
-              }
-            });
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: _postType == 2 ? Colors.cyanAccent : CommonConstant.primaryBackGroundColor,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(50),
-                bottomRight: Radius.circular(50),
+          const SizedBox(width: 2),
+          // 视频
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_postType == 2) {
+                  _postType = 0;
+                } else {
+                  _postType = 2;
+                }
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: _postType == 2 ? Colors.cyanAccent : CommonConstant.primaryBackGroundColor,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(50),
+                  bottomRight: Radius.circular(50),
+                ),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, blurRadius: 3, offset: Offset(0, 2))
+                ],
               ),
-              boxShadow: const [
-                BoxShadow(color: Colors.black, blurRadius: 3, offset: Offset(0, 2))
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.video_call,
-                  color: _postType == 2 ? Colors.white : Colors.cyanAccent,
-                  size: SU.setFontSize(60),
-                ),
-                const SizedBox(width: 5),
-                MyText(
-                  text: "だれビ",
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: _postType == 2 ? Colors.white : Colors.cyanAccent,
-                ),
-              ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.video_call,
+                    color: _postType == 2 ? Colors.white : Colors.cyanAccent,
+                    size: SU.setFontSize(60),
+                  ),
+                  const SizedBox(width: 5),
+                  MyText(
+                    text: "だれビ",
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                    color: _postType == 2 ? Colors.white : Colors.cyanAccent,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   /// 最底部行。选择图片，发送按钮
   _buildBottomRow() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.all(0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -202,8 +206,8 @@ class _PostPageState extends State<PostPage> {
           MyIconBtn(
             onPressed: _buildMoreBottomSheet,
             icon: Icons.image,
-            size: 90,
-            color: Colors.grey,
+            size: 100,
+            color: CommonConstant.primaryColor,
           ),
           // 发送按钮
           ElevatedButton(
@@ -226,7 +230,7 @@ class _PostPageState extends State<PostPage> {
   /// 拍照，从相册选择
   _buildMoreBottomSheet() {
     List<BottomSheetParam> params = [];
-    params.add(BottomSheetParam(onTap: () {}, icon: Icons.photo_camera, text: "拍摄"));
+    params.add(BottomSheetParam(onTap: _takePhoto, icon: Icons.photo_camera, text: "拍照"));
     params.add(BottomSheetParam(onTap: _pickImg, icon: Icons.collections, text: "从相册选择"));
     showModalBottomSheet(
         context: context,
@@ -235,12 +239,34 @@ class _PostPageState extends State<PostPage> {
         });
   }
 
+  /// 拍照
+  _takePhoto() async {
+    // 关闭底部弹窗
+    Navigator.of(context).pop();
+    // 拍照
+    final AssetEntity? entity = await CameraPicker.pickFromCamera(
+      context,
+      theme: CameraPicker.themeData(Colors.orangeAccent),
+    );
+    if (entity != null) {
+      setState(() {
+        if (_pickImgs.length >= 9) {
+          _pickImgs.removeAt(0);
+        }
+        _pickImgs.add(entity);
+      });
+    }
+  }
+
   /// 从相册选择
   _pickImg() async {
-    List<AssetEntity>? entities = await PickUtil.pick(context);
+    // 关闭底部弹窗
+    Navigator.of(context).pop();
+    // 选择图片
+    List<AssetEntity>? entities = await PickUtil.pick(context, _pickImgs);
     if (entities.isNotEmpty) {
       setState(() {
-        pickImgs.addAll(entities);
+        _pickImgs = entities;
       });
     }
   }
