@@ -27,4 +27,6 @@ class RouterName {
   static const post = "/post";
   // 图片预览页
   static const postImgPreview = "/post_img_preview";
+  // 图片预览页
+  static const report = "/report";
 }

@@ -32,7 +32,6 @@ class HomeDao {
                 "Bearer 7049d5a4e109a2c1f5a479823cd17e6142e9dadc6ce06988c653d935c205b3e8"
           },
         ));
-    print("--- ${response.data}");
     return response.data;
   }
 }

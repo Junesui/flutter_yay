@@ -7,8 +7,8 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 class PostImgPreviewPage extends StatefulWidget {
   final Map arguments;
   // arguments 说明:
-  // 图片URL列表 - List<String> imgUrls;
-  // 被点击图片在图片URL列表中的index - int index;
+  // 图片列表 - List<AssetEntity>? imgs;
+  // 图片的index - int index;
   // 是否隐藏关闭按钮 - bool isHiddenCloseBtn;[默认 true]
 
   const PostImgPreviewPage({Key? key, required this.arguments}) : super(key: key);

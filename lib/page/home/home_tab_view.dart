@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/constant/home_constant.dart';
 import 'package:imitate_yay/model/home/home_calling_model.dart';
@@ -6,6 +7,7 @@ import 'package:imitate_yay/model/home/home_content_model.dart';
 import 'package:imitate_yay/net/dao/home_dao.dart';
 import 'package:imitate_yay/router/router_name.dart';
 import 'package:imitate_yay/util/date_util.dart';
+import 'package:imitate_yay/util/dialog_util.dart';
 import 'package:imitate_yay/util/event_bus_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_bottom_sheet.dart';
@@ -99,6 +101,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           contentModel.posts?.addAll(model.posts ?? []);
         } else {
           contentModel = model;
+          postContents = [];
         }
         contentModel.posts?.forEach((post) {
           if (post.postType == null) {
@@ -182,7 +185,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
           // 创建房间
           SliverToBoxAdapter(
             child: _buildChatRoomBothEnds(Icons.add_ic_call, () {
-              _buildMoreBottomSheet();
+              _buildPostCall();
             }, "发布通话", 40, 30),
           ),
           // 中间房间列表
@@ -346,6 +349,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
                             },
                             icon: Icons.upload,
                           ),
+                          // 点赞
                           MyIconBtn(
                             onPressed: () {
                               print("--- click like btn");
@@ -362,7 +366,9 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           MyIconBtn(
-                            onPressed: _buildMoreBottomSheet,
+                            onPressed: () {
+                              _buildMoreBottomSheet(content);
+                            },
                             icon: Icons.more_vert,
                             size: 70,
                           ),
@@ -379,8 +385,8 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     );
   }
 
-  /// 点击更多按钮，弹出底部弹窗
-  _buildMoreBottomSheet() {
+  /// 发布通话
+  _buildPostCall() {
     List<BottomSheetParam> params = [];
     params.add(BottomSheetParam(
         onTap: () {
@@ -390,6 +396,43 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
         icon: Icons.call,
         text: "だれでも通話"));
     params.add(BottomSheetParam(onTap: () {}, icon: Icons.video_call, text: "だれでもビデオ"));
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return MyBottomSheet(params: params);
+        });
+  }
+
+  /// 更多按钮
+  _buildMoreBottomSheet(PostContents content) {
+    List<BottomSheetParam> params = [];
+    // 屏蔽
+    params.add(
+      BottomSheetParam(
+          onTap: () {
+            DialogUtil.show(context, text: "确定屏蔽此用户？", btnOkOnPress: () {
+              print("send block request !");
+            });
+          },
+          icon: Icons.block,
+          text: "ブロックする"),
+    );
+    // 举报
+    params.add(
+      BottomSheetParam(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              RouterName.report,
+              arguments: {"content": content},
+            );
+          },
+          icon: Icons.warning,
+          text: "通報する"),
+    );
+    // 聊天
+    params.add(
+      BottomSheetParam(onTap: () {}, icon: FontAwesome.commenting, text: "チャットする"),
+    );
     showModalBottomSheet(
         context: context,
         builder: (context) {

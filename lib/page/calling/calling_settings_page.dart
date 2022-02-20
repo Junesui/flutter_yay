@@ -4,6 +4,9 @@ import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_appbar.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 
+double _titleSize = 48;
+double _contentSize = 40;
+
 /// 通话设置页面
 class CallingSettingsPage extends StatefulWidget {
   const CallingSettingsPage({Key? key}) : super(key: key);
@@ -47,12 +50,12 @@ class _CallingSettingsPageState extends State<CallingSettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildCateDivider(),
-        _buildPaddingContent(const MyText(text: "出力設定", fontSize: 48)),
+        const SizedBox(height: 10),
+        _buildTitle("出力設定"),
         _buildDivider(24),
         // 输出通话音量
         _buildPaddingContent(
-            const MyText(text: "出力通話音量（自分に聞こえる音量）", fontSize: 40, color: Colors.white70)),
+            MyText(text: "出力通話音量（自分に聞こえる音量）", fontSize: _contentSize, color: Colors.white70)),
         _buildPaddingContent(
           Row(
             children: [
@@ -82,9 +85,9 @@ class _CallingSettingsPageState extends State<CallingSettingsPage> {
         _buildPaddingContent(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              MyText(text: "音声出力先", fontSize: 40, color: Colors.white70),
-              MyText(text: "手机", fontSize: 40, color: Colors.white70),
+            children: [
+              MyText(text: "音声出力先", fontSize: _contentSize, color: Colors.white70),
+              MyText(text: "手机", fontSize: _contentSize, color: Colors.white70),
             ],
           ),
         ),
@@ -98,11 +101,11 @@ class _CallingSettingsPageState extends State<CallingSettingsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildCateDivider(),
-        _buildPaddingContent(const MyText(text: "入力設定", fontSize: 48)),
+        _buildTitle("入力設定"),
         _buildDivider(24),
         // 输入通话音量
         _buildPaddingContent(
-            const MyText(text: "入力通話音量（相手に聞こえる音量）", fontSize: 40, color: Colors.white70)),
+            MyText(text: "入力通話音量（相手に聞こえる音量）", fontSize: _contentSize, color: Colors.white70)),
         _buildPaddingContent(Row(
           children: [
             Icon(
@@ -131,7 +134,7 @@ class _CallingSettingsPageState extends State<CallingSettingsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const MyText(text: "ノイズキャンセリング", fontSize: 40, color: Colors.white70),
+              MyText(text: "ノイズキャンセリング", fontSize: _contentSize, color: Colors.white70),
               Switch(
                 value: _isNoiseReduce,
                 onChanged: (value) {
@@ -152,24 +155,6 @@ class _CallingSettingsPageState extends State<CallingSettingsPage> {
   }
 
   /// --- 以下为公共部分 ---
-  /// 设定分类的分割线
-  _buildCateDivider() {
-    return const Divider(
-      color: Colors.white12,
-      thickness: 5,
-      height: 42,
-    );
-  }
-
-  /// 子项分割线
-  _buildDivider(double height) {
-    return Divider(
-      color: Colors.white12,
-      thickness: 1,
-      height: height,
-    );
-  }
-
   /// 滑块
   _buildSlider(double value, ValueChanged valueChanged) {
     return SliderTheme(
@@ -188,11 +173,34 @@ class _CallingSettingsPageState extends State<CallingSettingsPage> {
     );
   }
 
+  /// 设定分类的分割线
+  _buildCateDivider() {
+    return const Divider(
+      color: Colors.white24,
+      thickness: 3,
+      height: 42,
+    );
+  }
+
+  /// 子项分割线
+  _buildDivider(double height) {
+    return Divider(
+      color: Colors.white12,
+      thickness: 1,
+      height: height,
+    );
+  }
+
   /// 带边距的组件
   _buildPaddingContent(Widget child) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SU.setWidth(CommonConstant.mainLRPadding)),
       child: child,
     );
+  }
+
+  /// 分类标题
+  _buildTitle(String text) {
+    return _buildPaddingContent(MyText(text: text, fontSize: _titleSize));
   }
 }

@@ -12,6 +12,8 @@ class MyAppBar extends AppBar {
   final double fontSize;
   // 右侧 Icon
   final IconData? actionIcon;
+  // 右侧 Icon 的颜色
+  final Color actionColor;
   // 右侧 Icon 大小
   final double? actionIconSize;
   // 右侧 Icon 点击事件
@@ -22,7 +24,8 @@ class MyAppBar extends AppBar {
     required this.myTitle,
     this.fontSize = 150,
     this.actionIcon,
-    this.actionIconSize,
+    this.actionColor = Colors.grey,
+    this.actionIconSize = 180,
     this.actionIconOnTap,
   }) : super(key: key);
 
@@ -54,6 +57,7 @@ class _MyAppBarState extends State<MyAppBar> {
                   onPressed: widget.actionIconOnTap ?? () {},
                   icon: widget.actionIcon ?? Icons.title,
                   size: SU.setFontSize(widget.actionIconSize ?? 180),
+                  color: widget.actionColor,
                 ),
               ),
             ],

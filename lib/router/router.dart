@@ -7,6 +7,7 @@ import 'package:imitate_yay/page/common/photo_view_page.dart';
 import 'package:imitate_yay/page/game/calling_game_page.dart';
 import 'package:imitate_yay/page/post/post_img_preview_page.dart';
 import 'package:imitate_yay/page/post/post_page.dart';
+import 'package:imitate_yay/page/report/report_page.dart';
 import 'package:imitate_yay/page/search/qr/qr_page.dart';
 import 'package:imitate_yay/page/search/search_page.dart';
 import 'package:imitate_yay/page/tab/tabs.dart';
@@ -29,6 +30,7 @@ final Map<String, Function> routes = {
   RouterName.userInfo: (context, {arguments}) => UserInfoPage(arguments: arguments),
   RouterName.post: (context) => PostPage(),
   RouterName.postImgPreview: (context, {arguments}) => PostImgPreviewPage(arguments: arguments),
+  RouterName.report: (context, {arguments}) => ReportPage(arguments: arguments),
 };
 
 //固定写法 [CupertinoPageRoute: ios风格的路由]

@@ -75,6 +75,10 @@ dependencies:
   wechat_camera_picker: ^2.6.5
   # 图片裁剪
   image_cropper: ^1.4.1
+  # 弹出框
+  awesome_dialog: ^2.1.2
+  # 下拉框
+  dropdown_search: ^2.0.1
 
   # 即构 RTC
   # zego_express_engine: ^2.15.0
