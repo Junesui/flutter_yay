@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/model/home/home_content_model.dart';
+import 'package:imitate_yay/util/pick_util.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_appbar.dart';
 import 'package:imitate_yay/widget/my_text.dart';
@@ -21,6 +22,10 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
+  // 举报理由
+  String _reportReason = "举报理由0";
+  final TextEditingController _inputController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +44,8 @@ class _ReportPageState extends State<ReportPage> {
           _buildReportContent(_content),
           _buildAddImg(),
           _buildSelectReason(),
+          _buildReportDesc(),
+          _buildSendBtn(),
         ],
       ),
     );
@@ -122,7 +129,10 @@ class _ReportPageState extends State<ReportPage> {
   /// 选择图片子项
   _buildSelectImg() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        // TODO
+        PickUtil.pick(context, [], maxAssets: 4);
+      },
       child: Container(
         height: SU.setHeight(200),
         width: SU.setHeight(200),
@@ -144,13 +154,116 @@ class _ReportPageState extends State<ReportPage> {
   /// 选择理由
   _buildSelectReason() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildCateDivider(),
         _buildTitle("通報の理由を選んでください"),
-        _buildDivider(10),
-
-        /// TODO
+        _buildDivider(24),
+        _buildReportReasonPopup(),
       ],
+    );
+  }
+
+  /// 举报理由弹框
+  _buildReportReasonPopup() {
+    return PopupMenuButton(
+      color: Colors.black,
+      child: _buildPaddingContent(
+        Row(
+          children: [
+            Expanded(
+              child: MyText(
+                text: _reportReason,
+                fontSize: 46,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
+      onSelected: (v) {
+        setState(() {
+          _reportReason = (v as Map).values.first;
+        });
+      },
+      tooltip: "",
+      itemBuilder: (context) {
+        return const [
+          PopupMenuItem(child: MyText(text: "举报理由0", fontSize: 46), value: {0: "举报理由0"}),
+          PopupMenuItem(child: MyText(text: "举报理由1", fontSize: 46), value: {1: "举报理由1"}),
+          PopupMenuItem(child: MyText(text: "举报理由2", fontSize: 46), value: {2: "举报理由2"}),
+          PopupMenuItem(child: MyText(text: "举报理由3", fontSize: 46), value: {3: "举报理由3"}),
+        ];
+      },
+    );
+  }
+
+  /// 举报详细描述
+  _buildReportDesc() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildCateDivider(),
+        _buildTitle("通報の詳細"),
+        const SizedBox(height: 8),
+        _buildDescInput(),
+      ],
+    );
+  }
+
+  /// 输入内容区域
+  _buildDescInput() {
+    return _buildPaddingContent(
+      TextFormField(
+        controller: _inputController,
+        cursorColor: CommonConstant.primaryColor,
+        textAlignVertical: TextAlignVertical.center,
+        maxLines: 999,
+        minLines: 1,
+        maxLength: 200,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: SU.setFontSize(48),
+        ),
+        decoration: InputDecoration(
+          hintText: "内容はできるだけ詳細に入力してください。\n 対応できない場合もございます。",
+          hintStyle: TextStyle(
+            color: Colors.grey,
+            fontSize: SU.setFontSize(42),
+          ),
+          isCollapsed: true,
+          border: InputBorder.none,
+          counterStyle: TextStyle(
+            color: Colors.grey,
+            fontSize: SU.setFontSize(42),
+            height: 2,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 发送按钮
+  _buildSendBtn() {
+    return Center(
+      child: Column(
+        children: [
+          _buildDivider(24),
+          // 按钮
+          ElevatedButton(
+            onPressed: () {},
+            child: const MyText(
+              text: "发送",
+              fontSize: 46,
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: CommonConstant.primaryColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+              padding: EdgeInsets.symmetric(horizontal: SU.setWidth(80)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

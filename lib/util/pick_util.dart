@@ -6,13 +6,14 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// 从图库选择资源
 class PickUtil {
-  static Future<List<AssetEntity>> pick(
-      BuildContext context, List<AssetEntity> selectedAssets) async {
+  static Future<List<AssetEntity>> pick(BuildContext context, List<AssetEntity> selectedAssets,
+      {int maxAssets = 9}) async {
     List<AssetEntity>? imgs = await AssetPicker.pickAssets(
       context,
       themeColor: CommonConstant.primaryColor,
       selectedAssets: selectedAssets,
       sortPathDelegate: const CustomSortPathDelegate(),
+      maxAssets: maxAssets,
     );
     if (imgs == null) {
       return Future.value([]);

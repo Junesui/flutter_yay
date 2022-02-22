@@ -410,6 +410,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     params.add(
       BottomSheetParam(
           onTap: () {
+            Navigator.of(context).pop();
             DialogUtil.show(context, text: "确定屏蔽此用户？", btnOkOnPress: () {
               print("send block request !");
             });
@@ -421,6 +422,7 @@ class _HomeTabViewState extends State<HomeTabView> with AutomaticKeepAliveClient
     params.add(
       BottomSheetParam(
           onTap: () {
+            Navigator.of(context).pop();
             Navigator.of(context).pushNamed(
               RouterName.report,
               arguments: {"content": content},
