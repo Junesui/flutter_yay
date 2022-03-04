@@ -77,9 +77,11 @@ dependencies:
   image_cropper: ^1.4.1
   # 弹出框
   awesome_dialog: ^2.1.2
+  # 获取设备信息
+  device_info_plus: ^3.2.2
 
   # 即构 RTC
-  # zego_express_engine: ^2.15.0
+  zego_express_engine: ^2.16.3
 
 
 dev_dependencies:
