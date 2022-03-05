@@ -24,10 +24,12 @@ class _MessageTabPageState extends State<MessageTabPage> {
   _buildBody() {
     return Stack(
       children: [
+        // 本地预览窗口
         Container(
           color: Colors.blue,
           child: _previewViewWidget,
         ),
+        // 拉流展示窗口
         Align(
           alignment: Alignment.topRight,
           child: Container(
@@ -38,6 +40,7 @@ class _MessageTabPageState extends State<MessageTabPage> {
             child: _playViewWidget,
           ),
         ),
+        // 挂断按钮
         Align(
           alignment: Alignment.bottomCenter,
           child: GestureDetector(
@@ -58,15 +61,16 @@ class _MessageTabPageState extends State<MessageTabPage> {
             ),
           ),
         ),
+        // 执行。 创建引擎，登陆房间，推流，拉流
         Align(
           alignment: Alignment.topLeft,
           child: MyIconBtn(
             onPressed: () {
               _createEngine();
-              _loginRoom();
-              _publishStream();
+              _loginRoom("userId", "roomId", "token");
+              _publishStream("streamID");
               _createPreviewRenderer();
-              _playStream();
+              _playStream("streamID2");
             },
             icon: Icons.add,
             size: 150,
@@ -77,7 +81,7 @@ class _MessageTabPageState extends State<MessageTabPage> {
     );
   }
 
-  /// 创建引擎
+  /// ********** 创建引擎 **********
   _createEngine() {
     ZegoEngineProfile profile = ZegoEngineProfile(
       3442613776,
@@ -88,20 +92,41 @@ class _MessageTabPageState extends State<MessageTabPage> {
     ZegoExpressEngine.createEngineWithProfile(profile);
   }
 
-  /// **********登录房间
-  _loginRoom() {
+  /// ********** 登录房间 **********
+  _loginRoom(String userId, String roomId, String token) {
     // 创建用户对象
-    ZegoUser user = ZegoUser.id('user1');
+    ZegoUser user = ZegoUser.id(userId);
 
     // 开始登陆房间
-    ZegoExpressEngine.instance.loginRoom('room1', user);
-    ZegoExpressEngine.instance.loginRoom('room1', user, config: ZegoRoomConfig(8, true, ""));
+    ZegoExpressEngine.instance.loginRoom(roomId, user, config: ZegoRoomConfig(8, true, token));
   }
+  /**
+   * 监听登录房间后的事件回调
+   * onRoomStateUpdate：房间状态更新回调
+   * onRoomUserUpdate：用户状态更新回调
+   * onRoomStreamUpdate：流状态更新回调
+   * ------------------------
+    // 以下为常用的房间相关回调
+      // 房间状态更新回调
+      ZegoExpressEngine.onRoomStateUpdate = (String roomID, ZegoRoomState state, int errorCode, Map<String, dynamic> extendedData) {
+      // 根据需要实现事件回调
+      };
 
-  /// **********推流
-  _publishStream() {
+      // 用户状态更新
+      ZegoExpressEngine.onRoomUserUpdate = (String roomID, ZegoUpdateType updateType, List<ZegoUser> userList) {
+      // 根据需要实现事件回调
+      };
+
+      // 流状态更新
+      ZegoExpressEngine.onRoomStreamUpdate = (String roomID, ZegoUpdateType updateType, List<ZegoStream> streamList) {
+      // 根据需要实现事件回调
+      };
+   */
+
+  /// ********** 推流 **********
+  _publishStream(String streamID) {
     // 开始推流
-    ZegoExpressEngine.instance.startPublishingStream("streamID");
+    ZegoExpressEngine.instance.startPublishingStream(streamID);
   }
 
   /// 本地渲染和预览
@@ -130,17 +155,28 @@ class _MessageTabPageState extends State<MessageTabPage> {
   void _startPreview(int viewID) {
     // Set the preview canvas
     ZegoCanvas previewCanvas = ZegoCanvas.view(viewID);
-
     // Start preview
     ZegoExpressEngine.instance.startPreview(canvas: previewCanvas);
   }
 
-  /// **********拉流
+  /**
+   * 监听推流后的事件回调
+   * onPublisherStateUpdate：推流状态更新回调
+   * ---------------------
+    常用的推流相关回调
+  //推流状态更新回调
+  ZegoExpressEngine.onPublisherStateUpdate = (String streamID, ZegoPublisherState state, int errorCode, Map<String, dynamic> extendedData) {
+  // 根据需要实现事件回调
+  };
+   *
+   */
+
+  /// ********** 拉流 **********
   int _playViewID = 2;
   Widget _playViewWidget = SizedBox();
-  _playStream() {
+  _playStream(String streamID2) {
     // <1>. 只拉取音频流
-    // ZegoExpressEngine.instance.startPlayingStream("streamID");
+    // ZegoExpressEngine.instance.startPlayingStream(streamID2);
 
     // <2>. 拉流的同时，渲染拉流画面
     int screenWidthPx = 100;
@@ -149,7 +185,7 @@ class _MessageTabPageState extends State<MessageTabPage> {
       _playViewID = viewID;
       // 将得到的 Widget 加入到页面的渲染树中以显示拉流画面
       setState(() => _playViewWidget = Texture(textureId: viewID));
-      _startPlayingStream(viewID, "streamID2");
+      _startPlayingStream(viewID, streamID2);
     });
   }
 
@@ -158,12 +194,22 @@ class _MessageTabPageState extends State<MessageTabPage> {
     ZegoExpressEngine.instance.startPlayingStream(streamID, canvas: canvas);
   }
 
-  /// **********停止推拉流
+  /**
+   * 监听拉流后的事件回调
+   * onPlayerStateUpdate：拉流状态更新回调
+    常用的拉流相关回调
+  // 拉流状态相关回调
+  ZegoExpressEngine.onPlayerStateUpdate = (String streamID, ZegoPlayerState state, int errorCode, Map<String, dynamic> extendedData) {
+  // 根据需要实现事件回调
+  };
+   */
+
+  /// ********** 停止推拉流 **********
   /// 停止推流/预览/渲染
   _stopPublish() {
     // 停止推流
     ZegoExpressEngine.instance.stopPublishingStream();
-    // 停止预览
+    // 如果启用了本地预览，调用 stopPreview 接口停止预览
     ZegoExpressEngine.instance.stopPreview();
     // 如果预览时创建了 TextureRenderer，需要调用 destroyTextureRenderer 接口销毁 TextureRenderer。
     // _previewViewID 为调用 createTextureRenderer 时得到的 viewID
@@ -179,43 +225,15 @@ class _MessageTabPageState extends State<MessageTabPage> {
     ZegoExpressEngine.instance.destroyTextureRenderer(_playViewID);
   }
 
-  /// *********** 退出房间
+  /// *********** 退出房间 ***********
   _logoutRoom() {
     // 退出房间
     ZegoExpressEngine.instance.logoutRoom('room1');
   }
 
-  /// ************ 销毁引擎
+  /// ************ 销毁引擎 ************
   _destoryEngine() {
     // 销毁引擎
     ZegoExpressEngine.destroyEngine();
   }
 }
-
-/*
-// 以下为常用的房间相关回调
-// 房间状态更新回调
-ZegoExpressEngine.onRoomStateUpdate = (String roomID, ZegoRoomState state, int errorCode, Map<String, dynamic> extendedData) {
-// 根据需要实现事件回调
-};
-
-// 用户状态更新
-ZegoExpressEngine.onRoomUserUpdate = (String roomID, ZegoUpdateType updateType, List<ZegoUser> userList) {
-// 根据需要实现事件回调
-};
-
-// 流状态更新
-ZegoExpressEngine.onRoomStreamUpdate = (String roomID, ZegoUpdateType updateType, List<ZegoStream> streamList) {
-// 根据需要实现事件回调
-};
- */
-
-/// -----------
-
-/*
-// 常用的拉流相关回调
-// 拉流状态相关回调
-ZegoExpressEngine.onPlayerStateUpdate = (String streamID, ZegoPlayerState state, int errorCode, Map<String, dynamic> extendedData) {
-    // 根据需要实现事件回调
-};
- */
