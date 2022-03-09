@@ -22,10 +22,10 @@ class MyAppBar extends AppBar {
   MyAppBar({
     Key? key,
     required this.myTitle,
-    this.fontSize = 150,
+    this.fontSize = 46,
     this.actionIcon,
     this.actionColor = Colors.grey,
-    this.actionIconSize = 180,
+    this.actionIconSize = 80,
     this.actionIconOnTap,
   }) : super(key: key);
 
@@ -45,7 +45,7 @@ class _MyAppBarState extends State<MyAppBar> {
       ),
       title: MyText(
         text: widget.myTitle,
-        fontSize: SU.setFontSize(widget.fontSize),
+        fontSize: widget.fontSize,
       ),
       centerTitle: true,
       actions: widget.actionIcon == null
@@ -56,7 +56,7 @@ class _MyAppBarState extends State<MyAppBar> {
                 child: MyIconBtn(
                   onPressed: widget.actionIconOnTap ?? () {},
                   icon: widget.actionIcon ?? Icons.title,
-                  size: SU.setFontSize(widget.actionIconSize ?? 180),
+                  size: widget.actionIconSize ?? 150,
                   color: widget.actionColor,
                 ),
               ),

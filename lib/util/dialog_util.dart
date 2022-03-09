@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 
-/// 弹出框
+/// 确定取消弹出框
 class DialogUtil {
   static Future show(
     BuildContext context, {

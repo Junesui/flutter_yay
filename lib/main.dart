@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:imitate_yay/constant/common_constant.dart';
 import 'package:imitate_yay/router/router.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import 'constant/common_constant.dart';
 
 void main() {
   runApp(const MyApp());
