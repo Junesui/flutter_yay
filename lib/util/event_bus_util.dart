@@ -5,7 +5,7 @@ class EventBusUtil {
 
   // 单例
   EventBusUtil._() {
-    eventBus ??= EventBus();
+    eventBus = EventBus();
   }
   static final EventBusUtil instance = EventBusUtil._();
 

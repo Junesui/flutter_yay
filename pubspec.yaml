@@ -79,6 +79,10 @@ dependencies:
   awesome_dialog: ^2.1.2
   # 获取设备信息
   device_info_plus: ^3.2.2
+  # 网络监测
+  connectivity_plus: ^2.2.1
+  # 本地存储
+  shared_preferences: ^2.0.13
 
   # 即构 RTC
   zego_express_engine: ^2.16.3

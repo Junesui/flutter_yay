@@ -10,7 +10,7 @@ class ToastUtil {
     Color bColor = CommonConstant.primaryColor,
     Color textColor = Colors.black,
     double fontSize = 36,
-    ToastGravity position = ToastGravity.TOP,
+    ToastGravity position = ToastGravity.CENTER,
     Toast toastLength = Toast.LENGTH_SHORT,
   }) {
     return Fluttertoast.showToast(
