@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imitate_yay/constant/common_constant.dart';
+import 'package:imitate_yay/net/http/http_util.dart';
 import 'package:imitate_yay/router/router.dart';
 import 'package:imitate_yay/util/screen_util.dart';
 import 'package:imitate_yay/widget/my_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() {
+  // 初始化
+  _init();
+
   runApp(const MyApp());
 
-  // 设置状态栏背景为透明
-  SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-  // 设置状态栏文字为白色
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  // // 设置状态栏背景为透明
+  // SystemChrome.setSystemUIOverlayStyle(
+  //     const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  // // 设置状态栏文字为白色
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 }
 
 class MyApp extends StatefulWidget {
@@ -28,7 +31,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    // 屏幕适配
     return ScreenUtilInit(
       designSize: const Size(1080, 1920),
       minTextAdapt: true,
@@ -50,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  // 上拉刷新-下拉加载 的全局配置
+  /// 下拉刷新-上拉加载 的全局配置
   _buildPullToRefresh(Widget child) {
     return RefreshConfiguration(
       headerBuilder: () => WaterDropHeader(
@@ -117,4 +119,10 @@ class _MyAppState extends State<MyApp> {
       child: child,
     );
   }
+}
+
+/// 全局初始化
+_init() {
+  // 网络请求初始化
+  HttpUtil.init(baseUrl: "https://api.yay.space/");
 }

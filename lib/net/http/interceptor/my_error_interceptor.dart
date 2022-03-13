@@ -2,14 +2,13 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:imitate_yay/net/http/my_exception.dart';
-import 'package:imitate_yay/util/toast_util.dart';
+import 'package:imitate_yay/net/http/http_exception.dart';
 
-// 错误处理拦截器
+/// 错误处理拦截器
 class MyErrorInterceptor extends Interceptor {
   // 是否有网络连接
   Future<bool> isConnected() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
     return connectivityResult != ConnectivityResult.none;
   }
 
@@ -24,7 +23,7 @@ class MyErrorInterceptor extends Interceptor {
         port: err.error?.port,
       );
     }
-    // 是否已经连接了网络，不判断是否没网
+    // 如果没有连接网络，修改错误消息
     if (err.type == DioErrorType.other) {
       bool isConnectNetWork = await isConnected();
       if (err.error is MyDioSocketException && !isConnectNetWork) {
@@ -32,12 +31,12 @@ class MyErrorInterceptor extends Interceptor {
       }
     }
     // error统一处理
-    MyException appException = MyException.create(err);
+    HttpException appException = HttpException.create(err);
 
-    // 错误提示
-    ToastUtil.show(msg: appException.getMessage());
-    //err.error = appException;
-    //return super.onError(err, handler);
+    // TODO 错误日志上传
+
+    err.error = appException;
+    return super.onError(err, handler);
   }
 }
 
